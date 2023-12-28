@@ -582,11 +582,10 @@ sessionInfo()
 
 - The [reprex](https://cran.rstudio.com/web/packages/reprex/) package
   is very helpful to create reproducible examples when asking for
-  help. The rOpenSci community call "How to ask questions so they get
-  answered" (Github
-  link and video
-  recording) includes a presentation of
-  the reprex package and of its philosophy.
+  help. A comunidade rOpenSci "How to ask questions so they get
+  answered" ([Github
+  link](https\://github. om/ropensci/commcalls/issues/14) e [gravação de vídeo](https://vimeo.com/208749032)) inclui uma apresentação de
+  o pacote reprex e sua filosofia.
 
 ## R packages
 
@@ -594,8 +593,8 @@ sessionInfo()
 
 As we have seen above, R packages play a fundamental role in R. The
 make use of a package's functionality, assuming it is installed, we
-first need to load it to be able to use it. This is done with the
-`library()` function. Below, we load `ggplot2`.
+first need to load it to be able to use it. Isto é feito com a função
+`library()`. Abaixo, carregamos o `ggplot2`.
 
 ```{r loadp, eval=FALSE, purl=TRUE}
 library("ggplot2")
@@ -605,8 +604,8 @@ library("ggplot2")
 
 The default package repository is The _Comprehensive R Archive
 Network_ (CRAN), and any package that is available on CRAN can be
-installed with the `install.packages()` function. Below, for example,
-we install the `dplyr` package that we will learn about later.
+installed with the `install.packages()` function. Abaixo, por exemplo,
+instalamos o pacote `dplyr` que aprenderemos mais tarde.
 
 ```{r craninstall, eval=FALSE, purl=TRUE}
 install.packages("dplyr")
@@ -615,7 +614,7 @@ install.packages("dplyr")
 This command will install the `dplyr` package as well as all its
 dependencies, i.e. all the packages that it relies on to function.
 
-Another major R package repository is maintained by Bioconductor. [Bioconductor packages](https://bioconductor.org/packages/release/BiocViews.html#___Software) are managed and installed using a dedicated package,
+Outro repositório de pacotes principais do R é mantido pelo Bioconductor. [Bioconductor packages](https://bioconductor.org/packages/release/BiocViews.html#___Software) are managed and installed using a dedicated package,
 namely `BiocManager`, that can be installed from CRAN with
 
 ```{r, eval=FALSE, purl=TRUE}
@@ -631,7 +630,7 @@ BiocManager::install("SummarizedExperiment")
 BiocManager::install("DESeq2")
 ```
 
-By default, `BiocManager::install()` will also check all your installed packages and see if there are newer versions available. If there are, it will show them to you and ask you if you want to `Update all/some/none? [a/s/n]:` and then wait for your answer. While you should strive to have the most up-to-date package versions, in practice we recommend only updating packages in a fresh R session before any packages are loaded.
+By default, `BiocManager::install()` will also check all your installed packages and see if there are newer versions available. Se houver, mostrará a você e perguntará se você quer `Atualizar todos/alguém/nenhum? [a/s/n]:` e depois espera pela sua resposta. Você deve se esforçar para ter as versões mais atualizadas dos pacotes, no entanto, na prática, recomendamos atualizar pacotes apenas em uma sessão nova em R antes de quaisquer pacotes serem carregados.
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
