@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: Data organisation with spreadsheets
+title: Organización de datos con hojas de cálculo
 teaching: 30
 exercises: 30
 ---
