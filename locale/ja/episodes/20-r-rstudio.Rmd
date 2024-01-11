@@ -23,7 +23,7 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-## What is R? What is RStudio?
+## What is R? RStudioとは何ですか?
 
 The term [R](https://www.r-project.org/) is used to refer to the
 _programming language_, the _environment for statistical computing_
