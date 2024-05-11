@@ -23,6 +23,9 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+> This episode is based on the Data Carpentries's _Data Analysis and
+> Visualisation in R for Ecologists_ lesson.
+
 ## What is R? O que é RStudio?
 
 O termo [R](https://www.r-project.org/) é utilizado para designar a
@@ -495,7 +498,7 @@ generalizar o que está fazendo para que mesmo as pessoas que não estão na sua
 possam compreender a pergunta. Por exemplo, pode em vez de utilizar um subconjunto
 do seu conjunto de dados real, criar um pequeno (3 colunas, 5 linhas)
 arquivo genérico. Para mais informações sobre como escrever um exemplo reprodutível em, consulte [este artigo de Hadley
-Wickham] (https\://adv-r.had.co.nz/Reproducibility.html).
+Wickham] (https://adv-r.had.co.nz/Reproducibility.html).
 
 Para compartilhar um objeto com outra pessoa, se for relativamente pequeno, você
 pode usar a função `dput()`. It will output R code that can be used
@@ -584,7 +587,7 @@ sessionInfo()
   is very helpful to create reproducible examples when asking for
   help. A comunidade rOpenSci "How to ask questions so they get
   answered" ([Github
-  link](https\://github. om/ropensci/commcalls/issues/14) e [gravação de vídeo](https://vimeo.com/208749032)) inclui uma apresentação de
+  link](https://github. om/ropensci/commcalls/issues/14) e [gravação de vídeo](https://vimeo.com/208749032)) inclui uma apresentação de
   o pacote reprex e sua filosofia.
 
 ## R packages
