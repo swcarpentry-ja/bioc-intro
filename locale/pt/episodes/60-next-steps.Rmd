@@ -364,7 +364,7 @@ se
 
 It's still a `SummarizedExperiment` object, so maintains the efficient
 structure, but now we can view it as a tibble. Repare que na primeira linha do output diz isto:
-`SummarizedExperiment`-`tibble`
+`SummarizedExperiment`\-`tibble`
 abstraction. Também podemos ver na segunda linha do output o
 número de transcrições e amostras.
 
