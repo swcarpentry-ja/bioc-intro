@@ -31,6 +31,9 @@ download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/mai
 rna <- read.csv("data/rnaseq.csv")
 ```
 
+> This episode is based on the Data Carpentries's _Data Analysis and
+> Visualisation in R for Ecologists_ lesson.
+
 ## Data Visualization
 
 We start by loading the required packages. **`ggplot2`** is included in
@@ -83,7 +86,7 @@ customization of plots.
 
 > The idea behind the Grammar of Graphics it is that you can build every
 > graph from the same 3 components: (1) a data set, (2) a coordinate system,
-> and (3) geoms — i.e. visual marks that represent data points \[^three\_comp\_ggplot2]
+> and (3) geoms — i.e. visual marks that represent data points \[^three\\_comp\\_ggplot2]
 
 [^three_comp_ggplot2]: Source: [Data Visualization Cheat Sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf).
 
@@ -733,7 +736,7 @@ Take a look at the ggplot2,
 and think of ways you could improve the plot.
 
 Now, we can change names of axes to something more informative than
-'time' and 'mean_exp', and add a title to the figure:
+'time' and 'mean\_exp', and add a title to the figure:
 
 ```{r mean_exp-time-with-right-labels, cache=FALSE, purl=TRUE}
 ggplot(data = mean_exp_by_time_sex,
@@ -820,7 +823,7 @@ for inspiration. Here are some ideas:
   `scale_`)
 - Try using a different color palette or manually specifying the
   colors for the lines (see
-  [http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/](https://www.cookbook-r.com/Graphs/Colors_\(ggplot2\)/)).
+  [http://www.cookbook-r.com/Graphs/Colors\_(ggplot2)/](https://www.cookbook-r.com/Graphs/Colors_\\(ggplot2\\)/)).
 
 :::::::::::::::  solution
 
