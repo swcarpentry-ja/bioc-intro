@@ -27,6 +27,9 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+> This episode is based on the Data Carpentries's _Data Analysis and
+> Visualisation in R for Ecologists_ lesson.
+
 ## Presentation of the gene expression data
 
 We are going to use part of the data published by Blackmore , _The
@@ -43,19 +46,19 @@ The dataset is stored as a comma-separated values (CSV) file.  Each row
 holds information for a single RNA expression measurement, and the first eleven
 columns represent:
 
-| Column     | Description                                                                                  |
-| ---------- | -------------------------------------------------------------------------------------------- |
-| gene       | The name of the gene that was measured                                                       |
-| sample     | The name of the sample the gene expression was measured in                                   |
-| expression | The value of the gene expression                                                             |
-| organism   | The organism/species - here all data stem from mice                                          |
-| age        | The age of the mouse (all mice were 8 weeks here)                         |
-| sex        | The sex of the mouse                                                                         |
+| Column     | Description                                                                                                                                  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| gene       | The name of the gene that was measured                                                                                                       |
+| sample     | The name of the sample the gene expression was measured in                                                                                   |
+| expression | The value of the gene expression                                                                                                             |
+| organism   | The organism/species - here all data stem from mice                                                                                          |
+| age        | The age of the mouse (all mice were 8 weeks here)                                                                         |
+| sex        | The sex of the mouse                                                                                                                         |
 | infection  | The infection state of the mouse, i.e. infected with Influenza A or not infected.            |
-| strain     | The Influenza A strain.                                                                      |
-| time       | The duration of the infection (in days).                                  |
+| strain     | The Influenza A strain.                                                                                                      |
+| time       | The duration of the infection (in days).                                                                  |
 | tissue     | The tissue that was used for the gene expression experiment, i.e. cerebellum or spinal cord. |
-| mouse      | The mouse unique identifier.                                                                 |
+| mouse      | The mouse unique identifier.                                                                                                 |
 
 We are going to use the R function `download.file()` to download the
 CSV file that contains the gene expression data, and we will use
@@ -89,7 +92,7 @@ typing its name:
 rna
 ```
 
-Wow\... that was a lot of output. At least it means the data loaded
+Wow... that was a lot of output. At least it means the data loaded
 properly. Let's check the top (the first 6 lines) of this data frame
 using the function `head()`:
 
