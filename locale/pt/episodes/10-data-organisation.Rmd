@@ -24,6 +24,9 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+> This episode is based on the Data Carpentries's _Data Analysis and
+> Visualisation in R for Ecologists_ lesson.
+
 ## Spreadsheet programs
 
 **Question**
@@ -216,7 +219,7 @@ Put these principles in to practice today during your exercises.
 
 Enquanto o controle de versão está fora de escopo, você pode ver a aula
 do Carpentries em
-['Git'](https\://swcarpentry. ithub.io/git-novice/) para aprender como
+['Git'](https://swcarpentry. ithub.io/git-novice/) para aprender como
 manter um **controle de versão** sobre seus dados. Veja também este blog
 post para um tutorial rápido, ou
 @Perez-Riverol:2016 para um exemplo mais voltado à pesquisa.
@@ -463,7 +466,7 @@ antes da análise. Outras vezes valores nulos diferentes são usados para transm
 diferentes razões porque os dados não estão lá. Essa é uma informação
 importante para capturar, mas está em vigor usando uma coluna para capturar
 dois tipos de informação diferentes. Assim como para [usando formatação para transmitir informação](#formatting) seria bom aqui criar uma nova coluna
-como 'data_missing' e usar essa coluna para capturar as diferentes razões para o dado ser nulo.
+como 'data\_missing' e usar essa coluna para capturar as diferentes razões para o dado ser nulo.
 
 Seja qual for a razão, é um problema se dados desconhecidos ou ausentes são
 registrados como -999, 999 ou 0.
@@ -492,7 +495,7 @@ excluded.
 
 ![](fig/good_formatting.png)
 
-### Using formatting to make the data sheet look pretty {#formatting_pretty}
+### Using formatting to make the data sheet look pretty {#formatting\_pretty}
 
 **Example**: merging cells.
 
@@ -521,7 +524,7 @@ precisar destas duas medidas, crie sua tabela para incluir
 estas informações. Por exemplo, inclua uma coluna para o grupo ABO e
 uma para o grupo Rhesus.
 
-### Using problematic field names {#field_name}
+### Using problematic field names {#field\_name}
 
 Choose descriptive field names, but be careful not to include spaces,
 numbers, or special characters of any kind. Os espaços podem ser
@@ -537,15 +540,15 @@ confusão e permitem que outros interpretem prontamente suas colunas.
 
 **Examples**
 
-| Good Name                                                  | Good Alternative                       | Avoid                                |
-| ---------------------------------------------------------- | -------------------------------------- | ------------------------------------ |
-| Max_temp_C       | MaxTemp                                | Maximum Temp (°C) |
-| Precipitation_mm                      | Precipitation                          | precmm                               |
-| Mean_year_growth | MeanYearGrowth                         | Mean growth/year                     |
-| sex                                                        | sex                                    | M/F                                  |
-| weight                                                     | weight                                 | w.                                   |
-| cell_type                             | CellType                               | Cell Type                            |
-| Observation_01                        | first_observation | 1st Obs                              |
+| Good Name                                                      | Good Alternative                         | Avoid                                |
+| -------------------------------------------------------------- | ---------------------------------------- | ------------------------------------ |
+| Max\_temp\_C       | MaxTemp                                  | Maximum Temp (°C) |
+| Precipitation\_mm                        | Precipitation                            | precmm                               |
+| Mean\_year\_growth | MeanYearGrowth                           | Mean growth/year                     |
+| sex                                                            | sex                                      | M/F                                  |
+| weight                                                         | weight                                   | w.                   |
+| cell\_type                               | CellType                                 | Cell Type                            |
+| Observation\_01                          | first\_observation | 1st Obs                              |
 
 ### Using special characters in data {#special}
 
