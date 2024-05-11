@@ -31,6 +31,9 @@ download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/mai
               destfile = "data/rnaseq.csv")
 ```
 
+> This episode is based on the Data Carpentries's _Data Analysis and
+> Visualisation in R for Ecologists_ lesson.
+
 ## Data manipulation using **`dplyr`** and **`tidyr`**
 
 Bracket subsetting is handy, but it can be cumbersome and difficult to
@@ -103,7 +106,7 @@ previously. The data structure is very similar to a data frame. For our purposes
 the only differences are that:
 
 1. It displays the data type of each column under its name.
-   Note that <`dbl`> is a data type defined to hold numeric values with
+   Note that \<`dbl`\> is a data type defined to hold numeric values with
    decimal points.
 
 2. It only prints the first few rows of data and only as many columns as fit on
@@ -167,7 +170,7 @@ filter(genes, is.na(hsapiens_homolog_associated_gene_name))
 
 If we want to keep only mouse genes that have a human homolog, we can
 insert a "!" symbol that negates the result, so we're asking for
-every row where hsapiens_homolog_associated_gene_name _is not_ an
+every row where hsapiens\_homolog\_associated\_gene\_name _is not_ an
 `NA`.
 
 ```{r, purl=TRUE}
@@ -305,7 +308,7 @@ criteria: contains only the `gene`, `chromosome_name`,
 `phenotype_description`, `sample`, and `expression` columns. The expression
 values should be log-transformed. This data frame must
 only contain genes located on sex chromosomes, associated with a
-phenotype_description, and with a log expression higher than 5.
+phenotype\_description, and with a log expression higher than 5.
 
 **Hint**: think about how the commands should be ordered to produce
 this data frame!
@@ -529,7 +532,7 @@ In the `rna` tibble, the rows contain expression values (the unit) that are
 associated with a combination of 2 other variables: `gene` and `sample`.
 
 All the other columns correspond to variables describing either
-the sample (organism, age, sex, ...) or the gene (gene_biotype, ENTREZ_ID, product, ...).
+the sample (organism, age, sex, ...) or the gene (gene\_biotype, ENTREZ\_ID, product, ...).
 The variables that don't change with genes or with samples will have the same value in all the rows.
 
 ```{r}
@@ -815,7 +818,7 @@ rna %>%
   summarise(mean_exp = mean(expression))
 ```
 
-before using the pivot_wider() function
+before using the pivot\_wider() function
 
 ```{r}
 rna_time <- rna %>%
@@ -839,7 +842,7 @@ rna %>%
   select(gene, 4)
 ```
 
-To select the timepoint 4, we would have to quote the column name, with backticks "\`"
+To select the timepoint 4, we would have to quote the column name, with backticks "\\`"
 
 ```{r}
 rna %>%
@@ -880,7 +883,7 @@ Convert this table into a long-format table gathering the fold-changes calculate
 
 ## Solution
 
-Starting from the rna_time tibble:
+Starting from the rna\_time tibble:
 
 ```{r}
 rna_time
@@ -893,7 +896,7 @@ rna_time %>%
   mutate(time_8_vs_0 = `8` / `0`, time_8_vs_4 = `8` / `4`)
 ```
 
-And use the pivot_longer() function:
+And use the pivot\_longer() function:
 
 ```{r}
 rna_time %>%
@@ -938,7 +941,7 @@ rna_mini
 ```
 
 The second table, `annot1`, contains 2 columns, gene and
-gene_description. You can either
+gene\_description. You can either
 [download annot1.csv](https://carpentries-incubator.github.io/bioc-intro/data/annot1.csv)
 by clicking on the link and then moving it to the `data/` folder, or
 you can use the R code below to download it directly to the folder.
@@ -1031,7 +1034,7 @@ or modify it. In contrast, our script will generate the contents of the `data_ou
 directory, so even if the files it contains are deleted, we can always
 re-generate them.
 
-Let's use `write_csv()` to save the rna_wide table that we have created previously.
+Let's use `write_csv()` to save the rna\_wide table that we have created previously.
 
 ```{r, purl=TRUE, eval=FALSE}
 write_csv(rna_wide, file = "data_output/rna_wide.csv")
