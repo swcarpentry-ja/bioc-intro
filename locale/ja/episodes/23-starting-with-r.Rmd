@@ -28,6 +28,9 @@ exercises: 60
 
 ::::::::::::::::::::::::::::::::::::::::::::::
 
+> This episode is based on the Data Carpentries's _Data Analysis and
+> Visualisation in R for Ecologists_ lesson.
+
 ## R でオブジェクトを作成する
 
 コンソールに math と入力するだけで、R から出力を取得できます。
@@ -50,12 +53,12 @@ _オブジェクト_ に割り当てる必要があります。 オブジェク�
 `3` になります。 矢印は 3 **が `x` に入る** と読むことができます。  歴史的
 理由により、代入に `=` を使用することもできますが、
 のコンテキストで使用できるわけではありません。 構文に
-わずかな違い](https\://blog.revolutionanalytics.com/2008/12/use-equals-or-arrow-for-assignment.html)
+わずかな違い](https://blog.revolutionanalytics.com/2008/12/use-equals-or-arrow-for-assignment.html)
 があるため、常に `< を使用することをお勧めします。 -` 割り当て用。
 
-RStudio では、 <kbd>オプション</kbd> を入力しながら、 <kbd>Alt</kbd> + <kbd>-</kbd> を入力すると ( <kbd>-</kbd> キーと同時に <kbd>Alt</kbd>
+RStudio では、 <kbd>オプション</kbd> を入力しながら、 <kbd>Alt</kbd> + <kbd>\-</kbd> を入力すると ( <kbd>\-</kbd> キーと同時に <kbd>Alt</kbd>
 を押すと)、PC で
-1 回のキーストロークで `<-` が書き込まれます。 + <kbd>-</kbd> ( <kbd>オプション</kbd> <kbd>-</kbd> キーと同時に押す) は、Mac でも
+1 回のキーストロークで `<-` が書き込まれます。 + <kbd>\-</kbd> ( <kbd>オプション</kbd> <kbd>\-</kbd> キーと同時に押す) は、Mac でも
 と同じことを行います。
 
 ### 変数に名前を付ける
@@ -139,7 +142,7 @@ R のメモリに「weight_kg」があるので、それを使って算術演算
 ## チャレンジ：
 
 オブジェクト「weight_lb」の現在の内容は何だと思いますか?
-126.5 それとも 220?
+126\.5 それとも 220?
 
 ::::::::::::::::::::::::::::::::::::::::::::::
 
