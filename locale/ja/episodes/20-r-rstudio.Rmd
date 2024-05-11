@@ -23,6 +23,9 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+> This episode is based on the Data Carpentries's _Data Analysis and
+> Visualisation in R for Ecologists_ lesson.
+
 ## What is R? RStudioとは何ですか?
 
 The term [R](https://www.r-project.org/) is used to refer to the
