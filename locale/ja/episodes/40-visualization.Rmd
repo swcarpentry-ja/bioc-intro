@@ -158,7 +158,7 @@ ggplot(rna, aes(x = expression))+
 geom_histogram()`の引数`bins`または`binwidth\` を変更して、
 ビンの数または幅を変更する。
 
-:::::::::::::::::::: 解決策
+:::::::::::::::  solution
 
 ## ソリューション
 
