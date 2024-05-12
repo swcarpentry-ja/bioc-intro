@@ -11,7 +11,7 @@ download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/mai
               destfile = "data/rnaseq.csv")
 ```
 
-::::::::::::::::::::::::::::::::::::::: 目的
+::::::::::::::::::::::::::::::::::::::: objectives
 
 - ggplotを使って散布図、箱ひげ図、折れ線グラフなどを作成する。
 - ユニバーサルプロット設定を行う。
