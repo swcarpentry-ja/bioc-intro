@@ -7,22 +7,22 @@
 #lc: Library Carpentry
 #cp: Carpentries (to use for instructor training for instance)
 #incubator: The Carpentries Incubator
-carpentry: 'incubator'
+carpentry: 'incubadora'
 #Overall title for pages.
-title: 'Introduction to data analysis with R and Bioconductor'
+title: 'Introducción al análisis de datos con R y Bioconductor'
 #Date the lesson was created (YYYY-MM-DD, this is empty by default)
 created: '2020-09-14'
 #Comma-separated list of keywords for the lesson
-keywords: 'software, data, lesson, The Carpentries'
+keywords: 'software, datos, lección, Las Carpinterías'
 #Life cycle stage of the lesson
 #possible values: pre-alpha, alpha, beta, stable
-life_cycle: 'stable'
+life_cycle: 'estable'
 #License of the lesson
 license: 'CC-BY 4.0'
 #Link to the source repository for this lesson
 source: 'https://github.com/carpentries-incubator/bioc-intro'
 #Default branch of your lesson
-branch: 'main'
+branch: 'principal'
 #Who to contact if there are any issues
 contact: 'laurent.gatto@uclouvain.be'
 #Navigation ------------------------------------------------
@@ -42,13 +42,13 @@ contact: 'laurent.gatto@uclouvain.be'
 #- another-learner.md
 #Order of episodes in your lesson
 episodes:
-  - 10-data-organisation.Rmd
+  - 10-organización-de-datos.Rmd
   - 20-r-rstudio.Rmd
-  - 23-starting-with-r.Rmd
-  - 25-starting-with-data.Rmd
+  - 23-empezando-con-r.Rmd
+  - 25-empezando-con-datos.Rmd
   - 30-dplyr.Rmd
-  - 40-visualization.Rmd
-  - 60-next-steps.Rmd
+  - 40-visualización.Rmd
+  - 60-siguientes-pasos.Rmd
 #Information for Learners
 learners:
 #Information for Instructors
