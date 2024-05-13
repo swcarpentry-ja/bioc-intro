@@ -2,6 +2,6 @@
 {}
 ---
 
-## Glossary
+## Glosario
 
-FIXME
+ARREGLARME
