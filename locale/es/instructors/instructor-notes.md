@@ -1,5 +1,5 @@
 ---
-title: Instructor Notes
+title: Notas del instructor
 ---
 
-FIXME
+ARREGLARME
