@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: Comenzando con datos
+title: Partiendo de datos
 teaching: 30
 exercises: 30
 ---
@@ -10,8 +10,8 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::: objetivos
 
-- Describe qué es un "marco.de.datos".
-- Cargue datos externos desde un archivo .csv en un marco de datos.
+- Describir un objeto de tipo `data.frame`.
+- Cargar datos externos desde un archivo .csv a un objecto `data.frame`.
 - Resumir el contenido de un marco de datos.
 - Describe qué es un factor.
 - Convertir entre cadenas y factores.
