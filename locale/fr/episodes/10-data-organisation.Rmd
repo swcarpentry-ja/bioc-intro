@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: Data organisation with spreadsheets
+title: Organisation des données avec des feuilles de calcul
 teaching: 30
 exercises: 30
 ---
@@ -12,36 +12,36 @@ exercises: 30
 
 - Découvrez les feuilles de calcul, leurs forces et leurs faiblesses.
 - Comment formater les données dans des feuilles de calcul pour une utilisation efficace des données ?
-- Learn about common spreadsheet errors and how to correct them.
-- Organise your data according to tidy data principles.
-- Learn about text-based spreadsheet formats such as the comma-separated (CSV) or tab-separated (TSV) formats.
+- Découvrez les erreurs courantes des feuilles de calcul et comment les corriger.
+- Organisez vos données selon des principes de données propres.
+- Découvrez les formats de feuilles de calcul textuels tels que les formats séparés par des virgules (CSV) ou par des tabulations (TSV).
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- How to organise tabular data?
+- Comment organiser des données tabulaires ?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-> This episode is based on the Data Carpentries's _Data Analysis and
-> Visualisation in R for Ecologists_ lesson.
+> Cet épisode est basé sur la leçon _Analyse des données et
+> Visualisation dans R pour les écologistes_ de Data Carpentries.
 
-## Spreadsheet programs
+## Tableurs
 
 **Question**
 
-- What are basic principles for using spreadsheets for good data
-  organization?
+- Quels sont les principes de base d'utilisation des feuilles de calcul pour une bonne organisation des données
+   ?
 
-**Objective**
+**Objectifs**
 
-- Describe best practices for organizing data so computers can make
-  the best use of datasets.
+- Décrire les bonnes pratiques pour organiser les données afin que les ordinateurs puissent en faire
+  la meilleure utilisation.
 
-**Keypoint**
+**Point clé**
 
-- Good data organization is the foundation of any research project.
+- Une bonne organisation des données est la base de tout projet de recherche.
 
 Good data organization is the foundation of your research
 project. Most researchers have data or do data entry in
