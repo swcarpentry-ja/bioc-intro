@@ -10,8 +10,8 @@ exercises: 30
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Learn about spreadsheets, their strengths and weaknesses.
-- How do we format data in spreadsheets for effective data use?
+- Découvrez les feuilles de calcul, leurs forces et leurs faiblesses.
+- Comment formater les données dans des feuilles de calcul pour une utilisation efficace des données ?
 - Learn about common spreadsheet errors and how to correct them.
 - Organise your data according to tidy data principles.
 - Learn about text-based spreadsheet formats such as the comma-separated (CSV) or tab-separated (TSV) formats.
