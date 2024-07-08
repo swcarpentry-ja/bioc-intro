@@ -2,12 +2,11 @@
 title: Setup
 ---
 
-- Please make sure you have a spreadsheet editor at hand, such as
-  LibreOffice, Microsoft Excel or Google Sheets.
+- Veuillez vous assurer d'avoir accès à un tableur, tel que LibreOffice, Microsoft Excel ou Google Sheets.
 
-- Install R, RStudio and packages (see below).
+- Installez R, RStudio et les packages (voir ci-dessous).
 
-### R and RStudio
+### R et RStudio
 
 - R and RStudio are separate downloads and installations. R is the
   underlying statistical computing environment, but using R alone is
