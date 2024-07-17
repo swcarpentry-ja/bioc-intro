@@ -1,27 +1,16 @@
-# Introduction à l'analyse de données génomiques avec le programme R et Bioconductor
+# Introduction à l'analyse des données génomiques avec R et Bioconductor
 
 Contribution
 
 ## Contributing
 
-We welcome all contributions to improve the lesson! Maintainers will
-do their best to help you if you have any questions, concerns, or
-experience any difficulties along the way.
+Toutes les contributions visant à améliorer la leçon sont les bienvenues! Les responsables de la maintenance feront de leur mieux pour vous aider si vous avez des questions, des préoccupations ou si vous rencontrez des difficultés en cours de route.
 
-We'd like to ask you to familiarize yourself with our Contribution
-Guide and have a look at the [more detailed
-guidelines][lesson-example] on proper formatting, ways to render the
-lesson locally, and even how to write new episodes.
+Nous vous invitons à vous familiariser avec notre guide de contribution et à consulter les directives plus détaillées concernant le formatage, les moyens de rendre la leçon localement, et même la manière d'écrire de nouveaux épisodes.
 
-Please see the current list of [issues][FIXME] for ideas for
-contributing to this repository. For making your contribution, we use
-the GitHub flow, which is nicely explained in the chapter
-Contributing to a
-Project
-in Pro Git by Scott Chacon.
+Veuillez consulter la liste actuelle des [issues][FIXME] pour les idées de contribution à ce dépôt. Pour apporter votre contribution, nous utilisons le flux. Pour apporter votre contribution, utilisez GitHub, qui est bien expliqué dans le chapitre [Contribuer à un projet dans Pro Git par Scott Chacon.].
 
-Look for the tag
-![good\\_first\\_issue](https://img.shields.io/badge/-good%20first%20issue-gold.svg). This
+Recherchez l'étiquette "bonne première question/problème". Cela indique que la responsable accueillera favorablement une demande de répondre a la question ou problème. This
 indicates that the maintainers will welcome a pull request fixing this
 issue.
 
