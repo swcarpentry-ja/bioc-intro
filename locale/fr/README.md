@@ -14,13 +14,10 @@ Recherchez l'étiquette "bonne première question/problème". Cela indique que l
 indicates that the maintainers will welcome a pull request fixing this
 issue.
 
-## Useful links
+## Liens utiles
 
-- If you're going to be developing lesson material for the first time
-  according to our design principles, consider reading the
-  [Carpentries Curriculum Development Handbook][cdh]
-- Consult the [Lesson Example][lesson-example] website to find out more about
-  working with the lesson template
+- Si vous développez pour la première fois du matériel pédagogique selon nos principes de conception, nous vous invitons à lire le Manuel de développement des programmes d'études de Carpentries.
+- Consultez le site web de l'exemple de leçon pour en savoir plus sur l'utilisation du modèle de leçon.
 
 ## Lesson team
 
