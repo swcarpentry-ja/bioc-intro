@@ -424,7 +424,7 @@ que se adapte a su propósito. podría facilitarle el comienzo.
     lo que es posible hacer con R.
 
 ```{r kitten, results="markup", echo=FALSE, purl=FALSE, out.width="400px", fig.align="center"}
-knitr::include_graphics("fig/gatito-prueba-cosas.jpg")
+knitr::include_graphics("fig/kitten-try-things.jpg")
 ```
 
 ## Buscando ayuda
@@ -448,13 +448,13 @@ Si necesita ayuda con una función específica, digamos `barplot()`,
 puede escribir:
 
 ```{r, eval=FALSE, purl=TRUE}
-diagrama de barras
+?barplot
 ```
 
 Si sólo necesita recordar los nombres de los argumentos, puede utilizar:
 
 ```{r, eval=FALSE, purl=TRUE}
-argumentos (lm)
+args(lm)
 ```
 
 ### Quiero usar una función que haga X, debe haber una función para ello pero no sé cuál...
@@ -540,7 +540,7 @@ issue). Alternativamente, en particular si su pregunta no está relacionada
 con un marco de datos, puede guardar cualquier objeto R en un archivo[^export]:
 
 ```{r, eval=FALSE, purl=FALSE}
-guardarRDS(iris, archivo="/tmp/iris.rds")
+saveRDS(iris, file="/tmp/iris.rds")
 ```
 
 Sin embargo, el contenido de este archivo no es legible por humanos y no se puede
@@ -550,7 +550,7 @@ se supone que el archivo descargado está en una carpeta `Descargas` en el
 directorio de inicio del usuario):
 
 ```{r, eval=FALSE, purl=FALSE}
-algunos_datos <- readRDS(file="~/Downloads/iris.rds")
+some_data <- readRDS(file="~/Downloads/iris.rds")
 ```
 
 Por último, pero no menos importante, **siempre incluya la salida de `sessionInfo()`**
@@ -559,7 +559,7 @@ los paquetes que está usando y otra información que puede ser muy útil
 para comprender su problema.
 
 ```{r, results="show", purl=TRUE}
-información de sesión()
+sessionInfo()
 ```
 
 ### ¿Dónde pedir ayuda?
