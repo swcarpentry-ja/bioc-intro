@@ -8,7 +8,7 @@ exercises: 60
 ```{r, include=FALSE}
 ```
 
-::::::::::::::::::::::::::::::::::::::: objectifs
+::::::::::::::::::::::::::::::::::::::: objectives
 
 - Définissez les termes suivants relatifs à R : objet, affectation, appel, fonction, arguments, options.
 - Attribuez des valeurs aux objets dans R.
@@ -22,7 +22,7 @@ exercises: 60
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::: des questions
+:::::::::::::::::::::::::::::::::::::::: questions
 
 - Premières commandes dans R
 
