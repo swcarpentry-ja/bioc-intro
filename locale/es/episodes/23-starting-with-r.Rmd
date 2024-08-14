@@ -22,7 +22,7 @@ exercises: 60
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::: preguntas
+:::::::::::::::::::::::::::::::::::::::: questions
 
 - Primeros comandos en R
 
@@ -137,7 +137,7 @@ y luego cambie `weight_kg` a 100.
 peso_kg <- 100
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -159,7 +159,7 @@ you only want to comment out one line, you can put the cursor at any
 location of that line (i.e. no need to select the whole line), then
 press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd>.
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -343,7 +343,7 @@ Los vectores son una de las muchas **estructuras de datos** que utiliza R. Otros
 importantes son listas (`list`), matrices (`matrix`), marcos de datos
 (`data.frame`), factores (`factor`) y matrices (`array` ).
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -361,7 +361,7 @@ R los convierte implícitamente para que todos sean del mismo tipo
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -394,7 +394,7 @@ tricky
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -412,7 +412,7 @@ no pierda ninguna información.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -442,7 +442,7 @@ lógico_combinado
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -570,7 +570,7 @@ molecules %in% c("rna", "dna", "metabolite", "peptide", "glycerol")
 molecules[molecules %in% c("rna", "dna", "metabolite", "peptide", "glycerol")]
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -652,7 +652,7 @@ na.omit(heights)
 alturas[completos.casos(alturas)]
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -716,7 +716,7 @@ numérico(0)
 Hay constructores similares para caracteres y lógicos, llamados
 `character()` y `logic()` respectivamente.
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -761,7 +761,7 @@ de longitud 1) y de cualquier tipo. Por ejemplo, si queremos repetir los valores
 representante(c(1, 2, 3), 5)
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -838,7 +838,7 @@ en `TRUE`:
 muestra(1:5, 10, reemplazar = VERDADERO)
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
