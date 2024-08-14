@@ -8,7 +8,7 @@ exercises: 30
 ```{r, include=FALSE}
 ```
 
-::::::::::::::::::::::::::::::::::::::: objectifs
+::::::::::::::::::::::::::::::::::::::: objectives
 
 - Décrivez ce qu'est un « data.frame ».
 - Chargez des données externes à partir d'un fichier .csv dans un bloc de données.
