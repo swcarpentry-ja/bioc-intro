@@ -8,7 +8,7 @@ exercises: 75
 ```{r, include=FALSE}
 ```
 
-::::::::::::::::::::::::::::::::::::::: objetivos
+::::::::::::::::::::::::::::::::::::::: objectives
 
 - Describe el propósito de los paquetes **`dplyr`** y **`tidyr`**.
 - Describe varias de sus funciones que son extremadamente útiles para
