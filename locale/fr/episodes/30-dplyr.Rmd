@@ -8,7 +8,7 @@ exercises: 75
 ```{r, include=FALSE}
 ```
 
-::::::::::::::::::::::::::::::::::::::: objectifs
+::::::::::::::::::::::::::::::::::::::: objectives
 
 - Décrivez l'objectif des packages **`dplyr`** et **`tidyr`**.
 - Décrivez plusieurs de leurs fonctions extrêmement utiles pour
@@ -19,7 +19,7 @@ exercises: 75
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::: des questions
+:::::::::::::::::::::::::::::::::::::::: questions
 
 - Analyse de données dans R à l'aide du méta-paquet Tidyverse
 
