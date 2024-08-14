@@ -8,7 +8,7 @@ exercises: 45
 ```{r, include=FALSE}
 ```
 
-::::::::::::::::::::::::::::::::::::::: objetivos
+::::::::::::::::::::::::::::::::::::::: objectives
 
 - Presentar el proyecto Bioconductor.
 - Introducir la noción de contenedores de datos.
