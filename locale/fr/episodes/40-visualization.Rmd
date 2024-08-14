@@ -21,7 +21,7 @@ download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/mai
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::: des questions
+:::::::::::::::::::::::::::::::::::::::: questions
 
 - Visualisation en R
 
