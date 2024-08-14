@@ -11,7 +11,7 @@ download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/mai
               destfile = "datos/rnaseq.csv")
 ```
 
-::::::::::::::::::::::::::::::::::::::: objetivos
+::::::::::::::::::::::::::::::::::::::: objectives
 
 - Produzca diagramas de dispersión, diagramas de caja, diagramas de líneas, etc. utilizando ggplot.
 - Establezca configuraciones de trama universales.
