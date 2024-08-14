@@ -8,7 +8,7 @@ exercises: 0
 ```{r, include=FALSE}
 ```
 
-::::::::::::::::::::::::::::::::::::::: objetivos
+::::::::::::::::::::::::::::::::::::::: objectives
 
 - Describa el propósito de los paneles RStudio Script, Consola, Entorno y Gráficos.
 - Organice archivos y directorios para un conjunto de análisis como un proyecto de R y comprenda el propósito del directorio de trabajo.
