@@ -15,13 +15,13 @@ exercises: 0
 - Utilice la interfaz de ayuda integrada de RStudio para buscar más información sobre las funciones de R.
 - Demuestre cómo proporcionar suficiente información para la resolución de problemas con la comunidad de usuarios de R.
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
 - ¿Qué son R y RStudio?
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 > Este episodio se basa en la lección _Análisis de datos y
 > Visualización en R para ecologistas_ de Data Carpentries.
@@ -261,7 +261,7 @@ cree una carpeta llamada `data` dentro de su directorio de trabajo recién cread
 su consola R). Repita estas operaciones para crear una carpeta `data_output/` y
 `fig_output`.
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 Mantendremos el script en la raíz de nuestro directorio de trabajo
 porque solo usaremos un archivo y facilitará las cosas
@@ -665,4 +665,4 @@ De forma predeterminada, `BiocManager::install()` también verificará todos los
 
 - Comience a usar R y RStudio
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
