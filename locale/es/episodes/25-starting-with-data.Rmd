@@ -8,7 +8,7 @@ exercises: 30
 ```{r, include=FALSE}
 ```
 
-::::::::::::::::::::::::::::::::::::::: objetivos
+::::::::::::::::::::::::::::::::::::::: objectives
 
 - Describir un objeto de tipo `data.frame`.
 - Cargar datos externos desde un archivo .csv a un objecto `data.frame`.
