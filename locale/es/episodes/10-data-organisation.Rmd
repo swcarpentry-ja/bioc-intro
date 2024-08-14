@@ -8,7 +8,7 @@ exercises: 30
 ```{r, include=FALSE}
 ```
 
-::::::::::::::::::::::::::::::::::::::: objetivos
+::::::::::::::::::::::::::::::::::::::: objectives
 
 - Aprenda sobre las hojas de cálculo, sus fortalezas y debilidades.
 - ¿Cómo damos formato a los datos en hojas de cálculo para un uso eficaz de los datos?
