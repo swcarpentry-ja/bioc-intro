@@ -8,7 +8,7 @@ exercises: 60
 ```{r, include=FALSE}
 ```
 
-::::::::::::::::::::::::::::::::::::::: objetivos
+::::::::::::::::::::::::::::::::::::::: objectives
 
 - Defina los siguientes términos en relación con R: objeto, asignación, llamada, función, argumentos, opciones.
 - Asignar valores a objetos en R.
