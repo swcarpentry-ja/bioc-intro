@@ -7,8 +7,8 @@ exercises: 60
 
 ```{r loaddata_vis, echo=FALSE, purl=FALSE, message=FALSE}
 if (!file.exists("data/rnaseq.csv"))
-download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/ datos/rnaseq.csv",
-              destfile = "datos/rnaseq.csv")
+download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv",
+              destfile = "data/rnaseq.csv")
 ```
 
 ::::::::::::::::::::::::::::::::::::::: objectives
@@ -19,16 +19,16 @@ download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/mai
 - Modifique la estética de un gráfico ggplot existente (incluidas las etiquetas de los ejes y el color).
 - Cree gráficos complejos y personalizados a partir de datos en un marco de datos.
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: preguntas
 
 - Visualización en R
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r vis_setup, echo=FALSE}
-arn <- read.csv("datos/rnaseq.csv")
+rna <- read.csv("data/rnaseq.csv")
 ```
 
 > Este episodio se basa en la lección _Análisis de datos y
@@ -40,14 +40,14 @@ Comenzamos cargando los paquetes requeridos. **`ggplot2`** está incluido en
 el paquete **`tidyverse`**.
 
 ```{r load-package, message=FALSE, purl=TRUE}
-biblioteca("tidyverse")
+library("tidyverse")
 ```
 
 Si aún no está en el espacio de trabajo, cargue los datos que guardamos en la lección
 anterior.
 
 ```{r load-data, eval=FALSE, purl=TRUE}
-arn <- read.csv("datos/rnaseq.csv")
+rna <- read.csv("data/rnaseq.csv")
 ```
 
 La Hoja de trucos de visualización de datos
@@ -94,14 +94,14 @@ Para construir un ggplot, usaremos la siguiente plantilla básica que se puede
 usar para diferentes tipos de gráficos:
 
 ```
-ggplot(datos = <DATA>, mapeo = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
+ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
 ```
 
 - use la función `ggplot()` y vincule el gráfico a un \*\*marco de datos
   \*\* específico usando el argumento `data`
 
 ```{r, eval=FALSE}
-ggplot(datos = arn)
+ggplot(data = rna)
 ```
 
 - defina un **mapeo** (usando la función estética (`aes`)), seleccionando
@@ -110,7 +110,7 @@ ggplot(datos = arn)
   tamaño, forma, color, etc.
 
 ```{r, eval=FALSE}
-ggplot(datos = rna, mapeo = aes(x = expresión))
+ggplot(data = rna, mapping = aes(x = expression))
 ```
 
 - agregue '**geoms**': geometrías o representaciones gráficas de los datos
@@ -128,7 +128,7 @@ Para agregar una geometría (etry) al gráfico, use el operador `+`. Usemos
 `geom_histogram()` primero:
 
 ```{r first-ggplot, cache=FALSE, purl=TRUE}
-ggplot(datos = rna, mapeo = aes(x = expresión)) +
+ggplot(data = rna, mapping = aes(x = expression)) +
   geom_histogram()
 ```
 
@@ -140,13 +140,13 @@ configurar fácilmente plantillas de gráficos y explorar cómodamente diferente
 ```{r, eval=FALSE, purl=TRUE}
 # Asignar gráfico a una variable
 rna_plot <- ggplot(data = rna,
-                   mapeo = aes(x = expresión))
+                   mapping = aes(x = expression))
 
 # Dibujar el gráfico
-rna_plot + geom_histograma()
+rna_plot + geom_histogram()
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -154,7 +154,7 @@ Probablemente hayas notado un mensaje automático que aparece cuando
 dibuja el histograma:
 
 ```{r, echo=FALSE, fig.show="hide"}
-ggplot(rna, aes(x = expresión)) +
+ggplot(rna, aes(x = expression)) +
   geom_histogram()
 ```
 
@@ -198,7 +198,7 @@ ggplot(rna, aes(x = expresión_log)) + geom_histogram()
 
 De ahora en adelante trabajaremos en los valores de expresión transformados logarítmicamente.
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -343,7 +343,7 @@ ggplot(data = rna_fc, mapeo = aes(x = time_4_vs_0, y = time_8_vs_0,
 biblioteca("hexbin")
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -385,7 +385,7 @@ ggplot(data = rna_fc, mapeo = aes(x = time_4_vs_0, y = time_8_vs_0)) +
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -427,7 +427,7 @@ ggplot(datos = rna,
   geom_boxplot( alfa = 0)
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -465,7 +465,7 @@ ggplot(datos = rna,
   tema(axis.text.x = element_text(ángulo = 90, hjust = 0.5, vjust = 0.5))
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -502,7 +502,7 @@ ggplot(data = rna,
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -529,7 +529,7 @@ ggplot(data = rna,
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -660,7 +660,7 @@ ggplot(data = mean_exp_by_time_sex,
   tema(panel.grid = element_blank())
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -809,7 +809,7 @@ ggplot(rna, aes(x = expression_log)) +
     blue_theme
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
