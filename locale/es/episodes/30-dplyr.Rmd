@@ -23,12 +23,12 @@ exercises: 75
 
 - Análisis de datos en R utilizando el metapaquete tidyverse
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r loaddata_dplyr, echo=FALSE, purl=FALSE, message=FALSE}
 if (!file.exists("data/rnaseq.csv"))
-download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/ datos/rnaseq.csv",
-              destfile = "datos/rnaseq.csv")
+download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv",
+              destfile = "data/rnaseq.csv")
 ```
 
 > Este episodio se basa en la lección _Análisis de datos y
@@ -73,15 +73,15 @@ Si realizó la configuración, ya debería haber instalado el paquete tidyverse.
 Comprueba si lo tienes intentando cargarlo desde la biblioteca:
 
 ```{r, message=FALSE, purl=TRUE}
-## cargar los paquetes tidyverse, incl. dplyr
-biblioteca("tidyverse")
+## load the tidyverse packages, incl. dplyr
+library("tidyverse")
 ```
 
 Si recibió un mensaje de error `no hay ningún paquete llamado 'tidyverse'` entonces
 aún no ha instalado el paquete para esta versión de R. Para instalar el tipo de paquete **`tidyverse`**:
 
 ```{r, eval=FALSE, purl=TRUE}
-BiocManager::instalar("tidyverse")
+BiocManager::install("tidyverse")
 ```
 
 Si tuvo que instalar el paquete **`tidyverse`**, ¡no olvide cargarlo en esta sesión de R usando el comando `library()` arriba!
@@ -95,7 +95,7 @@ function (notice the `_` instead of the `.`), from the tidyverse package
 ```{r, message=FALSE, purl=TRUE}
 rna <- read_csv("data/rnaseq.csv")
 
-## ver los datos
+## view the data
 rna
 ```
 
@@ -128,14 +128,14 @@ de esta función es el marco de datos (`rna`), y los argumentos
 siguientes son las columnas que se deben conservar.
 
 ```{r, purl=TRUE}
-seleccionar (arn, gen, muestra, tejido, expresión)
+select(rna, gene, sample, tissue, expression)
 ```
 
 Para seleccionar todas las columnas _excepto_ algunas, coloque un "-" delante de
 la variable para excluirla.
 
 ```{r, purl=TRUE}
-seleccionar (arn, -tejido, -organismo)
+select(rna, -tissue, -organism)
 ```
 
 Esto seleccionará todas las variables en `rna` excepto `tejido`
@@ -144,8 +144,8 @@ y `organismo`.
 Para elegir filas según un criterio específico, utilice `filtro()`:
 
 ```{r, purl=TRUE}
-filter(rna, sexo == "Masculino")
-filter(rna, sex == "Masculino" & infección == "No infectado")
+filter(rna, sex == "Male")
+filter(rna, sex == "Male" & infection == "NonInfected")
 ```
 
 Ahora imaginemos que estamos interesados en los homólogos humanos de los genes
@@ -165,7 +165,7 @@ Algunos genes de ratón no tienen homólogos humanos. Estos se pueden recuperar 
 algo es un `NA`.
 
 ```{r, purl=TRUE}
-filtro (genes, is.na (hsapiens_homolog_associated_gene_name))
+filter(genes, is.na(hsapiens_homolog_associated_gene_name))
 ```
 
 Si queremos conservar sólo genes de ratón que tienen un homólogo humano, podemos
@@ -174,7 +174,7 @@ cada fila donde hsapiens\_homolog\_associated\_gene\_name _no es_ un
 `NA`.
 
 ```{r, purl=TRUE}
-filtro(genes, !is.na(hsapiens_homolog_associated_gene_name))
+filter(genes, !is.na(hsapiens_homolog_associated_gene_name))
 ```
 
 ## Tubería
@@ -186,8 +186,8 @@ Con pasos intermedios, crea un marco de datos temporal y lo usa
 como entrada para la siguiente función, como esta:
 
 ```{r, purl=TRUE}
-rna2 <- filter(rna, sexo == "Masculino")
-rna3 <- select(rna2, gen, muestra, tejido, expresión)
+rna2 <- filter(rna, sex == "Male")
+rna3 <- select(rna2, gene, sample, tissue, expression)
 rna3
 ```
 
@@ -199,7 +199,7 @@ También puedes anidar funciones (es decir, una función dentro de otra),
 así:
 
 ```{r, purl=TRUE}
-rna3 <- select(filtro(rna, sexo == "Masculino"), gen, muestra, tejido, expresión)
+rna3 <- select(filter(rna, sex == "Male"), gene, sample, tissue, expression)
 rna3
 ```
 
@@ -228,8 +228,8 @@ incluir explícitamente el marco de datos como un argumento para las funciones `
 
 ```{r, purl=TRUE}
 rna %>%
-  filtro(sexo == "Masculino") %>%
-  seleccionar(gen, muestra, tejido, expresión)
+  filter(sex == "Male") %>%
+  select(gene, sample, tissue, expression)
 ```
 
 A algunos les puede resultar útil leer la tubería como la palabra "entonces". Por ejemplo,
@@ -246,8 +246,8 @@ podemos asignarle un nuevo nombre:
 
 ```{r, purl=TRUE}
 rna3 <- rna %>%
-  filter(sexo == "Masculino") %>%
-  select(gen, muestra, tejido, expresión)
+  filter(sex == "Male") %>%
+  select(gene, sample, tissue, expression)
 
 rna3
 ```
@@ -260,7 +260,7 @@ Usando tuberías, subconjunto de datos de `rna` para mantener las observaciones 
 donde el gen tiene una expresión superior a 50000, y retenga solo las columnas
 `gene`, `sample `, `tiempo`, `expresión` y `edad`.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -272,9 +272,9 @@ rna %>%
   seleccionar(gen, muestra , tiempo, expresión, edad)
 ```
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Mudar
 
@@ -313,7 +313,7 @@ fenotipo\_descripción y con una expresión logarítmica superior a 5.
 **Sugerencia**: piense en cómo se deben ordenar los comandos para producir
 este marco de datos.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -408,7 +408,7 @@ rna %>%
 
 Calcule el nivel de expresión medio del gen "Dok3" por puntos de tiempo.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -496,7 +496,7 @@ rna %>%
 3. Elija una muestra y evalúe la cantidad de genes por biotipo.
 4. Identifique los genes asociados con la descripción del fenotipo de "metilación anormal del ADN" y calcule su expresión media (en log) en el tiempo 0, el tiempo 4 y el tiempo 8.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -723,7 +723,7 @@ A partir de la tabla de ARN, utilice la función `pivot_wider()` para crear
 una tabla de formato amplio que proporcione los niveles de expresión genética en cada ratón.
 Luego use la función `pivot_longer()` para restaurar una tabla de formato largo.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -756,7 +756,7 @@ knitr::include_graphics("fig/Exercise_pivot_W.png")
 
 ¡Necesitará resumir antes de remodelar!
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -794,9 +794,9 @@ rna_1 %>%
 
 ```
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -806,7 +806,7 @@ Utilice el conjunto de datos `rna` para crear una matriz de expresión donde cad
 represente los niveles de expresión medios de genes y las columnas representen
 los diferentes puntos de tiempo.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -814,8 +814,8 @@ Primero calculemos la expresión media por gen y por tiempo.
 
 ```{r}
 rna %>%
-  group_by(gen, tiempo) %>%
-  resumen(exp_media = media(expresión))
+  group_by(gene, time) %>%
+  summarise(mean_exp = mean(expression))
 ```
 
 antes de usar la función pivot\_wider()
@@ -866,9 +866,9 @@ rna %>%
   select(gene, time4)
 ```
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -879,21 +879,21 @@ una nueva columna que contenga los cambios de pliegue entre el punto de tiempo 8
 entre el punto de tiempo 8 y el punto de tiempo 4.
 Convierta esta tabla en una tabla de formato largo que recopile los cambios de pliegue calculados.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
 A partir del tibble rna\_time:
 
 ```{r}
-tiempo_rna
+rna_time
 ```
 
 Calcular cambios de pliegue:
 
 ```{r}
 rna_time %>%
-  mutar(time_8_vs_0 = `8` / `0`, time_8_vs_4 = `8` / `4`)
+  mutate(time_8_vs_0 = `8` / `0`, time_8_vs_4 = `8` / `4`)
 ```
 
 Y use la función pivot\_longer():
@@ -906,9 +906,9 @@ rna_time %>%
                time_8_vs_0:time_8_vs_4)
 ```
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Unir mesas
 
@@ -935,7 +935,7 @@ columnas y 10 líneas.
 
 ```{r}
 rna_mini <- rna %>%
-   select(gen, muestra, expresión) %>%
+   select(gene, sample, expression) %>%
    head(10)
 rna_mini
 ```
@@ -949,7 +949,7 @@ puedes usar el código R a continuación para descargarlo directamente a la carp
 ```{r, message=FALSE}
 download.file(url = "https://carpentries-incubator.github.io/bioc-intro/data/annot1.csv",
               destfile = "data/annot1.csv")
-annot1 <- read_csv(archivo = "datos/annot1.csv")
+annot1 <- read_csv(file = "data/annot1.csv")
 annot1
 ```
 
@@ -961,7 +961,7 @@ común. Estas variables se denominan claves. Las claves se utilizan para hacer c
 observaciones en diferentes tablas.
 
 ```{r}
-unión_completa(rna_mini, annot1)
+full_join(rna_mini, annot1)
 ```
 
 En la vida real, las anotaciones genéticas a veces se etiquetan de manera diferente.
@@ -974,7 +974,7 @@ tú mismo y muévelo a `data/ `o use el código R a continuación.
 ```{r, message=FALSE}
 download.file(url = "https://carpentries-incubator.github.io/bioc-intro/data/annot2.csv",
               destfile = "data/annot2.csv")
-annot2 <- read_csv(archivo = "datos/annot2.csv")
+annot2 <- read_csv(file = "data/annot2.csv")
 annot2
 ```
 
@@ -999,7 +999,7 @@ y coloque la tabla en su repositorio de datos.  Usando la función `full_join()`
 , une las tablas `rna_mini` y `annot3`. ¿Qué ha sucedido con los
 genes _Klk6_, _mt-Tf_, _mt-Rnr1_, _mt-Tv_, _mt-Rnr2_ y _mt-Tl1_?
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -1012,9 +1012,9 @@ Los genes _Klk6_ solo están presentes en `rna_mini`, mientras que los genes _mt
 _mt-Rnr2_ y _mt-Tl1_ están solo está presente en la tabla `annot3`. Sus valores respectivos para las variables
 de la tabla se han codificado como faltantes.
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Exportar datos
 
@@ -1037,11 +1037,11 @@ volver a generarlos.
 Usemos `write_csv()` para guardar la tabla rna\_wide que hemos creado anteriormente.
 
 ```{r, purl=TRUE, eval=FALSE}
-write_csv(rna_wide, archivo = "data_output/rna_wide.csv")
+write_csv(rna_wide, file = "data_output/rna_wide.csv")
 ```
 
-:::::::::::::::::::::::::::::::::::::::: puntos clave
+:::::::::::::::::::::::::::::::::::::::: keypoints
 
 - Datos tabulares en R usando el metapaquete tidyverse
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
