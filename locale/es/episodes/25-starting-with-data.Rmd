@@ -340,9 +340,9 @@ por un tipo particular de análisis. Aquí, una forma de reordenar nuestros nive
 en el vector `sex` sería:
 
 ```{r, purl=TRUE}
-sexo ## orden actual
-sexo <- factor(sexo, niveles = c("masculino", "femenino"))
-sexo ## después de reordenar
+sex ## current order
+sex <- factor(sex, levels = c("male", "female"))
+sex ## after re-ordering
 ```
 
 En la memoria de R, estos factores están representados por números enteros (1, 2, 3),
@@ -359,7 +359,7 @@ representadas por cada nivel de factor. Veamos la cantidad de hombres
 y mujeres en nuestros datos.
 
 ```{r firstfactorplot, fig.cap="Bar plot of the number of females and males.", purl=TRUE}
-trama (sexo)
+plot(sex)
 ```
 
 ### Convertirse en personaje
@@ -368,7 +368,7 @@ Si necesita convertir un factor en un vector de caracteres, utilice
 `as.character(x)`.
 
 ```{r, purl=TRUE}
-como.personaje(sexo)
+as.character(sex)
 ```
 
 <!-- ### Numeric factors -->
@@ -415,10 +415,10 @@ Si queremos cambiar el nombre de estos factores, basta con cambiar sus
 niveles:
 
 ```{r, purl=TRUE}
-niveles(sexo)
-niveles(sexo) <- c("M", "F")
-sexo
-trama(sexo)
+levels(sex)
+levels(sex) <- c("M", "F")
+sex
+plot(sex)
 ```
 
 ::::::::::::::::::::::::::::::::::::::  challenge
@@ -432,8 +432,8 @@ trama(sexo)
 ## Solución
 
 ```{r, eval=TRUE, purl=TRUE}
-niveles(sexo)
-niveles(sexo) <- c("Hombre", "Mujer")
+levels(sex)
+levels(sex) <- c("Male", "Female")
 ```
 
 :::::::::::::::::::::::::
@@ -486,12 +486,12 @@ Comprueba tus conjeturas usando `str(country_climate)`:
 
 ```{r, eval=FALSE, purl=TRUE}
 country_climate <- data.frame(
-       country = c("Canadá", "Panamá", "Sudáfrica", "Australia"),
-       clima = c("frío", "caliente" , "templado", "caliente/templado"),
-       temperatura = c(10, 30, 18, "15"),
-       hemisferio_norte = c(VERDADERO, VERDADERO, FALSO, "FALSO" ),
-       has_kangaroo = c(FALSO, FALSO, FALSO, 1)
-)
+       country = c("Canada", "Panama", "South Africa", "Australia"),
+       climate = c("cold", "hot", "temperate", "hot/temperate"),
+       temperature = c(10, 30, 18, "15"),
+       northern_hemisphere = c(TRUE, TRUE, FALSE, "FALSE"),
+       has_kangaroo = c(FALSE, FALSE, FALSE, 1)
+       )
 ```
 
 :::::::::::::::  solution
@@ -500,13 +500,13 @@ country_climate <- data.frame(
 
 ```{r, eval=TRUE, purl=TRUE}
 country_climate <- data.frame(
-       country = c("Canadá", "Panamá", "Sudáfrica", "Australia"),
-       clima = c("frío", "caliente" , "templado", "caliente/templado"),
-       temperatura = c(10, 30, 18, "15"),
-       hemisferio_norte = c(VERDADERO, VERDADERO, FALSO, "FALSO" ),
-       has_kangaroo = c(FALSO, FALSO, FALSO, 1)
+       country = c("Canada", "Panama", "South Africa", "Australia"),
+       climate = c("cold", "hot", "temperate", "hot/temperate"),
+       temperature = c(10, 30, 18, "15"),
+       northern_hemisphere = c(TRUE, TRUE, FALSE, "FALSE"),
+       has_kangaroo = c(FALSE, FALSE, FALSE, 1)
        )
-str(clima_país)
+str(country_climate)
 ```
 
 :::::::::::::::::::::::::
@@ -556,16 +556,16 @@ su computadora. Explorarlo.
 ## Solución:
 
 ```{r pkg_sln, eval=FALSE, purl=TRUE}
-## crea la matriz
-ip <- install.packages()
+## create the matrix
+ip <- installed.packages()
 head(ip)
-## prueba también View(ip)
-## número de paquete
+## try also View(ip)
+## number of package
 nrow(ip)
-## nombres de todos los paquetes instalados
+## names of all installed packages
 rownames(ip)
-## tipo de información que tenemos sobre cada paquete
-nombres de columna (ip)
+## type of information we have about each package
+colnames(ip)
 ```
 
 :::::::::::::::::::::::::
@@ -590,9 +590,9 @@ Construya una matriz de dimensión 1000 por 3 de datos distribuidos normalmente
 
 ```{r rnormmat_sln, purl=TRUE}
 set.seed(123)
-m <- matriz(rnorm(3000), ncol = 3)
+m <- matrix(rnorm(3000), ncol = 3)
 dim(m)
-cabeza(m)
+head(m)
 ```
 
 :::::::::::::::::::::::::
@@ -641,7 +641,7 @@ explícitamente con `library(lubridate)`.
 Comience cargando el paquete requerido:
 
 ```{r loadlibridate, message=FALSE, purl=TRUE}
-biblioteca("lubricar")
+library("lubridate")
 ```
 
 `ymd()` toma un vector que representa año, mes y día, y lo convierte
@@ -653,16 +653,16 @@ con el formato "AAAA-MM-DD".
 Creemos un objeto de fecha e inspeccionemos la estructura:
 
 ```{r, purl=TRUE}
-mi_fecha <- ymd("2015-01-01")
-str(mi_fecha)
+my_date <- ymd("2015-01-01")
+str(my_date)
 ```
 
 Ahora peguemos el año, el mes y el día por separado; obtenemos el mismo resultado:
 
 ```{r, purl=TRUE}
-# sep indica el carácter a utilizar para separar cada componente
+# sep indicates the character to use to separate each component
 my_date <- ymd(paste("2015", "1", "1", sep = "-"))
-str(my_date )
+str(my_date)
 ```
 
 Familiaricémonos ahora con una canalización típica de manipulación de fechas
@@ -670,10 +670,10 @@ Familiaricémonos ahora con una canalización típica de manipulación de fechas
 "mes" y "día".
 
 ```{r, purl=TRUE}
-x <- data.frame(año = c(1996, 1992, 1987, 1986, 2000, 1990, 2002, 1994, 1997, 1985),
-                mes = c(2, 3, 3, 10, 1 , 8, 3, 4, 5, 5),
-                día = c(24, 8, 1, 5, 8, 17, 13, 10, 11, 24),
-                valor = c (4, 5, 1, 9, 3, 8, 10, 2, 6, 7))
+x <- data.frame(year = c(1996, 1992, 1987, 1986, 2000, 1990, 2002, 1994, 1997, 1985),
+                month = c(2,  3,  3, 10,  1,  8,  3,  4,  5,  5),
+                day = c(24,  8,  1,  5,  8, 17, 13, 10, 11, 24),
+                value = c(4,  5,  1,  9,  3,  8, 10,  2,  6,  7))
 x
 ```
 
@@ -682,20 +682,20 @@ a partir de las columnas `año`, `mes` y `día` de `x`
 usando `paste()`:
 
 ```{r, purl=TRUE}
-pegar(x$year, x$month, x$day, sep = "-")
+paste(x$year, x$month, x$day, sep = "-")
 ```
 
 Este vector de caracteres se puede utilizar como argumento para `ymd()`:
 
 ```{r, purl=TRUE}
-ymd(pegar(x$year, x$month, x$day, sep = "-"))
+ymd(paste(x$year, x$month, x$day, sep = "-"))
 ```
 
 El vector "Fecha" resultante se puede agregar a "x" como una nueva columna llamada "fecha":
 
 ```{r, purl=TRUE}
-x$date <- ymd(pegar(x$year, x$month, x$day, sep = "-"))
-str(x) # observe la nueva columna, con 'fecha' como clase
+x$date <- ymd(paste(x$year, x$month, x$day, sep = "-"))
+str(x) # notice the new column, with 'date' as the class
 ```
 
 Asegurémonos de que todo funcionó correctamente. Una forma de inspeccionar la
