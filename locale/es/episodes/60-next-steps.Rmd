@@ -186,9 +186,9 @@ stopifnot(colnames(count_matrix) == sample_metadata$sample)
 ```
 
 ```{r}
-se <- Experimento resumido (ensayos = lista (recuentos = matriz_conteo),
-                           colData = muestra_metadatos,
-                           filaData = gene_metadata)
+se <- SummarizedExperiment(assays = list(counts = count_matrix),
+                           colData = sample_metadata,
+                           rowData = gene_metadata)
 se
 ```
 
@@ -224,8 +224,8 @@ Usando esta estructura de datos, podemos acceder a la matriz de expresión con
 la función `ensayo`:
 
 ```{r}
-head(ensayo(se))
-dim(ensayo(se))
+head(assay(se))
+dim(assay(se))
 ```
 
 Podemos acceder a los metadatos de muestra usando la función `colData`:
@@ -238,8 +238,8 @@ dim(colData(se))
 También podemos acceder a los metadatos de la característica usando la función `rowData`:
 
 ```{r}
-head(filaData(se))
-dim(filaData(se))
+head(rowData(se))
+dim(rowData(se))
 ```
 
 ### Subconjunto de un experimento resumido
@@ -257,7 +257,7 @@ se1
 
 ```{r}
 colData(se1)
-filaData(se1)
+rowData(se1)
 ```
 
 También podemos usar la función `colData()` para crear un subconjunto de algo de
@@ -322,8 +322,8 @@ Verifique que obtenga los mismos valores usando la tabla larga `rna`.
 
 ```{r, purl=FALSE}
 rna |>
-    filtro(gen %in% c("Asl", "Apod", "Cyd2d22")) |>
-    filtro(tiempo!= 4) |> seleccionar(expresión )
+    filter(gene %in% c("Asl", "Apod", "Cyd2d22")) |>
+    filter(time != 4) |> select(expression)
 ```
 
 :::::::::::::::::::::::::
@@ -343,7 +343,7 @@ También podemos agregar información a los metadatos.
 Supongamos que desea agregar el centro donde se recolectaron las muestras...
 
 ```{r}
-colData(se)$center <- rep("Universidad de Illinois", nrow(colData(se)))
+colData(se)$center <- rep("University of Illinois", nrow(colData(se)))
 colData(se)
 ```
 
