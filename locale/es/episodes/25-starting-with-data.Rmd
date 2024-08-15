@@ -25,7 +25,7 @@ exercises: 30
 
 - Primer análisis de datos en R
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 > Este episodio se basa en la lección _Análisis de datos y
 > Visualización en R para ecologistas_ de Data Carpentries.
@@ -74,13 +74,13 @@ preexistente llamada`"data"\`.
 
 ```{r, eval=TRUE}
 download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv",
-              destfile = "data/rnaseq.csv" )
+              destfile = "data/rnaseq.csv")
 ```
 
 Ahora está listo para cargar los datos:
 
 ```{r, eval=TRUE, purl=TRUE}
-arn <- read.csv("datos/rnaseq.csv")
+rna <- read.csv("data/rnaseq.csv")
 ```
 
 Esta declaración no produce ningún resultado porque, como
@@ -89,7 +89,7 @@ nuestros datos han sido cargados, podemos ver el contenido del marco de datos
 escribiendo su nombre:
 
 ```{r, eval=FALSE}
-arn
+rna
 ```
 
 Guau... eso fue mucho resultado. Al menos significa que los datos se cargaron
@@ -98,8 +98,8 @@ usando la función `head()`:
 
 ```{r, purl=TRUE}
 head(rna)
-## Prueba también
-## Ver(rna)
+## Try also
+## View(rna)
 ```
 
 **Nota**
@@ -119,9 +119,9 @@ los datos anteriores también podrían haberse cargado usando `read.table()`
 con el argumento de separación como `,`. El código es el siguiente:
 
 ```{r, eval=TRUE, purl=TRUE}
-rna <- read.table(archivo = "data/rnaseq.csv",
+rna <- read.table(file = "data/rnaseq.csv",
                   sep = ",",
-                  encabezado = VERDADERO)
+                  header = TRUE)
 ```
 
 El argumento del encabezado debe establecerse en VERDADERO para poder leer los encabezados
@@ -150,7 +150,7 @@ Podemos ver esto al inspeccionar la estructura <b>str</b>de un marco de datos
 con la función `str()`:
 
 ```{r}
-cadena (arn)
+str(rna)
 ```
 
 ## Inspeccionando objetos `data.frame`
@@ -188,7 +188,7 @@ contenido/estructura de los datos. ¡Probémoslos!
 Nota: la mayoría de estas funciones son "genéricas", se pueden usar en otros tipos de objetos
 además de `data.frame`.
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -198,16 +198,16 @@ preguntas?
 - ¿Cuál es la clase del objeto `rna`?
 - ¿Cuántas filas y cuántas columnas hay en este objeto?
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
 - clase: marco de datos
 - cuantas filas: 66465, cuantas columnas: 11
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Indexación y subconjunto de marcos de datos
 
@@ -218,21 +218,21 @@ números de columna. Sin embargo, tenga en cuenta que diferentes formas de espec
 conducen a resultados con diferentes clases.
 
 ```{r, eval=FALSE, purl=TRUE}
-# primer elemento en la primera columna del marco de datos (como vector)
+# first element in the first column of the data frame (as a vector)
 rna[1, 1]
-# primer elemento en la sexta columna (como vector)
-rna [1, 6]
-# primera columna del marco de datos (como un vector)
+# first element in the 6th column (as a vector)
+rna[1, 6]
+# first column of the data frame (as a vector)
 rna[, 1]
-# primera columna del marco de datos (como un data.frame )
+# first column of the data frame (as a data.frame)
 rna[1]
-# primeros tres elementos en la séptima columna (como un vector)
+# first three elements in the 7th column (as a vector)
 rna[1:3, 7]
-# la tercera fila del marco de datos (como un data.frame)
+# the 3rd row of the data frame (as a data.frame)
 rna[3, ]
-# equivalente a head_rna <- head(rna)
+# equivalent to head_rna <- head(rna)
 head_rna <- rna[1:6, ]
-cabeza_rna
+head_rna
 ```
 
 `:` es una función especial que crea vectores numéricos de números enteros en
@@ -242,8 +242,8 @@ orden creciente o decreciente, pruebe `1:10` y `10:1` para la instancia
 También puedes excluir ciertos índices de un marco de datos usando el signo "`-`":
 
 ```{r, eval=FALSE, purl=TRUE}
-rna[, -1] ## Todo el marco de datos, excepto la primera columna
-rna[-c(7:66465), ] ## Equivalente a head(rna)
+rna[, -1]          ## The whole data frame, except the first column
+rna[-c(7:66465), ] ## Equivalent to head(rna)
 ```
 
 Los marcos de datos se pueden subconjuntos llamando a índices (como se mostró anteriormente),
@@ -259,7 +259,7 @@ rna$gene          # Result is a vector
 En RStudio, puede utilizar la función de autocompletar para obtener los nombres completos y
 correctos de las columnas.
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -286,7 +286,7 @@ correctos de las columnas.
    de `head(rna)`, manteniendo solo la primera a la sexta
    filas del conjunto de datos de rna.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -294,18 +294,18 @@ correctos de las columnas.
 ## 1.
 rna_200 <- rna[200, ]
 ## 2.
-## Guardando `n_rows` para mejorar la legibilidad y reducir la duplicación
-n_rows < - nrow(rna)
+## Saving `n_rows` to improve readability and reduce duplication
+n_rows <- nrow(rna)
 rna_last <- rna[n_rows, ]
 ## 3.
 rna_middle <- rna[n_rows / 2, ]
-## 4
+## 4.
 rna_head <- rna[-(7:n_rows), ]
 ```
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Factores
 
@@ -320,7 +320,7 @@ conocidos como _niveles_. De forma predeterminada, R siempre ordena los niveles 
 . Por ejemplo, si tienes un factor con 2 niveles:
 
 ```{r, purl=TRUE}
-sexo <- factor(c("masculino", "femenino", "femenino", "masculino", "femenino"))
+sex <- factor(c("male", "female", "female", "male", "female"))
 ```
 
 R will assign `1` to the level `"female"` and `2` to the level
@@ -329,8 +329,8 @@ in this vector is `"male"`). Puedes ver esto usando la función
 `levels()` y puedes encontrar el número de niveles usando `nlevels()`:
 
 ```{r, purl=TRUE}
-niveles(sexo)
-nniveles(sexo)
+levels(sex)
+nlevels(sex)
 ```
 
 A veces, el orden de los factores no importa, otras veces
@@ -421,13 +421,13 @@ sexo
 trama(sexo)
 ```
 
-:::::::::::::::::::::::::::::::::::::: desafío
+::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
 - Cambie el nombre de "F" y "M" a "Mujer" y "Masculino" respectivamente.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -436,11 +436,11 @@ niveles(sexo)
 niveles(sexo) <- c("Hombre", "Mujer")
 ```
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -456,7 +456,7 @@ animal_data <- data.frame(
        weight = c(45, 8 1.1, 0.8))
 ```
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -464,11 +464,11 @@ animal_data <- data.frame(
 - falta una entrada en la columna "sensación" (probablemente para uno de los animales peludos)
 - falta una coma en la columna de peso
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -494,7 +494,7 @@ country_climate <- data.frame(
 )
 ```
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -509,9 +509,9 @@ country_climate <- data.frame(
 str(clima_país)
 ```
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 La conversión automática de tipos de datos es a veces una bendición, a veces una
 molestia. Tenga en cuenta que existe, aprenda las reglas y verifique que los datos
@@ -537,13 +537,13 @@ columnas[^ncol]. Los valores se ordenan a lo largo de las columnas, como se ilus
 a continuación.
 
 ```{r mat1, purl=TRUE}
-m <- matriz(1:9, ncol = 3, nrow = 3)
+m <- matrix(1:9, ncol = 3, nrow = 3)
 m
 ```
 
 [^ncol]: O el número de filas o columnas es suficiente, ya que el otro se puede deducir de la longitud de los valores. Pruebe qué sucede si los valores y el número de filas/columnas no cuadran.
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -551,7 +551,7 @@ Usando la función `installed.packages()`, cree una matriz de `caracteres`
 que contenga la información sobre todos los paquetes actualmente instalados en
 su computadora. Explorarlo.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución:
 
@@ -568,23 +568,23 @@ rownames(ip)
 nombres de columna (ip)
 ```
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 A menudo resulta útil crear grandes matrices de datos aleatorios como datos de prueba
 . El siguiente ejercicio le pide que cree dicha matriz con datos aleatorios
 extraídos de una distribución normal de media 0 y desviación estándar
 1, lo cual se puede hacer con la función `rnorm()`.
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
 Construya una matriz de dimensión 1000 por 3 de datos distribuidos normalmente
 (media 0, desviación estándar 1)
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -595,9 +595,9 @@ dim(m)
 cabeza(m)
 ```
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Formato de fechas
 
@@ -702,7 +702,7 @@ Asegurémonos de que todo funcionó correctamente. Una forma de inspeccionar la
 nueva columna es usar `summary()`:
 
 ```{r, purl=TRUE}
-resumen(x$date)
+summary(x$date)
 ```
 
 Tenga en cuenta que `ymd()` espera tener el año, mes y día, en ese orden
@@ -710,7 +710,7 @@ Tenga en cuenta que `ymd()` espera tener el año, mes y día, en ese orden
 `dmy()`.
 
 ```{r, purl=TRUE}
-dmy(pegar(x$day, x$month, x$year, sep = "-"))
+dmy(paste(x$day, x$month, x$year, sep = "-"))
 ```
 
 `lubdridate` tiene muchas funciones para abordar todas las variaciones de fechas.
@@ -737,12 +737,12 @@ A continuación, creemos una lista que contiene un vector de números, caractere
 una matriz, un marco de datos y otra lista:
 
 ```{r list0, purl=TRUE}
-l <- lista (1:10, ## numérico
-          letras, ## carácter
-          paquetes.instalados(), ## una matriz
-          autos, ## un marco.de.datos
-          lista(1, 2, 3)) ## una lista
-longitud(l)
+l <- list(1:10, ## numeric
+          letters, ## character
+          installed.packages(), ## a matrix
+          cars, ## a data.frame
+          list(1, 2, 3)) ## a list
+length(l)
 str(l)
 ```
 
@@ -751,9 +751,9 @@ para extraer un solo elemento de esa lista (usando índices o nombres, si
 la lista es nombrado).
 
 ```{r, purl=TRUE}
-l[[1]] ## primer elemento
-l[1:2] ## una lista de longitud 2
-l[1] ## una lista de longitud 1
+l[[1]] ## first element
+l[1:2] ## a list of length 2
+l[1]   ## a list of length 1
 ```
 
 ## Exportar y guardar datos tabulares {#sec:exportandsave}
@@ -767,7 +767,7 @@ y el archivo al que se exportará. Por ejemplo, para exportar los datos
 , ejecutaríamos:
 
 ```{r, eval=FALSE, purl=TRUE}
-write.csv(rna, archivo = "data_output/my_rna.csv")
+write.csv(rna, file = "data_output/my_rna.csv")
 ```
 
 This new csv file can now be shared with other collaborators who
@@ -777,8 +777,8 @@ by default surround each field with quotes, and thus we will be able to
 read it back into R correctly, despite also using commas as column
 separators.
 
-:::::::::::::::::::::::::::::::::::::::: puntos clave
+:::::::::::::::::::::::::::::::::::::::: keypoints
 
 - Datos tabulares en R
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
