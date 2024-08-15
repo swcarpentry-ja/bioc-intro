@@ -20,13 +20,13 @@ exercises: 60
 - Subconjunto y extracción de valores de vectores.
 - Analizar vectores con datos faltantes.
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
 - Primeros comandos en R
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 > Este episodio se basa en la lección _Análisis de datos y
 > Visualización en R para ecologistas_ de Data Carpentries.
@@ -45,7 +45,7 @@ _objetos_. Para crear un objeto, debemos darle un nombre seguido del operador de
 `<-` y el valor que queremos darle:
 
 ```{r, purl=TRUE}
-peso_kg <- 55
+weight_kg <- 55
 ```
 
 `<-` es el operador de asignación. Asigna valores a la derecha a
@@ -104,23 +104,23 @@ puede forzar a R a imprimir el valor usando paréntesis o escribiendo el nombre 
 :
 
 ```{r, purl=TRUE}
-peso_kg <- 55 # no imprime nada
-(peso_kg <- 55) # pero al poner paréntesis alrededor de la llamada imprime el valor de `weight_kg`
-peso_kg # y también lo hace al escribir el nombre del objeto
+weight_kg <- 55    # doesn't print anything
+(weight_kg <- 55)  # but putting parenthesis around the call prints the value of `weight_kg`
+weight_kg          # and so does typing the name of the object
 ```
 
 Ahora que R tiene `weight_kg` en la memoria, podemos hacer aritmética con él. Por ejemplo
 , es posible que deseemos convertir este peso en libras (el peso en libras es 2,2 veces el peso en kg):
 
 ```{r, purl=TRUE}
-2.2 * peso_kg
+2.2 * weight_kg
 ```
 
 También podemos cambiar el valor de un objeto asignándole uno nuevo:
 
 ```{r, purl=TRUE}
-peso_kg <- 57,5
-2,2 * peso_kg
+weight_kg <- 57,5
+2,2 * weight_kg
 ```
 
 Esto significa que asignar un valor a un objeto no cambia los valores de
@@ -128,13 +128,13 @@ otros objetos. Por ejemplo, almacenemos el peso del animal en libras en un nuevo
 , `weight_lb`:
 
 ```{r, purl=TRUE}
-peso_lb <- 2,2 * peso_kg
+weight_lb <- 2,2 * weight_kg
 ```
 
 y luego cambie `weight_kg` a 100.
 
 ```{r}
-peso_kg <- 100
+weight_kg <- 100
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
