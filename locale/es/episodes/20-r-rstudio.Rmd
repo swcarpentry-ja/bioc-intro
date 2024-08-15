@@ -528,8 +528,8 @@ puedes usar la función `dput()`. Generará código R que se puede usar
 para recrear exactamente el mismo objeto que el que está en la memoria:
 
 ```{r, results="show", purl=TRUE}
-## iris es un marco de datos de ejemplo que viene con R y head() es una
-## función que devuelve la primera parte del marco de datos
+## iris is an example data frame that comes with R and head() is a
+## function that returns the first part of the data frame
 dput(head(iris))
 ```
 
@@ -626,7 +626,7 @@ primero debemos cargarlo para poder usarlo. . Esto se hace con la función
 `library()`. A continuación, cargamos `ggplot2`.
 
 ```{r loadp, eval=FALSE, purl=TRUE}
-biblioteca("ggplot2")
+library("ggplot2")
 ```
 
 ### Instalación de paquetes
@@ -637,7 +637,7 @@ instalar con la función `install.packages()`. Debajo, por ejemplo,
 instalamos el paquete `dplyr` del que aprenderemos más adelante.
 
 ```{r craninstall, eval=FALSE, purl=TRUE}
-instalar.paquetes("dplyr")
+install.packages("dplyr")
 ```
 
 Este comando instalará el paquete `dplyr` así como todas sus
@@ -647,7 +647,7 @@ Bioconductor mantiene otro importante repositorio de paquetes R. Los [paquetes d
 , concretamente `BiocManager`, que se puede instalar desde CRAN con
 
 ```{r, eval=FALSE, purl=TRUE}
-instalar.paquetes("BiocManager")
+install.packages("BiocManager")
 ```
 
 Paquetes individuales como `SummarizedExperiment` (lo usaremos
@@ -655,7 +655,7 @@ más adelante), `DESeq2` (para análisis RNA-Seq) y cualquier otro de Bioconduct
 con ` BiocManager::instalar`.
 
 ```{r, eval=FALSE, purl=TRUE}
-BiocManager::install("Experimento resumido")
+BiocManager::install("SummarizedExperiment")
 BiocManager::install("DESeq2")
 ```
 
