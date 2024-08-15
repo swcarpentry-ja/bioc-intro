@@ -27,7 +27,7 @@ exercises: 45
 ## Próximos pasos
 
 ```{r, echo=FALSE, message=FALSE}
-biblioteca("tidyverse")
+library("tidyverse")
 ```
 
 Los datos en bioinformática suelen ser complejos.  Para solucionar esto, los desarrolladores de
@@ -133,11 +133,11 @@ write.csv(sample_metadata, file = "data/sample_metadata.csv", row.names = FALSE)
 
 ```{r}
 count_matrix <- read.csv("data/count_matrix.csv",
-                         fila.nombres = 1) %>%
+                         row.names = 1) %>%
     as.matrix()
 
 count_matrix[1:5, ]
-tenue(count_matrix)
+dim(count_matrix)
 ```
 
 - **Una tabla que describe las muestras**, disponible
@@ -172,8 +172,8 @@ Para hacer esto podemos juntar las diferentes partes usando el constructor
 `SummarizedExperiment`:
 
 ```{r, message=FALSE, warning=FALSE}
-## BiocManager::install("Experimento resumido")
-biblioteca("Experimento resumido")
+## BiocManager::install("SummarizedExperiment")
+library("SummarizedExperiment")
 ```
 
 Primero, nos aseguramos de que las muestras estén en el mismo orden en la matriz de conteo
@@ -359,7 +359,7 @@ objetos `SummarizedExperiment`? La respuesta es sí, podemos hacerlo con el paqu
 Recuerde cómo se ve nuestro objeto SummarizedExperiment:
 
 ```{r, message=FALSE}
-sí
+se
 ```
 
 Cargue `tidySummarizedExperiment` y luego eche un vistazo al objeto se
@@ -367,7 +367,7 @@ nuevamente.
 
 ```{r, message=FALSE}
 #BiocManager::install("tidySummarizedExperiment")
-biblioteca("tidySummarizedExperiment")
+library("tidySummarizedExperiment")
 
 se
 ```
@@ -382,14 +382,14 @@ Si queremos volver a la vista estándar `Experimento resumido`,
 podemos hacerlo.
 
 ```{r}
-opciones ("restore_SummarizedExperiment_show" = VERDADERO)
+options("restore_SummarizedExperiment_show" = TRUE)
 se
 ```
 
 Pero aquí usamos la vista tibble.
 
 ```{r}
-opciones("restore_SummarizedExperiment_show" = FALSO)
+options("restore_SummarizedExperiment_show" = FALSE)
 se
 ```
 
@@ -400,19 +400,19 @@ Podemos usar `filter` para filtrar filas usando una condición, por ejemplo, par
 todas las filas de una muestra.
 
 ```{r}
-se %>% filtro(.sample == "GSM2545336")
+se %>% filter(.sample == "GSM2545336")
 ```
 
 Podemos usar `select` para especificar las columnas que queremos ver.
 
 ```{r}
-se %>% seleccionar(.muestra)
+se %>% select(.sample)
 ```
 
 Podemos usar `mutate` para agregar información de metadatos.
 
 ```{r}
-se %>% mutate(centro = "Universidad de Heidelberg")
+se %>% mutate(center = "Heidelberg University")
 ```
 
 También podemos combinar comandos con la canalización tidyverse `%>%`. Por ejemplo,
@@ -422,7 +422,7 @@ para cada muestra.
 ```{r}
 se %>%
     group_by(.sample) %>%
-    resumen(total_counts=sum(counts))
+    summarise(total_counts=sum(counts))
 ```
 
 Podemos tratar el objeto ordenado SummarizedExperiment como un tibble normal
