@@ -17,9 +17,9 @@ exercises: 75
   cómo remodelar un marco de datos de un formato a otro.
 - Demuestre cómo unir tablas.
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::: preguntas
+:::::::::::::::::::::::::::::::::::::::: questions
 
 - Análisis de datos en R utilizando el metapaquete tidyverse
 
@@ -252,7 +252,7 @@ rna3 <- rna %>%
 rna3
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
@@ -299,7 +299,7 @@ rna %>%
   seleccionar(tiempo, tiempo_horas, tiempo_mn)
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -402,7 +402,7 @@ rna %>%
             expresión_mediana = mediana (expresión))
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -487,7 +487,7 @@ rna %>%
   organizar(desc(n))
 ```
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío
 
@@ -715,7 +715,7 @@ wide_with_NA %>%
 Pasar a formatos más amplios y largos puede ser una forma útil de equilibrar un conjunto de datos
 para que cada réplica tenga la misma composición.
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Pregunta
 
@@ -741,7 +741,7 @@ pivot_longer(names_to = "mouse_id", valores_to = "cuentas", -gene)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Pregunta
 
@@ -798,7 +798,7 @@ rna_1 %>%
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Pregunta
 
@@ -870,7 +870,7 @@ rna %>%
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Pregunta
 
@@ -989,7 +989,7 @@ full_join(rna_mini, annot2, by = c("gene" = "external_gene_name"))
 Como se puede ver arriba, el nombre de la variable de la primera tabla se conserva
 en la unida.
 
-::::::::::::::::::::::::::::::::::::::: desafío
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Desafío:
 
