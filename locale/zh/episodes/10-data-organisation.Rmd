@@ -739,11 +739,11 @@ most likely incorrectly display the data in columns. 这是因为
 例如，我们的数据可能如下所示：
 
 ```
-species_id、属、种类、分类群
-AB、Amphispiza、bilineata、鸟类
-AH、Ammospermophilus、harrisi、啮齿动物、未普查
-AS、Ammodramus、savannarum、鸟类
-BA、Baiomys、taylori、啮齿动物
+species_id,genus,species,taxa
+AB,Amphispiza,bilineata,Bird
+AH,Ammospermophilus,harrisi,Rodent, not censused
+AS,Ammodramus,savannarum,Bird
+BA,Baiomys,taylori,Rodent
 ```
 
 在记录“AH,Ammospermophilus,harrisi,Rodent, not censused”中，“taxa”的
@@ -752,7 +752,7 @@ BA、Baiomys、taylori、啮齿动物
 得到如下内容：
 
 ```{r, results="markup", fig.cap="The risks of having commas inside comma-separated data.", echo=FALSE, purl=FALSE, out.width="80%", fig.align="center"}
-knitr::include_graphics(“fig/csv-mistake.png”)
+knitr::include_graphics("fig/csv-mistake.png")
 ```
 
 “taxa” 的值被分成两列（而不是被放在“D”列中的
@@ -768,11 +768,11 @@ knitr::include_graphics(“fig/csv-mistake.png”)
 数据可能如下所示：
 
 ```
-species_id、属、种类、分类群
-“AB”、“Amphispiza”、“bilineata”、“鸟类”
-“AH”、“Ammospermophilus”、“harrisi”、“啮齿类，未经普查”
-“AS”、“Ammodramus”、“savannarum”、“鸟类”
-“BA”、“Baiomys”、“taylori”、“啮齿类”
+species_id,genus,species,taxa
+"AB","Amphispiza","bilineata","Bird"
+"AH","Ammospermophilus","harrisi","Rodent, not censused"
+"AS","Ammodramus","savannarum","Bird"
+"BA","Baiomys","taylori","Rodent"
 ```
 
 现在在 Excel 中将此文件作为 `csv` 打开不会导致出现多余的
@@ -829,4 +829,4 @@ knitr::include_graphics("fig/analysis.png")
 
 - 良好的数据组织是任何研究项目的基础。
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
