@@ -6,9 +6,9 @@ exercises: 60
 ---
 
 ```{r loaddata_vis, echo=FALSE, purl=FALSE, message=FALSE}
-如果（！file.exists（“data/rnaseq.csv”））
-下载.file（url = “https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv”，
-              目标文件 = “data/rnaseq.csv”）
+if (!file.exists("data/rnaseq.csv"))
+download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv",
+              destfile = "data/rnaseq.csv")
 ```
 
 ::::::::::::::::::::::::::::::::::::::: objectives
@@ -94,14 +94,14 @@ ggplot 图形是通过添加新元素一步步构建的。 以这种方式添加
 用于不同类型的绘图：
 
 ```
-ggplot(数据 = <DATA>, 映射 = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
+ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
 ```
 
 - 使用 `ggplot()` 函数并使用 `data` 参数将图绑定到特定的 **data
   框架**
 
 ```{r, eval=FALSE}
-ggplot（数据 = rna）
+ggplot(data = rna)
 ```
 
 - 定义一个**映射**（使用美学（`aes`）函数），通过
@@ -110,7 +110,7 @@ ggplot（数据 = rna）
   大小、形状、颜色等。
 
 ```{r, eval=FALSE}
-ggplot（数据 = rna，映射 = aes（x = 表达式））
+ggplot(data = rna, mapping = aes(x = expression))
 ```
 
 - 添加'**geoms**' - 几何图形，或图中
@@ -128,7 +128,7 @@ ggplot（数据 = rna，映射 = aes（x = 表达式））
 `geom_histogram()`：
 
 ```{r first-ggplot, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna，映射 = aes(x = 表达式)) +
+ggplot(data = rna, mapping = aes(x = expression)) +
   geom_histogram()
 ```
 
@@ -609,9 +609,9 @@ ggplot(data = mean_exp_by_time,
 使用它为每个基因绘制一条跨时间的线图：
 
 ```{r first-facet, purl=TRUE}
-ggplot(数据 = mean_exp_by_time,
-       映射 = aes(x = 时间, y = mean_exp)) + geom_line() +
-  facet_wrap(~ 基因)
+ggplot(data = mean_exp_by_time,
+       mapping = aes(x = time, y = mean_exp)) + geom_line() +
+  facet_wrap(~ gene)
 ```
 
 这里，所有子图的 x 轴和 y 轴具有相同的比例。 您
@@ -619,10 +619,10 @@ ggplot(数据 = mean_exp_by_time,
 y 轴自由缩放：
 
 ```{r first-facet-scales, purl=TRUE}
-ggplot(数据 = mean_exp_by_time，
-       映射 = aes(x = 时间，y = mean_exp)) +
+ggplot(data = mean_exp_by_time,
+       mapping = aes(x = time, y = mean_exp)) +
   geom_line() +
-  facet_wrap(~基因，scales = "free_y")
+  facet_wrap(~ gene, scales = "free_y")
 ```
 
 现在我们想根据小鼠的性别来分割每个图中的线。
@@ -641,10 +641,10 @@ mean_exp_by_time_sex
 `color`（在单个图内）按性别进一步划分来制作分面图：
 
 ```{r facet-by-gene-and-sex, cache=FALSE, purl=TRUE}
-ggplot(数据 = mean_exp_by_time_sex,
-       映射 = aes(x = 时间, y = mean_exp, 颜色 = 性别)) +
+ggplot(data = mean_exp_by_time_sex,
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
-  facet_wrap(~ 基因, scales = "free_y")
+  facet_wrap(~ gene, scales = "free_y")
 ```
 
 通常，带有白色背景的图表在打印时看起来更易读。 我们
@@ -652,12 +652,12 @@ ggplot(数据 = mean_exp_by_time_sex,
 此外，我们可以删除网格：
 
 ```{r facet-by-gene-and-sex-white-bg, cache=FALSE, purl=TRUE}
-ggplot(数据 = mean_exp_by_time_sex，
-       映射 = aes(x = 时间，y = mean_exp，颜色 = 性别)) +
+ggplot(data = mean_exp_by_time_sex,
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
-  facet_wrap(~ 基因，scales = "free_y") +
+  facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
-  主题(panel.grid = element_blank())
+  theme(panel.grid = element_blank())
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -674,13 +674,13 @@ ggplot(数据 = mean_exp_by_time_sex，
 
 ```{r mean-exp-chromosome-time-series, purl=TRUE}
 mean_exp_by_chromosome <- rna %>%
-  group_by(chromosome_name， time) %>%
-  总结(mean_exp = mean(expression_log))
+  group_by(chromosome_name, time) %>%
+  summarize(mean_exp = mean(expression_log))
 
-ggplot(数据 = mean_exp_by_chromosome， 映射 = aes(x = 时间，
+ggplot(data = mean_exp_by_chromosome, mapping = aes(x = time,
                                 y = mean_exp)) +
   geom_line() +
-  facet_wrap(~ chromosome_name， scales = "free_y")
+  facet_wrap(~ chromosome_name, scales = "free_y")
 ```
 
 :::::::::::::::::::::::::
@@ -831,12 +831,12 @@ ggplot(rna, aes(x = expression_log)) +
 例如，基于此图：
 
 ```{r, purl=TRUE}
-ggplot(数据 = mean_exp_by_time_sex，
-       映射 = aes(x = 时间，y = mean_exp，颜色 = 性别)) +
+ggplot(data = mean_exp_by_time_sex,
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
-  facet_wrap(~ 基因，scales = "free_y") +
+  facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
-  主题(panel.grid = element_blank())
+  theme(panel.grid = element_blank())
 ```
 
 我们可以通过以下方式定制它：
@@ -920,8 +920,8 @@ count_gene_chromosome
 exp_boxplot_sex <- ggplot(rna, aes(y=expression_log, x = as.factor(time),
                  color=sex)) +
    geom_boxplot(alpha = 0) +
-  labs(y = "平均基因 exp",
-       x = "时间") + theme(legend.position = "无")
+  labs(y = "Mean gene exp",
+       x = "time") + theme(legend.position = "none")
 
 exp_boxplot_sex
 ```
@@ -937,9 +937,9 @@ exp_boxplot_sex
 ```
 
 ```{r patchworkplot1, purl=TRUE}
-库(“patchwork”)
+library("patchwork")
 count_gene_chromosome + exp_boxplot_sex
-## 或 count_gene_chromosome | exp_boxplot_sex
+## or count_gene_chromosome | exp_boxplot_sex
 ```
 
 ```{r patchwork2, purl=TRUE}
@@ -980,8 +980,8 @@ count_gene_chromosome /
 ```
 
 ```{r gridarrange-example, message=FALSE, fig.width=10, purl=TRUE}
-库（“gridExtra”）
-grid.arrange（count_gene_chromosome，exp_boxplot_sex，ncol = 2）
+library("gridExtra")
+grid.arrange(count_gene_chromosome, exp_boxplot_sex, ncol = 2)
 ```
 
 除了用于进行简单
@@ -1005,13 +1005,13 @@ grid.arrange（count_gene_chromosome，exp_boxplot_sex，ncol = 2）
 my_plot <- ggplot(data = mean_exp_by_time_sex,
        mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
-  facet_wrap(~gene, scales = "free_y") +
-  labs(title = "按感染持续时间划分的平均基因表达",
-         x = "感染持续时间（天）",
-         y = "平均基因表达") +
-  guides(color=guide_legend(title="性别")) +
+  facet_wrap(~ gene, scales = "free_y") +
+  labs(title = "Mean gene expression by duration of the infection",
+         x = "Duration of the infection (in days)",
+         y = "Mean gene expression") +
+  guides(color=guide_legend(title="Gender")) +
   theme_bw() +
-  theme(axis.text.x = element_text(colour = "royalblue4",size = 12),
+  theme(axis.text.x = element_text(colour = "royalblue4", size = 12),
         axis.text.y = element_text(colour = "royalblue4", size = 12),
         text = element_text(size = 16),
         panel.grid = element_line(colour="lightsteelblue1"),
@@ -1019,11 +1019,11 @@ my_plot <- ggplot(data = mean_exp_by_time_sex,
 ggsave("fig_output/mean_exp_by_time_sex.png", my_plot, width = 15,
        height = 10)
 
-# 这也适用于 grid.arrange() 图
+# This also works for grid.arrange() plots
 combo_plot <- grid.arrange(count_gene_chromosome, exp_boxplot_sex,
-                           ncol = 2, widths = c(4, 6））
-ggsave（“fig_output/combo_plot_chromosome_sex.png”，combo_plot，
-       width = 10，dpi = 300）
+                           ncol = 2, widths = c(4, 6))
+ggsave("fig_output/combo_plot_chromosome_sex.png", combo_plot,
+       width = 10, dpi = 300)
 ```
 
 注意：参数“width”和“height”也决定了保存的图中的字体大小
@@ -1056,12 +1056,12 @@ graphics_ ，简单而快速。 它基于_画家或画布
 
 ```{r paintermodel, fig.width=12, fig.height=4, fig.cap="Successive layers added on top of each other."}
 par(mfrow = c(1, 3))
-plot(1:20, main = "第一层，用 plot(1:20) 制作")
+plot(1:20, main = "First layer, produced with plot(1:20)")
 
-plot(1:20, main = "一条水平红线，用 abline(h = 10) 添加")
+plot(1:20, main = "A horizontal red line, added with abline(h = 10)")
 abline(h = 10, col = "red")
 
-plot(1:20, main = "一个矩形，用 rect(5, 5, 15, 15) 添加")
+plot(1:20, main = "A rectangle, added with rect(5, 5, 15, 15)")
 abline(h = 10, col = "red")
 rect(5, 5, 15, 15, lwd = 3)
 ```
@@ -1075,9 +1075,9 @@ rect(5, 5, 15, 15, lwd = 3)
 ```{r plotmethod, fig.width=8, fig.height=8, fig.cap="Plotting boxplots (top) and histograms (bottom) vectors (left) or a matrices (right)."}
 par(mfrow = c(2, 2))
 boxplot(rnorm(100),
-        main = "rnorm(100) 的箱线图")
+        main = "Boxplot of rnorm(100)")
 boxplot(matrix(rnorm(100), ncol = 10),
-        main = "matrix(rnorm(100), ncol = 10) 的箱线图")
+        main = "Boxplot of matrix(rnorm(100), ncol = 10)")
 hist(rnorm(100))
 hist(matrix(rnorm(100), ncol = 10))
 ```
@@ -1098,8 +1098,8 @@ convoluted interface.
 
 `lattice` 包的一个很好的参考是@latticebook。
 
-：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：： 关键点
+:::::::::::::::::::::::::::::::::::::::: keypoints
 
 - R 中的可视化
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
