@@ -481,21 +481,21 @@ ggplot(data = rna,
 ## 解决方案
 
 ```{r boxplot-color-time, cache=FALSE, purl=TRUE}
-# 时间作为整数
+# time as integer
 ggplot(data = rna,
-         map = aes(y = expression_log,
+         mapping = aes(y = expression_log,
                        x = sample)) +
   geom_jitter(alpha = 0.2, aes(color = time)) +
   geom_boxplot(alpha = 0) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 0.5, vjust = 0.5))
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
 
-# 时间作为因子
+# time as factor
 ggplot(data = rna,
-         map = aes(y = expression_log,
+         mapping = aes(y = expression_log,
                        x = sample)) +
-  geom_jitter(alpha = 0.2, aes(颜色 = as.因子(时间))) +
+  geom_jitter(alpha = 0.2, aes(color = as.factor(time))) +
   geom_boxplot(alpha = 0) +
-  主题(轴.文本.x = element_text(角度 = 90, hjust = 0.5, vjust = 0.5))
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
 ```
 
 :::::::::::::::::::::::::
@@ -519,10 +519,10 @@ not see it in a boxplot. 箱线图的替代方法是小提琴
 ## 解决方案
 
 ```{r, eval=TRUE, echo=TRUE, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna，
-         映射 = aes(y = expression_log，x = 样本)) +
-  geom_violin(aes(填充 = as.factor(时间))) +
-  主题(轴.文本.x = element_text(角度 = 90，hjust = 0.5，vjust = 0.5))
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
+  geom_violin(aes(fill = as.factor(time))) +
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
 ```
 
 :::::::::::::::::::::::::
@@ -540,10 +540,10 @@ ggplot(数据 = rna，
 ## 解决方案
 
 ```{r, eval=TRUE, echo=TRUE, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna，
-         映射 = aes(y = expression_log，x = 样本)) +
-  geom_violin(aes(填充 = 性别)) +
-  主题(axis.text.x = element_text(角度 = 90，hjust = 0.5，vjust = 0.5))
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
+  geom_violin(aes(fill = sex)) +
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
 ```
 
 :::::::::::::::::::::::::
@@ -577,7 +577,7 @@ mean_exp_by_time
 ，y 轴为平均表达量：
 
 ```{r first-time-series, purl=TRUE}
-ggplot(数据 = mean_exp_by_time，映射 = aes(x = 时间，y = mean_exp)) +
+ggplot(data = mean_exp_by_time, mapping = aes(x = time, y = mean_exp)) +
   geom_line()
 ```
 
@@ -586,8 +586,8 @@ ggplot(数据 = mean_exp_by_time，映射 = aes(x = 时间，y = mean_exp)) +
 修改美学函数以包含 `group = gene`：
 
 ```{r time-series-by-gene, purl=TRUE}
-ggplot(数据 = mean_exp_by_time,
-       映射 = aes(x = 时间, y = mean_exp, 组 = 基因)) +
+ggplot(data = mean_exp_by_time,
+       mapping = aes(x = time, y = mean_exp, group = gene)) +
   geom_line()
 ```
 
@@ -595,8 +595,8 @@ ggplot(数据 = mean_exp_by_time,
 `color` 也会自动对数据进行分组）：
 
 ```{r time-series-with-colors, purl=TRUE}
-ggplot(数据 = mean_exp_by_time,
-       映射 = aes(x = 时间, y = mean_exp, 颜色 = 基因)) +
+ggplot(data = mean_exp_by_time,
+       mapping = aes(x = time, y = mean_exp, color = gene)) +
   geom_line()
 ```
 
