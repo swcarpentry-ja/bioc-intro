@@ -45,7 +45,7 @@ _对象_分配\*值。 要创建一个对象，我们需要给它一个名字，
 赋值运算符`<-`，以及我们想要赋予它的值：
 
 ```{r, purl=TRUE}
-体重_kg <- 55
+weight_kg <- 55
 ```
 
 `<-` 是赋值运算符。 它将右侧的值分配给左侧的
@@ -105,16 +105,16 @@ first. 您可以安装
 对象名称来强制 R 打印该值：
 
 ```{r, purl=TRUE}
-weight_kg <- 55 # 不打印任何内容
-(weight_kg <- 55) # 但是在调用周围加上括号会打印 `weight_kg` 的值
-weight_kg # 输入对象的名称也会打印任何内容
+weight_kg <- 55    # doesn't print anything
+(weight_kg <- 55)  # but putting parenthesis around the call prints the value of `weight_kg`
+weight_kg          # and so does typing the name of the object
 ```
 
 现在 R 内存中有了“weight_kg”，我们可以用它进行算术运算。 例如，对于
 来说，我们可能希望将这个重量转换为磅（磅重量是公斤重量的 2.2 倍）：
 
 ```{r, purl=TRUE}
-2.2 * 体重_公斤
+2.2 * weight_kg
 ```
 
 我们还可以通过分配新值来更改对象的值：
