@@ -28,7 +28,7 @@ exercises: 60
 :::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r vis_setup, echo=FALSE}
-rna <- read.csv(“数据/rnaseq.csv”)
+rna <- read.csv("data/rnaseq.csv")
 ```
 
 > 本集基于 Data Carpentries 的_面向生态学家的 R 语言数据分析和
@@ -40,14 +40,14 @@ rna <- read.csv(“数据/rnaseq.csv”)
 **`tidyverse`** 包中。
 
 ```{r load-package, message=FALSE, purl=TRUE}
-图书馆（“tidyverse”）
+library("tidyverse")
 ```
 
 如果还不在工作区中，请加载我们在上一节
 课中保存的数据。
 
 ```{r load-data, eval=FALSE, purl=TRUE}
-rna <- read.csv(“数据/rnaseq.csv”)
+rna <- read.csv("data/rnaseq.csv")
 ```
 
 数据可视化秘籍
@@ -138,11 +138,11 @@ ggplot(数据 = rna，映射 = aes(x = 表达式)) +
 绘图，因此上述绘图也可以使用如下代码生成：
 
 ```{r, eval=FALSE, purl=TRUE}
-# 将图分配给变量
+# Assign plot to a variable
 rna_plot <- ggplot(data = rna,
-                   map = aes(x = expression))
+                   mapping = aes(x = expression))
 
-# 绘制图
+# Draw the plot
 rna_plot + geom_histogram()
 ```
 
@@ -218,7 +218,7 @@ ggplot(rna，aes(x = expression_log)) + geom_histogram()
 ## 解决方案
 
 ```{r, eval=TRUE, purl=TRUE, echo=TRUE}
-ggplot(数据 = rna，映射 = aes(x = 表达式))+
+ggplot(data = rna,mapping = aes(x = expression))+
   geom_histogram() +
   scale_x_log10()
 ```
@@ -279,7 +279,7 @@ rna_fc <- rna %>% 选择（基因，时间，
 几何对象：
 
 ```{r create-ggplot-object, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0)) +
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
   geom_point()
 ```
 
@@ -287,15 +287,15 @@ ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0)) +
 例如，我们可以添加透明度（“alpha”）以避免过度绘图：
 
 ```{r adding-transparency, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0)) +
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
   geom_point(alpha = 0.3)
 ```
 
 我们还可以为所有点添加颜色：
 
 ```{r adding-colors, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0)) +
-  geom_point(alpha = 0.3，颜色 = “蓝色”)
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
+  geom_point(alpha = 0.3, color = "blue")
 ```
 
 或者为了给图中每个基因赋予不同的颜色，你可以使用一个向量作为
@@ -304,8 +304,8 @@ ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0)) +
 示例，我们用 `gene_biotype` 进行着色：
 
 ```{r color-by-gene_biotype1, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0)) +
-  geom_point(alpha = 0.3，aes(颜色 = gene_biotype))
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
+  geom_point(alpha = 0.3, aes(color = gene_biotype))
 
 ```
 
@@ -314,7 +314,7 @@ ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0)) +
 映射将由 `aes()` 中设置的 x 轴和 y 轴决定。
 
 ```{r color-by-gene_biotype2, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0，
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
                                 color = gene_biotype)) +
   geom_point(alpha = 0.3)
 ```
@@ -323,20 +323,20 @@ ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0，
 函数添加对角线：
 
 ```{r adding-diag, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0，
-                                颜色 = gene_biotype)) +
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
+                                color = gene_biotype)) +
   geom_point(alpha = 0.3) +
-  geom_abline(截距 = 0)
+  geom_abline(intercept = 0)
 ```
 
 请注意，我们可以将 geom 层从 `geom_point` 更改为
 `geom_jitter`，颜色仍由 `gene_biotype` 决定。
 
 ```{r color-by-gene_biotype3, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0，
-                                颜色 = gene_biotype)) +
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
+                                color = gene_biotype)) +
   geom_jitter(alpha = 0.3) +
-  geom_abline(截距 = 0)
+  geom_abline(intercept = 0)
 ```
 
 ```{r, echo=FALSE, message=FALSE}
@@ -373,11 +373,11 @@ ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0，
 ```
 
 ```{r, purl=TRUE}
-库(“hexbin”)
+library("hexbin")
 
-ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0)) +
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
   geom_hex() +
-  geom_abline(截距 = 0)
+  geom_abline(intercept = 0)
 
 ```
 
@@ -398,8 +398,8 @@ ggplot(数据 = rna_fc，映射 = aes(x = time_4_vs_0，y = time_8_vs_0)) +
 ## 解决方案
 
 ```{r, eval=TRUE, purl=TRUE}
-ggplot(数据 = rna，映射 = aes(y = expression_log，x = 样本)) +
-    geom_point(aes(颜色 = 时间))
+ggplot(data = rna, mapping = aes(y = expression_log, x = sample)) +
+    geom_point(aes(color = time))
 ```
 
 :::::::::::::::::::::::::
@@ -412,8 +412,8 @@ ggplot(数据 = rna，映射 = aes(y = expression_log，x = 样本)) +
 ：
 
 ```{r boxplot, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna,
-         映射 = aes(y = expression_log, x = 样本)) +
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
   geom_boxplot()
 ```
 
@@ -421,9 +421,9 @@ ggplot(数据 = rna,
 测量的数量及其分布：
 
 ```{r boxplot-with-points, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna，
-         映射 = aes(y = expression_log，x = 样本)) +
-  geom_jitter(alpha = 0.2，颜色 = “番茄”) +
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
+  geom_jitter(alpha = 0.2, color = "tomato") +
   geom_boxplot(alpha = 0)
 ```
 
@@ -441,10 +441,10 @@ you need to change in the code to put the boxplot below the points?
 我们应该交换这两个几何对象的顺序：
 
 ```{r boxplot-with-points2, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna，
-         映射 = aes(y = expression_log，x = 样本)) +
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
   geom_boxplot(alpha = 0) +
-  geom_jitter(alpha = 0.2，颜色 = “番茄”)
+  geom_jitter(alpha = 0.2, color = "tomato")
 ```
 
 :::::::::::::::::::::::::
@@ -458,11 +458,11 @@ ggplot(数据 = rna，
 对角线标签的角度：
 
 ```{r boxplot-xaxis-rotated, cache=FALSE, purl=TRUE}
-ggplot(数据 = rna，
-         映射 = aes(y = expression_log，x = 样本)) +
-  geom_jitter(alpha = 0.2，颜色 = “tomato”) +
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
+  geom_jitter(alpha = 0.2, color = "tomato") +
   geom_boxplot(alpha = 0) +
-  主题(axis.text.x = element_text(angle = 90，hjust = 0.5，vjust = 0.5))
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
