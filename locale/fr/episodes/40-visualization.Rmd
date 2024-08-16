@@ -138,12 +138,12 @@ facilement configurer des modèles de tracé et explorer facilement différents 
 tracés, de sorte que le tracé ci-dessus peut également être généré avec un code comme celui-ci :
 
 ```{r, eval=FALSE, purl=TRUE}
-# Attribuer un tracé à une variable
+# Assign plot to a variable
 rna_plot <- ggplot(data = rna,
                    mapping = aes(x = expression))
 
-# Dessiner le tracé
-rna_plot + geom_histogramme()
+# Draw the plot
+rna_plot + geom_histogram()
 ```
 
 ::::::::::::::::::::::::::::::::::::::: défi
