@@ -95,7 +95,7 @@ R 具有用于图像分析、GIS、时间序列、人口
     例如生物信息学数据分析。
 
 ```{r, fig.cap="Exponential increase of the number of packages available on [CRAN](https://cran.r-project.org/), the Comprehensive R Archive Network. From the R Journal, Volume 10/2, December 2018.", echo=FALSE, message=FALSE}
-针织::包括_图形(“图/cran.png”)
+knitr::include_graphics("fig/cran.png")
 ```
 
 ### R 可处理各种形状和大小的数据
@@ -243,7 +243,7 @@ knitr::include_graphics(“fig/utf8.png”)
 目录的骨干。
 
 ```{r, results="markup", fig.cap="Example of a working directory structure.", echo=FALSE, purl=FALSE, out.width="100%", fig.align="center"}
-knitr::include_graphics(“图/工作目录结构.png”)
+knitr::include_graphics("fig/working-directory-structure.png")
 ```
 
 对于本课程，我们将需要一个 `data/` 文件夹来存储我们的原始数据
@@ -269,7 +269,7 @@ CSV 文件时，我们将使用 `data_output/`，以及 `fig_output/` 文件夹�
 您的工作目录现在应如下所示：
 
 ```{r, results="markup", fig.cap="How it should look like at the beginning of this lesson", echo=FALSE, purl=FALSE, out.width="100%", fig.align="center"}
-knitr::include_graphics(“fig/r-starting-how-it-should-look-like.png”)
+knitr::include_graphics("fig/r-starting-how-it-should-look-like.png")
 ```
 
 **项目管理**也适用于生物信息学项目，
@@ -424,7 +424,7 @@ address your actual research questions. 对于初学者来说，从头开始编�
     的丰富内容的表面。
 
 ```{r kitten, results="markup", echo=FALSE, purl=FALSE, out.width="400px", fig.align="center"}
-knitr::include_graphics(“fig/kitten-try-things.jpg”)
+knitr::include_graphics("fig/kitten-try-things.jpg")
 ```
 
 ## 寻求帮助
@@ -432,7 +432,7 @@ knitr::include_graphics(“fig/kitten-try-things.jpg”)
 ### 使用内置的 RStudio 帮助界面搜索有关 R 函数的更多信息
 
 ```{r rstudiohelp, fig.cap="RStudio help interface.", results="markup", echo=FALSE, purl=FALSE, out.width="70%", fig.align="center"}
-knitr::include_graphics(“fig/rstudiohelp.png”)
+knitr::include_graphics("fig/rstudiohelp.png")
 ```
 
 获得帮助的最快方法之一是使用 RStudio 帮助
@@ -448,13 +448,13 @@ knitr::include_graphics(“fig/rstudiohelp.png”)
 可以输入：
 
 ```{r, eval=FALSE, purl=TRUE}
-?条形图
+?barplot
 ```
 
 如果您只需要提醒自己参数的名称，您可以使用：
 
 ```{r, eval=FALSE, purl=TRUE}
-参数（lm）
+args(lm)
 ```
 
 ### 我想使用一个执行 X 的函数，一定有一个函数可以执行该操作，但我不知道是哪一个......
@@ -465,7 +465,7 @@ However, this only looks through the installed packages for help pages with a
 match to your search request
 
 ```{r, eval=FALSE, purl=TRUE}
-??克鲁斯卡尔
+??kruskal
 ```
 
 如果您找不到所需内容，您可以使用
@@ -528,8 +528,8 @@ Wickham 的这篇文章。
 重新创建与内存中完全相同的对象：
 
 ```{r, results="show", purl=TRUE}
-## iris 是 R 附带的一个示例数据框，head() 是一个
-## 函数，返回数据框的第一部分
+## iris is an example data frame that comes with R and head() is a
+## function that returns the first part of the data frame
 dput(head(iris))
 ```
 
@@ -540,7 +540,7 @@ dput(head(iris))
 to a data frame, you can save any R object to a file[^export]:
 
 ```{r, eval=FALSE, purl=FALSE}
-保存RDS（iris，文件=“/tmp/iris.rds”）
+saveRDS(iris, file="/tmp/iris.rds")
 ```
 
 但是，该文件的内容不是人类可读的，并且无法
@@ -550,7 +550,7 @@ to a data frame, you can save any R object to a file[^export]:
 用户主目录中的 `Downloads` 文件夹中）：
 
 ```{r, eval=FALSE, purl=FALSE}
-some_data <- readRDS（file="~/Downloads/iris.rds"）
+some_data <- readRDS(file="~/Downloads/iris.rds")
 ```
 
 最后，但同样重要的一点是，**始终包含 `sessionInfo()`**
@@ -559,7 +559,7 @@ some_data <- readRDS（file="~/Downloads/iris.rds"）
 理解您的问题非常有帮助的信息。
 
 ```{r, results="show", purl=TRUE}
-会话信息（）
+sessionInfo()
 ```
 
 ### 去哪里寻求帮助？
@@ -625,7 +625,7 @@ some_data <- readRDS（file="~/Downloads/iris.rds"）
 `library()` 函数完成的。 下面，我们加载“ggplot2”。
 
 ```{r loadp, eval=FALSE, purl=TRUE}
-库（“ggplot2”）
+library("ggplot2")
 ```
 
 ### 安装软件包
@@ -636,7 +636,7 @@ installed with the `install.packages()` function. 下面，例如，
 我们安装稍后将了解的 `dplyr` 包。
 
 ```{r craninstall, eval=FALSE, purl=TRUE}
-安装.包（“dplyr”）
+install.packages("dplyr")
 ```
 
 此命令将安装“dplyr”包及其所有
@@ -646,7 +646,7 @@ installed with the `install.packages()` function. 下面，例如，
 即 `BiocManager` 进行管理和安装，可以使用以下命令从 CRAN 安装：
 
 ```{r, eval=FALSE, purl=TRUE}
-安装.软件包(“BiocManager”)
+install.packages("BiocManager")
 ```
 
 Individual packages such as `SummarizedExperiment` (we will use it
