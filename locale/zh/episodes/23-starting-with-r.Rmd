@@ -1,5 +1,5 @@
 ---
-source: 放射科
+source: Rmd
 title: R 简介
 teaching: 60
 exercises: 60
