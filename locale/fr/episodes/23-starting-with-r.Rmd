@@ -113,14 +113,14 @@ Maintenant que R a « weight_kg » en mémoire, nous pouvons faire de l'arithm
 exemple, nous pouvons vouloir convertir ce poids en livres (le poids en livres est 2,2 fois le poids en kg) :
 
 ```{r, purl=TRUE}
-2,2 * poids_kg
+2.2 * weight_kg
 ```
 
 On peut également changer la valeur d'un objet en lui attribuant une nouvelle :
 
 ```{r, purl=TRUE}
-poids_kg <- 57,5
-2,2 * poids_kg
+weight_kg <- 57.5
+2.2 * weight_kg
 ```
 
 Cela signifie que l'attribution d'une valeur à un objet ne modifie pas les valeurs de
@@ -128,7 +128,7 @@ autres objets. Par exemple, stockons le poids de l'animal en livres dans un nouv
 , `weight_lb` :
 
 ```{r, purl=TRUE}
-poids_lb <- 2,2 * poids_kg
+weight_lb <- 2.2 * weight_kg
 ```
 
 puis remplacez « weight_kg » par 100.
@@ -244,7 +244,7 @@ rond(3.14159, 2)
 Et si vous nommez les arguments, vous pouvez changer leur ordre :
 
 ```{r, results="show", purl=TRUE}
-rond(chiffres = 2, x = 3,14159)
+round(digits = 2, x = 3.14159)
 ```
 
 Il est recommandé de placer les arguments non facultatifs (comme le nombre que vous arrondissez
@@ -371,8 +371,8 @@ vérifier le type de données de vos objets et tapez leurs noms pour voir ce qui
 ```{r, eval=TRUE}
 num_char <- c(1, 2, 3, "a")
 num_logical <- c(1, 2, 3, TRUE, FALSE)
-char_logical <- c("a", " b", "c", VRAI)
-délicat <- c(1, 2, 3, "4")
+char_logical <- c("a", "b", "c", TRUE)
+tricky <- c(1, 2, 3, "4")
 ```
 
 ::::::::::::::: solution
@@ -422,7 +422,7 @@ dans l'exemple suivant :
 ```{r, eval=TRUE}
 num_logical <- c(1, 2, 3, TRUE)
 char_logical <- c("a", "b", "c", TRUE)
-combiné_logique <- c(num_logical, char_logical )
+combined_logical <- c(num_logical, char_logical)
 ```
 
 ::::::::::::::: solution
@@ -463,29 +463,29 @@ logique → numérique → caractère ← logique
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r, echo=FALSE, eval=FALSE, purl=TRUE}
-## Nous avons vu que les vecteurs atomiques peuvent être de type caractère, numérique, entier et
-## logique. Mais que se passe-t-il si nous essayons de mélanger ces types dans un seul vecteur
-## ?
+## We've seen that atomic vectors can be of type character, numeric, integer, and
+## logical. But what happens if we try to mix these types in a single
+## vector?
 
-## Que va-t-il se passer dans chacun de ces exemples ? (indice : utilisez `class()` pour
-## vérifier le type de données de votre objet)
+## What will happen in each of these examples? (hint: use `class()` to
+## check the data type of your object)
 num_char <- c(1, 2, 3, "a")
 
 num_logical <- c(1, 2, 3, TRUE)
 
 char_logical <- c("a", "b", "c", TRUE)
 
-délicat <- c(1, 2 , 3, "4")
+tricky <- c(1, 2, 3, "4")
 
-## Pourquoi pensez-vous que cela arrive ?
+## Why do you think it happens?
 
-## Vous avez probablement remarqué que des objets de types différents sont
-## convertis en un seul type partagé au sein d'un vecteur. Dans R, nous appelons
-## convertir des objets d'une classe en une autre classe
-## _coercion_. Ces conversions se produisent selon une hiérarchie,
-## selon laquelle certains types sont préférentiellement contraints vers d'autres types. Pouvez-vous
-## dessiner un diagramme qui représente la hiérarchie de la façon dont ces types de données
-## sont forcés ?
+## You've probably noticed that objects of different types get
+## converted into a single, shared type within a vector. In R, we call
+## converting objects from one class into another class
+## _coercion_. These conversions happen according to a hierarchy,
+## whereby some types get preferentially coerced into other types. Can
+## you draw a diagram that represents the hierarchy of how these data
+## types are coerced?
 ```
 
 ## Vecteurs de sous-ensemble
@@ -503,7 +503,7 @@ On peut également répéter les indices pour créer un objet avec plus d'élém
 que celui d'origine :
 
 ```{r, results="show", purl=TRUE}
-more_molecules <- molécules[c(1, 2, 3, 2, 1, 4)]
+more_molecules <- molecules[c(1, 2, 3, 2, 1, 4)]
 more_molecules
 ```
 
@@ -659,7 +659,7 @@ hauteurs[complete.cases(heights)]
 1. En utilisant ce vecteur de hauteurs en pouces, créez un nouveau vecteur en supprimant les NA.
 
 ```{r}
-hauteurs <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, NA, 72, 65, 64, 70, 63, 65)
+heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, NA, 72, 65, 64, 70, 63, 65)
 ```
 
 2. Utilisez la fonction `median()` pour calculer la médiane du vecteur `heights`.
@@ -758,7 +758,7 @@ de longueur 1) et de n'importe quel type. Par exemple, si nous voulons répéter
 1, 2 et 3, nous procéderions comme suit :
 
 ```{r, purl=TRUE}
-représentant(c(1, 2, 3), 5)
+rep(c(1, 2, 3), 5)
 ```
 
 ::::::::::::::::::::::::::::::::::::::: défi
@@ -774,7 +774,7 @@ possibilités - voir `?rep` ou `?sort` pour obtenir de l'aide.
 ## Solution
 
 ```{r, purl=TRUE}
-rep(c(1, 2, 3), chacun = 5)
+rep(c(1, 2, 3), each = 5)
 sort(rep(c(1, 2, 3), 5))
 ```
 
@@ -908,9 +908,9 @@ Les trois arguments, `n`, `mean` et `sd`, définissent la taille de l'échantill
 et son écart type. Les valeurs par défaut de ce dernier sont 0 et 1.
 
 ```{r, purl=TRUE}
-rnorme(5)
-rnorme(5, 2, 2)
-rnorme(5, 100, 5)
+rnorm(5)
+rnorm(5, 2, 2)
+rnorm(5, 100, 5)
 ```
 
 Maintenant que nous avons appris à écrire des scripts et les bases des structures de données
