@@ -788,14 +788,14 @@ ggplot(data = mean_exp_by_time_sex,
 以前に作成したヒストグラムを使った例です。
 
 ```{r mean_exp-time-with-right-labels-xfont, cache=FALSE, purl=TRUE}
-blue_theme <- theme(axis.text.x = element_text(color = "royalblue4",
+blue_theme <- theme(axis.text.x = element_text(colour = "royalblue4",
                                                size = 12),
-                    axis.text.y = element_text(color = "royalblue4",
+                    axis.text.y = element_text(colour = "royalblue4",
                                                size = 12),
                     text = element_text(size = 16),
-                    panel.grid = element_line(color="lightsteelblue1")
+                    panel.grid = element_line(colour="lightsteelblue1"))
 
-ggplot(rna, aes(x = expression_log))+
+ggplot(rna, aes(x = expression_log)) +
   geom_histogram(bins = 20) +
     blue_theme
 ```
