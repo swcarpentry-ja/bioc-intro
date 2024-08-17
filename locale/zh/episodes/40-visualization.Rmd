@@ -166,18 +166,18 @@ ggplot(rna，aes(x = 表达式)) +
 ## 解决方案
 
 ```{r, purl=TRUE}
-# 更改箱体
+# change bins
 ggplot(rna, aes(x = expression)) +
     geom_histogram(bins = 15)
 
-# 更改箱宽
+# change binwidth
 ggplot(rna, aes(x = expression)) +
     geom_histogram(binwidth = 2000)
 ```
 
 :::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 我们可以在这里观察到数据向右倾斜。 我们可以应用
 log2 变换来获得更加对称的分布。 请注意，我们
@@ -186,14 +186,14 @@ log2 变换来获得更加对称的分布。 请注意，我们
 
 ```{r log-transfo, cache=FALSE, purl=TRUE}
 rna <- rna %>%
-  突变（expression_log = log2（expression + 1））
+  mutate(expression_log = log2(expression + 1))
 ```
 
 如果我们现在绘制 log2 变换表达式的直方图，
 分布确实更接近正态分布。
 
 ```{r second-ggplot, cache=FALSE, purl=TRUE}
-ggplot(rna，aes(x = expression_log)) + geom_histogram()
+ggplot(rna, aes(x = expression_log)) + geom_histogram()
 ```
 
 从现在开始我们将研究对数转换的表达值。
@@ -225,7 +225,7 @@ ggplot(data = rna,mapping = aes(x = expression))+
 
 :::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 **笔记**
 
@@ -241,11 +241,11 @@ ggplot(data = rna,mapping = aes(x = expression))+
   消息。
 
 ```{r, eval=FALSE}
-# 这是添加层的正确语法
+# This is the correct syntax for adding layers
 rna_plot +
   geom_histogram()
 
-# 这不会添加新层并将返回错误消息
+# This will not add the new layer and will return an error message
 rna_plot
   + geom_histogram()
 ```
@@ -263,13 +263,13 @@ rna_plot
 倍数变化保存在名为“rna_fc”的新数据框中。
 
 ```{r rna_fc, cache=FALSE, purl=TRUE}
-rna_fc <- rna %>% 选择（基因，时间，
-                         基因生物型，表达日志）%>%
-  group_by（基因，时间，基因生物型）%>%
-  总结（平均值表达式 = 平均值（表达日志））%>%
-  pivot_wider（names_from = 时间，
-              values_from = 平均值表达式）%>%
-  突变（time_8_vs_0 = `8` - `0`，time_4_vs_0 = `4` - `0`）
+rna_fc <- rna %>% select(gene, time,
+                         gene_biotype, expression_log) %>%
+  group_by(gene, time, gene_biotype) %>%
+  summarize(mean_exp = mean(expression_log)) %>%
+  pivot_wider(names_from = time,
+              values_from = mean_exp) %>%
+  mutate(time_8_vs_0 = `8` - `0`, time_4_vs_0 = `4` - `0`)
 
 ```
 
@@ -340,7 +340,7 @@ ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
 ```
 
 ```{r, echo=FALSE, message=FALSE}
-库(“hexbin”)
+library("hexbin")
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -369,7 +369,7 @@ ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
 ## 解决方案
 
 ```{r, eval=FALSE, purl=TRUE}
-安装.包(“hexbin”)
+install.packages("hexbin")
 ```
 
 ```{r, purl=TRUE}
@@ -383,7 +383,7 @@ ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
 
 :::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -404,7 +404,7 @@ ggplot(data = rna, mapping = aes(y = expression_log, x = sample)) +
 
 :::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## 箱形图
 
@@ -449,7 +449,7 @@ ggplot(data = rna,
 
 :::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 您可能会注意到 x 轴上的值仍然无法正确读取
 。 让我们改变标签的方向并垂直和水平调整它们
@@ -500,7 +500,7 @@ ggplot(data = rna,
 
 :::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -527,7 +527,7 @@ ggplot(data = rna,
 
 :::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -548,7 +548,7 @@ ggplot(data = rna,
 
 :::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## 线图
 
@@ -559,16 +559,16 @@ ggplot(data = rna,
 并计算每个组内的平均基因表达：
 
 ```{r, purl=TRUE}
-rna_fc <- rna_fc %>% 排列(desc(time_8_vs_0))
+rna_fc <- rna_fc %>% arrange(desc(time_8_vs_0))
 
 genes_selected <- rna_fc$gene[1:10]
 
 sub_rna <- rna %>%
-    过滤(基因 %in% genes_selected)
+    filter(gene %in% genes_selected)
 
 mean_exp_by_time <- sub_rna %>%
-  group_by(基因,时间) %>%
-    总结(mean_exp = mean(expression_log))
+  group_by(gene,time) %>%
+    summarize(mean_exp = mean(expression_log))
 
 mean_exp_by_time
 ```
@@ -632,7 +632,7 @@ ggplot(data = mean_exp_by_time,
 ```{r data-facet-by-gene-and-sex, purl=TRUE}
 mean_exp_by_time_sex <- sub_rna %>%
   group_by(gene, time, sex) %>%
-    总结(mean_exp = mean(expression_log))
+    summarize(mean_exp = mean(expression_log))
 
 mean_exp_by_time_sex
 ```
@@ -685,7 +685,7 @@ ggplot(data = mean_exp_by_chromosome, mapping = aes(x = time,
 
 :::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 `facet_wrap` 几何将图提取到任意数量的
 维度中，以使它们能够整齐地放在一页上。 另一方面，
@@ -697,17 +697,17 @@ ggplot(data = mean_exp_by_chromosome, mapping = aes(x = time,
 随时间的变化：
 
 ```{r mean-exp-time-facet-sex-rows, purl=TRUE}
-# 一列，按行细分
+# One column, facet by rows
 ggplot(data = mean_exp_by_time_sex,
-       map = aes(x = time, y = mean_exp, color = gene)) +
+       mapping = aes(x = time, y = mean_exp, color = gene)) +
   geom_line() +
   facet_grid(sex ~ .)
 ```
 
 ```{r mean-exp-time-facet-sex-columns, purl=TRUE}
-# 一行，逐列
+# One row, facet by column
 ggplot(data = mean_exp_by_time_sex,
-       map = aes(x = time, y = mean_exp, color = gene)) +
+       mapping = aes(x = time, y = mean_exp, color = gene)) +
   geom_line() +
   facet_grid(. ~ sex)
 ```
@@ -742,12 +742,12 @@ ggplot(data = mean_exp_by_time_sex,
 ggplot(data = mean_exp_by_time_sex,
        mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
-  facet_wrap(~gene, scales = "free_y") +
+  facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
-  labs(title = "按感染持续时间划分的平均基因表达",
-       x = "感染持续时间（天）",
-       y = "平均基因表达")
+  labs(title = "Mean gene expression by duration of the infection",
+       x = "Duration of the infection (in days)",
+       y = "Mean gene expression")
 ```
 
 轴具有更多信息名称，但可以通过增加字体大小来提高其可读性：
@@ -756,12 +756,12 @@ ggplot(data = mean_exp_by_time_sex,
 ggplot(data = mean_exp_by_time_sex,
        mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
-  facet_wrap(~gene, scales = "free_y") +
+  facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
-  labs(title = "按感染持续时间划分的平均基因表达",
-       x = "感染持续时间（天）",
-       y = "平均基因表达") +
+  labs(title = "Mean gene expression by duration of the infection",
+       x = "Duration of the infection (in days)",
+       y = "Mean gene expression")  +
   theme(text = element_text(size = 16))
 ```
 
@@ -776,17 +776,17 @@ ggplot(data = mean_exp_by_time_sex,
 ggplot(data = mean_exp_by_time_sex,
        mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
-  facet_wrap(~gene, scales = "free_y") +
+  facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
-  labs(title = "按感染持续时间划分的平均基因表达",
-       x = "感染持续时间（天）",
-       y = "平均基因表达") +
+  labs(title = "Mean gene expression by duration of the infection",
+       x = "Duration of the infection (in days)",
+       y = "Mean gene expression")  +
   theme(text = element_text(size = 16),
-        axis.text.x = element_text(colour = “royalblue4”, size = 12),
-        axis.text.y = element_text(colour = “royalblue4”, size = 12),
+        axis.text.x = element_text(colour = "royalblue4", size = 12),
+        axis.text.y = element_text(colour = "royalblue4", size = 12),
         panel.grid = element_line(colour="lightsteelblue1"),
-        legend.position = “top”)
+        legend.position = "top")
 ```
 
 如果您比默认主题更喜欢您所做的更改，您可以
@@ -842,41 +842,41 @@ ggplot(data = mean_exp_by_time_sex,
 我们可以通过以下方式定制它：
 
 ```{r, purl=TRUE}
-# 更改线条的粗细
+# change the thickness of the lines
 ggplot(data = mean_exp_by_time_sex,
-       map = aes(x = time, y = mean_exp, color = sex)) +
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line(size=1.5) +
   facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# 更改图例和标签的名称
+# change the name of the legend and the labels
 ggplot(data = mean_exp_by_time_sex,
-       map = aes(x = time, y = mean_exp, color = sex)) +
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
   facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
   scale_color_discrete(name = "Gender", labels = c("F", "M"))
 
-# 使用不同的调色板
+# using a different color palette
 ggplot(data = mean_exp_by_time_sex,
-       map = aes(x = time, y = mean_exp, color = sex)) +
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
   facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
   scale_color_brewer(name = "Gender", labels = c("F", "M"), palette = "Dark2")
 
-# 手动指定颜色
+# manually specifying the colors
 ggplot(data = mean_exp_by_time_sex,
-       map = aes(x = time, y = mean_exp, color = sex)) +
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
   facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
-  scale_color_manual(name = "性别", 标签 = c("F", "M"),
-                     值 = c("royalblue", "deeppink"))
+  scale_color_manual(name = "Gender",  labels = c("F", "M"),
+                     values = c("royalblue", "deeppink"))
 
 ```
 
@@ -900,14 +900,14 @@ ggplot(data = mean_exp_by_time_sex,
 log10 比例，以提高可读性。
 
 ```{r sub1, purl=TRUE}
-rna$chromosome_name <- 因子 (rna$chromosome_name,
-                               水平 = c (1:19,"X","Y"))
+rna$chromosome_name <- factor(rna$chromosome_name,
+                               levels = c(1:19,"X","Y"))
 
-count_gene_chromosome <- rna %>% 选择 (chromosome_name, 基因) %>%
+count_gene_chromosome <- rna %>% select(chromosome_name, gene) %>%
   distinct() %>% ggplot() +
-  geom_bar(aes(x = chromosome_name), 填充 = "seagreen",
-           位置 = "dodge", stat = "count") +
-  实验室 (y = "log10(n 基因)", x = "染色体") +
+  geom_bar(aes(x = chromosome_name), fill = "seagreen",
+           position = "dodge", stat = "count") +
+  labs(y = "log10(n genes)", x = "chromosome") +
   scale_y_log10()
 
 count_gene_chromosome
@@ -933,7 +933,7 @@ exp_boxplot_sex
 。
 
 ```{r install-patchwork, message=FALSE, eval=FALSE, purl=TRUE}
-安装.packages(“patchwork”)
+install.packages("patchwork")
 ```
 
 ```{r patchworkplot1, purl=TRUE}
