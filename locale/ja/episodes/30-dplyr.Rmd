@@ -443,14 +443,14 @@ rna %>%
 
 ```{r, purl=TRUE}
 rna %>%
-    count(感染、時間)
+    count(infection, time)
 ```
 
 これと等価である：
 
 ```{r, purl=TRUE}
 rna %>%
-  group_by(感染、時間) %>%
+  group_by(infection, time) %>%
   summarise(n = n())
 ```
 
@@ -589,14 +589,14 @@ pivot_wider\`は主に3つの引数を取る：
 \`\`{r, fig.cap="`rna`データのワイドピボット。", echo=FALSE, message=FALSE}
 knitr::include_graphics("fig/pivot_wider.png")
 
-```
+````
 
-``{r, purl=TRUE}.
-rna_wide<- rna_exp %>%
+```{r, purl=TRUE}
+rna_wide <- rna_exp %>%
   pivot_wider(names_from = sample,
               values_from = expression)
 rna_wide
-```
+````
 
 デフォルトでは、`pivot_wider()` 関数は欠損値に対して `NA` を追加することに注意してください。
 
@@ -605,12 +605,12 @@ rna_wide
 。
 
 ```{r, purl=TRUE}
-rna_with_missing_values<- rna %>%
+rna_with_missing_values <- rna %>%
   select(gene, sample, expression) %>%
   filter(gene %in% c("Asl", "Apod", "Cyp2d22")) %>%
   filter(sample %in% c("GSM2545336", "GSM2545337", "GSM2545338")) %>%
   arrange(sample) %>%
-  filter(！(gene == "Cyp2d22" & sample != "GSM2545338"))
+  filter(!(gene == "Cyp2d22" & sample != "GSM2545338"))
 rna_with_missing_values
 ```
 
@@ -677,7 +677,7 @@ rna_long
 rna_wide %>%
     pivot_longer(names_to = "sample",
                  values_to = "expression",
-                 cols = starts_with("GSM")
+                 cols = starts_with("GSM"))
 rna_wide %>%
     pivot_longer(names_to = "sample",
                  values_to = "expression",
