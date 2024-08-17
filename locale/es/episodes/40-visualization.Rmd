@@ -540,10 +540,10 @@ ggplot(data = rna,
 ## Solución
 
 ```{r, eval=TRUE, echo=TRUE, cache=FALSE, purl=TRUE}
-ggplot(datos = rna,
-         mapeo = aes(y = expresión_log, x = muestra)) +
-  geom_violin(aes(relleno = sexo)) +
-  tema(eje.texto .x = elemento_texto(ángulo = 90, hjust = 0.5, vjust = 0.5))
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
+  geom_violin(aes(fill = sex)) +
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
 ```
 
 ::::::::::::::::::::::::::::
