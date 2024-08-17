@@ -26,9 +26,9 @@ exercises: 75
 :::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r loaddata_dplyr, echo=FALSE, purl=FALSE, message=FALSE}
-如果（！file.exists（“data/rnaseq.csv”））
-下载.file（url = “https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv”，
-              目标文件 = “data/rnaseq.csv”）
+if (!file.exists("data/rnaseq.csv"))
+download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv",
+              destfile = "data/rnaseq.csv")
 ```
 
 > 本集基于 Data Carpentries 的_面向生态学家的 R 语言数据分析和
@@ -73,7 +73,7 @@ R 会话中导入它。
 尝试从库中加载以检查您是否拥有它：
 
 ```{r, message=FALSE, purl=TRUE}
-## 加载 tidyverse 包，包括 dplyr
+## load the tidyverse packages, incl. dplyr
 library("tidyverse")
 ```
 
@@ -95,7 +95,7 @@ BiocManager::install(“tidyverse”)
 ```{r, message=FALSE, purl=TRUE}
 rna <- read_csv("data/rnaseq.csv")
 
-## 查看数据
+## view the data
 rna
 ```
 
@@ -128,14 +128,14 @@ Tibbles 调整了我们之前在
 参数是需要保留的列。
 
 ```{r, purl=TRUE}
-选择（rna、基因、样本、组织、表达）
+select(rna, gene, sample, tissue, expression)
 ```
 
 要选择除某些列之外的所有列，请在变量
 前面放置“-”以将其排除。
 
 ```{r, purl=TRUE}
-选择（rna，-组织，-生物体）
+select(rna, -tissue, -organism)
 ```
 
 这将选择“rna”中除“tissue”
@@ -144,8 +144,8 @@ Tibbles 调整了我们之前在
 要根据特定标准选择行，请使用“filter（）”：
 
 ```{r, purl=TRUE}
-过滤器（rna，性别 == “男性”）
-过滤器（rna，性别 == “男性” & 感染 == “未感染”）
+filter(rna, sex == "Male")
+filter(rna, sex == "Male" & infection == "NonInfected")
 ```
 
 现在让我们假设我们对该数据集中分析的小鼠
@@ -156,8 +156,8 @@ Tibbles 调整了我们之前在
 “hsapiens_homolog_associated_gene_name”。
 
 ```{r}
-基因 <- 选择（rna，基因，hsapiens_homolog_associated_gene_name）
-基因
+genes <- select(rna, gene, hsapiens_homolog_associated_gene_name)
+genes
 ```
 
 一些小鼠基因没有人类同源物。 可以使用
@@ -165,7 +165,7 @@ Tibbles 调整了我们之前在
 某物是否为 `NA`。
 
 ```{r, purl=TRUE}
-过滤器（基因，is.na（hsapiens_homolog_associated_gene_name））
+filter(genes, is.na(hsapiens_homolog_associated_gene_name))
 ```
 
 如果我们只想保留具有人类同源物的小鼠基因，我们可以在
@@ -174,7 +174,7 @@ Tibbles 调整了我们之前在
 。
 
 ```{r, purl=TRUE}
-过滤器（基因，！is.na（hsapiens_homolog_associated_gene_name））
+filter(genes, !is.na(hsapiens_homolog_associated_gene_name))
 ```
 
 ## 管道
@@ -187,7 +187,7 @@ Tibbles 调整了我们之前在
 
 ```{r, purl=TRUE}
 rna2 <- filter(rna, sex == "Male")
-rna3 <- select(rna2, 基因, 样本, 组织, 表达)
+rna3 <- select(rna2, gene, sample, tissue, expression)
 rna3
 ```
 
@@ -339,7 +339,7 @@ _split-apply-combine_ 范式来完成：将数据分成组，对每组应用一�
 
 ```{r}
 rna %>%
-  group_by(基因)
+  group_by(gene)
 ```
 
 `group_by()` 函数不执行任何数据处理，它
@@ -371,8 +371,8 @@ collapses each group into a single-row summary of that group.
 
 ```{r}
 rna %>%
-  group_by(基因) %>%
-  总结(平均表达 = 平均(表达))
+  group_by(gene) %>%
+  summarise(mean_expression = mean(expression))
 ```
 
 我们还可能想计算每个样本中所有基因的平均表达水平：
@@ -387,8 +387,8 @@ rna %>%
 
 ```{r}
 rna %>%
-  group_by(基因、感染、时间) %>%
-  总结(平均表达 = 平均(表达))
+  group_by(gene, infection, time) %>%
+  summarise(mean_expression = mean(expression))
 ```
 
 一旦数据被分组，您还可以在同一
@@ -397,9 +397,9 @@ rna %>%
 
 ```{r, purl=TRUE}
 rna %>%
-  group_by(基因, 感染, 时间) %>%
-  总结(平均表达 = 平均(表达),
-            中位数表达 = 中位数(表达))
+  group_by(gene, infection, time) %>%
+  summarise(mean_expression = mean(expression),
+            median_expression = median(expression))
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -554,9 +554,9 @@ rna %>%
 
 ```{r, echo=FALSE}
 rna %>%
-  选择（基因，样本，表达）%>%
-  pivot_wider（names_from = 样本，
-              values_from = 表达）
+  select(gene, sample, expression) %>%
+  pivot_wider(names_from = sample,
+              values_from = expression)
 ```
 
 为了将基因表达值从“rna”转换为宽格式
@@ -583,7 +583,7 @@ rna %>%
 
 ```{r, purl=TRUE}
 rna_exp <- rna %>%
-  选择（基因，样本，表达）
+  select(gene, sample, expression)
 rna_exp
 ```
 
@@ -615,11 +615,11 @@ rna_wide
 
 ```{r, purl=TRUE}
 rna_with_missing_values <- rna %>%
-  选择（基因，样本，表达）%>%
-  过滤器（基因 %in% c（“Asl”，“Apod”，“Cyp2d22”））%>%
-  过滤器（样本 %in% c（“GSM2545336”，“GSM2545337”，“GSM2545338”））%>%
-  安排（样本）%>%
-  过滤器（！（基因 == “Cyp2d22” & 样本 != “GSM2545338”））
+  select(gene, sample, expression) %>%
+  filter(gene %in% c("Asl", "Apod", "Cyp2d22")) %>%
+  filter(sample %in% c("GSM2545336", "GSM2545337", "GSM2545338")) %>%
+  arrange(sample) %>%
+  filter(!(gene == "Cyp2d22" & sample != "GSM2545338"))
 rna_with_missing_values
 ```
 
@@ -729,17 +729,17 @@ wide_with_NA %>%
 
 ```{r, answer=TRUE, purl=TRUE}
 rna1 <- rna %>%
-选择（基因，小鼠，表达）%>%
-pivot_wider（names_from = 小鼠，values_from = 表达）
+select(gene, mouse, expression) %>%
+pivot_wider(names_from = mouse, values_from = expression)
 rna1
 
 rna1 %>%
-pivot_longer（names_to = "mouse_id", values_to = "counts", -gene）
+pivot_longer(names_to = "mouse_id", values_to = "counts", -gene)
 ```
 
 :::::::::::::::::::::::::
 
-:::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -751,7 +751,7 @@ pivot_longer（names_to = "mouse_id", values_to = "counts", -gene）
 为值，将数据框扩展到以下表：
 
 ```{r, echo=FALSE, message=FALSE}
-knitr::include_graphics(“fig/Exercise_pivot_W.png”)
+knitr::include_graphics("fig/Exercise_pivot_W.png")
 ```
 
 重塑之前需要先总结一下！
@@ -765,20 +765,20 @@ knitr::include_graphics(“fig/Exercise_pivot_W.png”)
 
 ```{r}
  rna %>%
-  过滤器（chromosome_name == “Y” | chromosome_name == “X”）%>%
-  group_by（性别，chromosome_name）%>%
-  总结（平均值 = 平均值（表达式））
+  filter(chromosome_name == "Y" | chromosome_name == "X") %>%
+  group_by(sex, chromosome_name) %>%
+  summarise(mean = mean(expression))
 ```
 
 并将表格旋转至宽格式
 
 ```{r, answer=TRUE, purl=TRUE}
 rna_1 <- rna %>%
-  过滤器（chromosome_name == "Y" | chromosome_name == "X") %>%
-  分组（性别，chromosome_name） %>%
-  总结（平均值 = 平均值（表达式）） %>%
-  枢轴_宽（names_from = 性别，
-              values_from = 平均值）
+  filter(chromosome_name == "Y" | chromosome_name == "X") %>%
+  group_by(sex, chromosome_name) %>%
+  summarise(mean = mean(expression)) %>%
+  pivot_wider(names_from = sex,
+              values_from = mean)
 
 rna_1
 ```
@@ -788,8 +788,8 @@ rna_1
 
 ```{r, answer=TRUE, purl=TRUE}
 rna_1 %>%
-  pivot_longer(names_to = "性别",
-               values_to = "平均值",
+  pivot_longer(names_to = "gender",
+               values_to = "mean",
                -chromosome_name)
 
 ```
@@ -814,18 +814,18 @@ rna_1 %>%
 
 ```{r}
 rna %>%
-  group_by(基因，时间) %>%
-  总结(mean_exp = mean(表达式))
+  group_by(gene, time) %>%
+  summarise(mean_exp = mean(expression))
 ```
 
 在使用pivot_wider()函数之前
 
 ```{r}
 rna_time <- rna %>%
-  group_by(基因，时间) %>%
-  总结(平均值表达式 = 平均值(表达式)) %>%
-  pivot_wider(names_from = 时间，
-              values_from = 平均值表达式)
+  group_by(gene, time) %>%
+  summarise(mean_exp = mean(expression)) %>%
+  pivot_wider(names_from = time,
+              values_from = mean_exp)
 rna_time
 ```
 
@@ -886,24 +886,24 @@ rna %>%
 从 rna\_time tibble 开始：
 
 ```{r}
-RNA时间
+rna_time
 ```
 
 计算倍数变化：
 
 ```{r}
 rna_time %>%
-  突变（time_8_vs_0 = `8` / `0`，time_8_vs_4 = `8` / `4`）
+  mutate(time_8_vs_0 = `8` / `0`, time_8_vs_4 = `8` / `4`)
 ```
 
 并使用pivot\_longer()函数：
 
 ```{r}
 rna_time %>%
-  突变（time_8_vs_0 = `8` / `0`，time_8_vs_4 = `8` / `4`）%>%
-  pivot_longer（names_to = "comparisons",
+  mutate(time_8_vs_0 = `8` / `0`, time_8_vs_4 = `8` / `4`) %>%
+  pivot_longer(names_to = "comparisons",
                values_to = "Fold_changes",
-               time_8_vs_0:time_8_vs_4）
+               time_8_vs_0:time_8_vs_4)
 ```
 
 :::::::::::::::::::::::::
@@ -935,8 +935,8 @@ collected from different sources.
 
 ```{r}
 rna_mini <- rna %>%
-   选择（基因，样本，表达） %>%
-   头部（10）
+   select(gene, sample, expression) %>%
+   head(10)
 rna_mini
 ```
 
@@ -947,9 +947,9 @@ gene\_description。 您可以通过单击链接然后将其移动到“data/”
 您可以使用下面的 R 代码将其直接下载到文件夹。
 
 ```{r, message=FALSE}
-下载文件（url = “https://carpentries-incubator.github.io/bioc-intro/data/annot1.csv”，
-              destfile = “data/annot1.csv”）
-annot1 <- read_csv（file = “data/annot1.csv”）
+download.file(url = "https://carpentries-incubator.github.io/bioc-intro/data/annot1.csv",
+              destfile = "data/annot1.csv")
+annot1 <- read_csv(file = "data/annot1.csv")
 annot1
 ```
 
@@ -961,7 +961,7 @@ annot1
 观察结果。
 
 ```{r}
-全连接（rna_mini，annot1）
+full_join(rna_mini, annot1)
 ```
 
 在现实生活中，基因注释有时会被标记不同。
@@ -972,9 +972,9 @@ annot1
 并将其移动到 `data/`，要么使用下面的 R 代码。
 
 ```{r, message=FALSE}
-下载文件（url = “https://carpentries-incubator.github.io/bioc-intro/data/annot2.csv”，
-              目标文件 = “data/annot2.csv”）
-annot2 <- read_csv（file = “data/annot2.csv”）
+download.file(url = "https://carpentries-incubator.github.io/bioc-intro/data/annot2.csv",
+              destfile = "data/annot2.csv")
+annot2 <- read_csv(file = "data/annot2.csv")
 annot2
 ```
 
@@ -983,7 +983,7 @@ annot2
 `by` 参数设置这些变量，如下面 `rna_mini` 和 `annot2` 表所示。
 
 ```{r}
-full_join（rna_mini，annot2，by = c（“基因”=“external_gene_name”））
+full_join(rna_mini, annot2, by = c("gene" = "external_gene_name"))
 ```
 
 从上可以看出，第一个表的变量名在连接后的表中保留为
@@ -1040,7 +1040,7 @@ _mt-Rnr2_ 和 _mt-Tl1_ 仅存在于 `annot3` 表中。 表中
 write_csv（rna_wide，文件 = “data_output/rna_wide.csv”）
 ```
 
-：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：： 关键点
+:::::::::::::::::::::::::::::::::::::::: keypoints
 
 - 使用 tidyverse 元包在 R 中生成表格数据
 
