@@ -432,7 +432,7 @@ rna %>%
 
 ```{r, purl=TRUE}
 rna %>%
-    计数（感染）
+    count(infection)
 ```
 
 `count()` 函数是我们已经见过的功能的简写：按变量分组，并通过计算该组中的观察次数进行汇总。 换句话说，`rna %>% count(infection)` 等同于：
@@ -450,15 +450,15 @@ rna %>%
 
 ```{r, purl=TRUE}
 rna %>%
-    计数（感染，时间）
+    count(infection, time)
 ```
 
 这相当于：
 
 ```{r, purl=TRUE}
 rna %>%
-  group_by(感染，时间) %>%
-  总结(n = n())
+  group_by(infection, time) %>%
+  summarise(n = n())
 ```
 
 有时对结果进行排序以方便比较是很有用的。
@@ -467,24 +467,24 @@ rna %>%
 
 ```{r, purl=TRUE}
 rna %>%
-  计数（感染，时间）%>%
-  安排（时间）
+  count(infection, time) %>%
+  arrange(time)
 ```
 
 或按计数：
 
 ```{r, purl=TRUE}
 rna %>%
-  计数（感染，时间）%>%
-  安排（n）
+  count(infection, time) %>%
+  arrange(n)
 ```
 
 为了按降序排序，我们需要添加 `desc()` 函数：
 
 ```{r, purl=TRUE}
 rna %>%
-  count(感染，时间) %>%
-  排列(desc(n))
+  count(infection, time) %>%
+  arrange(desc(n))
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -537,7 +537,7 @@ the sample (organism, age, sex, ...) 或基因（gene_biotype、ENTREZ_ID、prod
 
 ```{r}
 rna %>%
-  排列（基因）
+  arrange(gene)
 ```
 
 这种结构称为“长格式”，因为一列包含所有值，
