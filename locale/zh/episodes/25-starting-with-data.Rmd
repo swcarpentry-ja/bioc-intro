@@ -80,7 +80,7 @@ download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/mai
 您现在可以加载数据了：
 
 ```{r, eval=TRUE, purl=TRUE}
-rna <- read.csv(“数据/rnaseq.csv”)
+rna <- read.csv("data/rnaseq.csv")
 ```
 
 此语句不会产生任何输出，因为您可能
@@ -89,7 +89,7 @@ rna <- read.csv(“数据/rnaseq.csv”)
 输入其名称来查看数据框的内容：
 
 ```{r, eval=FALSE}
-核糖核酸
+rna
 ```
 
 哇... 那是大量的输出。 至少这意味着数据已正确加载
@@ -98,7 +98,7 @@ rna <- read.csv(“数据/rnaseq.csv”)
 
 ```{r, purl=TRUE}
 head(rna)
-## 也尝试
+## Try also
 ## View(rna)
 ```
 
@@ -119,9 +119,9 @@ head(rna)
 以分隔参数 `,` 来加载。 代码如下：
 
 ```{r, eval=TRUE, purl=TRUE}
-rna <- read.table（file = “data/rnaseq.csv”，
-                  sep = “，”，
-                  header = TRUE）
+rna <- read.table(file = "data/rnaseq.csv",
+                  sep = ",",
+                  header = TRUE)
 ```
 
 必须将 header 参数设置为 TRUE 才能读取
@@ -150,7 +150,7 @@ words, when importing spreadsheets from your hard drive (or the web).
 的 <b>str</b>结构时，我们可以看到这一点：
 
 ```{r}
-str(RNA)
+str(rna)
 ```
 
 ## 检查 `data.frame` 对象
@@ -218,19 +218,19 @@ str(RNA)
 坐标的不同方式会导致不同类别的结果。
 
 ```{r, eval=FALSE, purl=TRUE}
-# 数据框第一列的第一个元素（作为向量）
+# first element in the first column of the data frame (as a vector)
 rna[1, 1]
-# 第六列的第一个元素（作为向量）
+# first element in the 6th column (as a vector)
 rna[1, 6]
-# 数据框的第一列（作为向量）
+# first column of the data frame (as a vector)
 rna[, 1]
-# 数据框的第一列（作为数据框）
+# first column of the data frame (as a data.frame)
 rna[1]
-# 第七列的前三个元素（作为向量）
+# first three elements in the 7th column (as a vector)
 rna[1:3, 7]
-# 数据框的第 3 行（作为数据框）
+# the 3rd row of the data frame (as a data.frame)
 rna[3, ]
-# 等同于 head_rna <- head(rna)
+# equivalent to head_rna <- head(rna)
 head_rna <- rna[1:6, ]
 head_rna
 ```
@@ -242,18 +242,18 @@ head_rna
 您还可以使用“-”符号排除数据框的某些索引：
 
 ```{r, eval=FALSE, purl=TRUE}
-rna[, -1] ## 整个数据框，除了第一列
-rna[-c(7:66465), ] ## 等同于 head(rna)
+rna[, -1]          ## The whole data frame, except the first column
+rna[-c(7:66465), ] ## Equivalent to head(rna)
 ```
 
 数据框可以通过调用索引（如前所示）
 进行子集化，也可以通过直接调用其列名进行子集化：
 
 ```{r, eval=FALSE, purl=TRUE}
-rna["gene"] # 结果是一个数据框
-rna[, "gene"] # 结果是一个向量
-rna[["gene"]] # 结果是一个向量
-rna$gene          # 结果是一个向量
+rna["gene"]       # Result is a data.frame
+rna[, "gene"]     # Result is a vector
+rna[["gene"]]     # Result is a vector
+rna$gene          # Result is a vector
 ```
 
 In RStudio, you can use the autocompletion feature to get the full and
@@ -294,7 +294,7 @@ correct names of the columns.
 ## 1.
 rna_200 <- rna[200, ]
 ## 2.
-## 保存 `n_rows` 以提高可读性并减少重复
+## Saving `n_rows` to improve readability and reduce duplication
 n_rows <- nrow(rna)
 rna_last <- rna[n_rows, ]
 ## 3.
@@ -320,7 +320,7 @@ careful when treating them as strings.
 对级别进行排序。 例如，如果你有一个具有 2 个级别的因子：
 
 ```{r, purl=TRUE}
-性别 <- 因子（c（“男性”，“女性”，“女性”，“男性”，“女性”））
+sex <- factor(c("male", "female", "female", "male", "female"))
 ```
 
 R 将为级别“女性”分配“1”，为级别
@@ -329,8 +329,8 @@ R 将为级别“女性”分配“1”，为级别
 `levels()` 来看到这一点，并且可以使用 `nlevels()` 来找到级别的数量：
 
 ```{r, purl=TRUE}
-水平（性别）
-n水平（性别）
+levels(sex)
+nlevels(sex)
 ```
 
 有时，因素的顺序并不重要，有时你
@@ -340,9 +340,9 @@ n水平（性别）
 的一种方法是：
 
 ```{r, purl=TRUE}
-sex ## 当前顺序
+sex ## current order
 sex <- factor(sex, levels = c("male", "female"))
-sex ## 重新排序后
+sex ## after re-ordering
 ```
 
 在 R 的内存中，这些因素由整数 (1, 2, 3) 表示，
@@ -359,7 +359,7 @@ sex ## 重新排序后
 和女性的数量。
 
 ```{r firstfactorplot, fig.cap="Bar plot of the number of females and males.", purl=TRUE}
-情节（性别）
+plot(sex)
 ```
 
 ### 转换为字符
@@ -368,7 +368,7 @@ sex ## 重新排序后
 `as.character(x)`。
 
 ```{r, purl=TRUE}
-作为角色（性别）
+as.character(sex)
 ```
 
 <!-- ### Numeric factors -->
@@ -415,13 +415,13 @@ sex ## 重新排序后
 级别即可：
 
 ```{r, purl=TRUE}
-水平（性别）
-水平（性别）<- c("M", "F")
-性别
-情节（性别）
+levels(sex)
+levels(sex) <- c("M", "F")
+sex
+plot(sex)
 ```
 
-：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：： 挑战
+::::::::::::::::::::::::::::::::::::::  challenge
 
 ## 挑战：
 
@@ -432,8 +432,8 @@ sex ## 重新排序后
 ## 解决方案
 
 ```{r, eval=TRUE, purl=TRUE}
-水平（性别）
-水平（性别）<-c（“男”，“女”）
+levels(sex)
+levels(sex) <- c("Male", "Female")
 ```
 
 :::::::::::::::::::::::::
@@ -451,8 +451,8 @@ sex ## 重新排序后
 
 ```{r, eval=FALSE}
 animal_data <- data.frame(
-       animal = c(狗, 猫, 海参, 海胆),
-       feel = c("毛茸茸的", "柔软的", "多刺的"),
+       animal = c(dog, cat, sea cucumber, sea urchin),
+       feel = c("furry", "squishy", "spiny"),
        weight = c(45, 8 1.1, 0.8))
 ```
 
@@ -486,12 +486,12 @@ animal_data <- data.frame(
 
 ```{r, eval=FALSE, purl=TRUE}
 country_climate <- data.frame(
-       country = c("加拿大", "巴拿马", "南非", "澳大利亚"),
-       Climate = c("冷", "热", "温和", "热/温和"),
-       Temperature = c(10, 30, 18, "15"),
+       country = c("Canada", "Panama", "South Africa", "Australia"),
+       climate = c("cold", "hot", "temperate", "hot/temperate"),
+       temperature = c(10, 30, 18, "15"),
        northern_hemisphere = c(TRUE, TRUE, FALSE, "FALSE"),
        has_kangaroo = c(FALSE, FALSE, FALSE, 1)
-)
+       )
 ```
 
 :::::::::::::::  solution
@@ -500,9 +500,9 @@ country_climate <- data.frame(
 
 ```{r, eval=TRUE, purl=TRUE}
 country_climate <- data.frame(
-       country = c("加拿大", "巴拿马", "南非", "澳大利亚"),
-       Climate = c("冷", "热", "温和", "热/温和"),
-       Temperature = c(10, 30, 18, "15"),
+       country = c("Canada", "Panama", "South Africa", "Australia"),
+       climate = c("cold", "hot", "temperate", "hot/temperate"),
+       temperature = c(10, 30, 18, "15"),
        northern_hemisphere = c(TRUE, TRUE, FALSE, "FALSE"),
        has_kangaroo = c(FALSE, FALSE, FALSE, 1)
        )
@@ -537,7 +537,7 @@ annoyance. 请注意它的存在，学习规则，并仔细检查您在 R 中导
 。
 
 ```{r mat1, purl=TRUE}
-m <- 矩阵（1：9，ncol = 3，nrow = 3）
+m <- matrix(1:9, ncol = 3, nrow = 3)
 m
 ```
 
@@ -556,15 +556,15 @@ m
 ## 解决方案：
 
 ```{r pkg_sln, eval=FALSE, purl=TRUE}
-## 创建矩阵
-ip <- mounted.packages()
+## create the matrix
+ip <- installed.packages()
 head(ip)
-## 也尝试 View(ip)
-## 包的数量
+## try also View(ip)
+## number of package
 nrow(ip)
-## 所有已安装包的名称
+## names of all installed packages
 rownames(ip)
-## 关于每个包我们拥有的信息类型
+## type of information we have about each package
 colnames(ip)
 ```
 
@@ -589,10 +589,10 @@ colnames(ip)
 ## 解决方案
 
 ```{r rnormmat_sln, purl=TRUE}
-设置.种子（123）
-m <- 矩阵（rnorm（3000），ncol = 3）
-dim（m）
-head（m）
+set.seed(123)
+m <- matrix(rnorm(3000), ncol = 3)
+dim(m)
+head(m)
 ```
 
 :::::::::::::::::::::::::
@@ -641,7 +641,7 @@ OCT4 等名称或标识符。 因此，如果您总体上避免使用日期格�
 首先加载所需的包：
 
 ```{r loadlibridate, message=FALSE, purl=TRUE}
-图书馆(“lubridate”)
+library("lubridate")
 ```
 
 `ymd()` 采用代表年、月、日的向量，并将
@@ -660,7 +660,7 @@ str(my_date)
 现在让我们分别粘贴年份、月份和日期——我们得到相同的结果：
 
 ```{r, purl=TRUE}
-# sep 表示用于分隔每个组件的字符
+# sep indicates the character to use to separate each component
 my_date <- ymd(paste("2015", "1", "1", sep = "-"))
 str(my_date)
 ```
@@ -671,9 +671,9 @@ str(my_date)
 
 ```{r, purl=TRUE}
 x <- data.frame(year = c(1996, 1992, 1987, 1986, 2000, 1990, 2002, 1994, 1997, 1985),
-                month = c(2, 3, 3, 10, 1, 8, 3, 4, 5, 5),
-                day = c(24, 8, 1, 5, 8, 17, 13, 10, 11, 24),
-                value = c(4, 5, 1, 9, 3, 8, 10, 2, 6, 7))
+                month = c(2,  3,  3, 10,  1,  8,  3,  4,  5,  5),
+                day = c(24,  8,  1,  5,  8, 17, 13, 10, 11, 24),
+                value = c(4,  5,  1,  9,  3,  8, 10,  2,  6,  7))
 x
 ```
 
@@ -682,27 +682,27 @@ x
 字符向量：
 
 ```{r, purl=TRUE}
-粘贴（x$year，x$month，x$day，sep =“-”）
+paste(x$year, x$month, x$day, sep = "-")
 ```
 
 该字符向量可用作 `ymd()` 的参数：
 
 ```{r, purl=TRUE}
-ymd(粘贴(x$year, x$month, x$day, sep = "-"))
+ymd(paste(x$year, x$month, x$day, sep = "-"))
 ```
 
 生成的 `Date` 向量可以添加到 `x` 作为名为 `date` 的新列：
 
 ```{r, purl=TRUE}
 x$date <- ymd(paste(x$year, x$month, x$day, sep = "-"))
-str(x) # 注意新列，以 'date' 为类
+str(x) # notice the new column, with 'date' as the class
 ```
 
 让我们确保一切正常。 检查
 新列的一种方法是使用 `summary()`：
 
 ```{r, purl=TRUE}
-摘要（x$date）
+summary(x$date)
 ```
 
 请注意，`ymd()` 需要按
@@ -777,7 +777,7 @@ by default surround each field with quotes, and thus we will be able to
 read it back into R correctly, despite also using commas as column
 separators.
 
-：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：：： 关键点
+:::::::::::::::::::::::::::::::::::::::: keypoints
 
 - R 中的表格数据
 
