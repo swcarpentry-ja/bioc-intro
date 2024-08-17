@@ -149,7 +149,7 @@ RStudio IDE 还提供商业许可和 Posit, Inc. 的
 我们不会在研讨会期间介绍这些事项。
 
 ```{r, results="markup", fig.cap="RStudio interface screenshot. Clockwise from top left: Source, Environment/History, Files/Plots/Packages/Help/Viewer, Console.", echo=FALSE, purl=FALSE, out.width="100%", fig.align="center"}
-knitr::include_graphics(“fig/rstudio-screenshot.png”)
+knitr::include_graphics("fig/rstudio-screenshot.png")
 ```
 
 RStudio 窗口分为 4 个“窗格”：
@@ -203,7 +203,7 @@ RStudio 的默认首选项通常运行良好，但将工作区保存到
 以将“工作区保存到.RData”。
 
 ```{r, results="markup", fig.cap="Set 'Save workspace to .RData on exit' to 'Never'", echo=FALSE, purl=FALSE, out.width="70%", fig.align="center"}
-knitr::include_graphics(“fig/rstudio-preferences.png”)
+knitr::include_graphics("fig/rstudio-preferences.png")
 ```
 
 为了避免 Windows 与其他操作系统
@@ -211,7 +211,7 @@ knitr::include_graphics(“fig/rstudio-preferences.png”)
 将默认设置 UTF-8：
 
 ```{r, results="markup", fig.cap="Set the default text encoding to UTF-8 to save us headache in the coming future. (Figure from the link above).", echo=FALSE, purl=FALSE, out.width="70%", fig.align="center"}
-knitr::include_graphics(“fig/utf8.png”)
+knitr::include_graphics("fig/utf8.png")
 ```
 
 ### 组织你的工作目录
@@ -293,7 +293,7 @@ knitr::include_graphics("fig/r-starting-how-it-should-look-like.png")
 > 脚本调用。
 
 ```{r bioinfoproj, fig.cap="Directory structure for a sample bioinformatics project.", out.width="100%", echo=FALSE}
-knitr::include_graphics(“fig/noble-bioinfo-project.png”)
+knitr::include_graphics("fig/noble-bioinfo-project.png")
 ```
 
 定义明确、记录良好的
