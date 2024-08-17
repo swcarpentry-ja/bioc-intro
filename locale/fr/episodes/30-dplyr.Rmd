@@ -1040,7 +1040,7 @@ Utilisons `write_csv()` pour sauvegarder la table rna\_wide que nous avons cré�
 write_csv(rna_wide, file = "data_output/rna_wide.csv")
 ```
 
-:::::::::::::::::::::::::::::::::::::::: points clés
+:::::::::::::::::::::::::::::::::::::::: keypoints
 
 - Données tabulaires dans R utilisant le méta-paquet Tidyverse
 
