@@ -318,12 +318,12 @@ ce bloc de données !
 ## Solution
 
 ```{r, eval=TRUE, purl=TRUE}
-arn %>%
+rna %>%
   mutate(expression = log(expression)) %>%
-  select(gène, nom_chromosome, description_phénotype, échantillon, expression) %>%
-  filtre(nom_chromosome = = "X" | nom_chromo == "Y") %>%
-  filtre(!is.na(phenotype_description)) %>%
-  filtre(expression > 5)
+  select(gene, chromosome_name, phenotype_description, sample, expression) %>%
+  filter(chromosome_name == "X" | chromosome_name == "Y") %>%
+  filter(!is.na(phenotype_description)) %>%
+  filter(expression > 5)
 ```
 
 :::::::::::::::::::::::::
