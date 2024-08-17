@@ -999,7 +999,7 @@ et placez la table dans votre Dépôt de données.  À l'aide de la fonction `fu
 , joignez les tables `rna_mini` et `annot3`. Que s'est-il passé pour les gènes
 _Klk6_, _mt-Tf_, _mt-Rnr1_, _mt-Tv_, _mt-Rnr2_ et _mt-Tl1_ ?
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
@@ -1014,7 +1014,7 @@ du tableau ont été codées comme manquantes.
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Exporter des données
 
@@ -1044,4 +1044,4 @@ write_csv(rna_wide, file = "data_output/rna_wide.csv")
 
 - Données tabulaires dans R utilisant le méta-paquet Tidyverse
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
