@@ -229,7 +229,7 @@ R 中的管道看起来像 `%>%`（通过\*\*`magrittr`\*\*
 ```{r, purl=TRUE}
 rna %>%
   filter(sex == "Male") %>%
-  select(基因，样本，组织，表达)
+  select(gene, sample, tissue, expression)
 ```
 
 有些人可能会发现将管道读成“then”这个词很有帮助。 例如，在上面的例子中，
@@ -266,10 +266,10 @@ rna3
 
 ```{r}
 rna %>%
-  过滤器（表达 > 50000、
-         性别 == “女性”、
-         时间 == 0 ）%>%
-  选择（基因、样本、时间、表达、年龄）
+  filter(expression > 50000,
+         sex == "Female",
+         time == 0 ) %>%
+  select(gene, sample, time, expression, age)
 ```
 
 :::::::::::::::::::::::::
@@ -286,17 +286,17 @@ rna %>%
 
 ```{r, purl=TRUE}
 rna %>%
-  突变（time_hours = time * 24）%>%
-  选择（时间，time_hours）
+  mutate(time_hours = time * 24) %>%
+  select(time, time_hours)
 ```
 
 您还可以在同一个 `mutate()` 调用中根据第一个新列创建第二个新列：
 
 ```{r, purl=TRUE}
 rna %>%
-  突变（time_hours = time * 24，
-         time_mn = time_hours * 60）%>%
-  选择（时间，time_hours，time_mn）
+  mutate(time_hours = time * 24,
+         time_mn = time_hours * 60) %>%
+  select(time, time_hours, time_mn)
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -319,11 +319,11 @@ rna %>%
 
 ```{r, eval=TRUE, purl=TRUE}
 rna %>%
-  突变（表达式 = log（表达式））%>%
-  选择（基因、染色体名称、表型描述、样本、表达）%>%
-  过滤器（染色体名称 == “X” | 染色体名称 == “Y”）%>%
-  过滤器（！is.na（表型描述））%>%
-  过滤器（表达式 > 5）
+  mutate(expression = log(expression)) %>%
+  select(gene, chromosome_name, phenotype_description, sample, expression) %>%
+  filter(chromosome_name == "X" | chromosome_name == "Y") %>%
+  filter(!is.na(phenotype_description)) %>%
+  filter(expression > 5)
 ```
 
 :::::::::::::::::::::::::
@@ -414,9 +414,9 @@ rna %>%
 
 ```{r, purl=TRUE}
 rna %>%
-  过滤器（基因 == “Dok3”）%>%
-  group_by（时间）%>%
-  总结（平均值 = 平均值（表达））
+  filter(gene == "Dok3") %>%
+  group_by(time) %>%
+  summarise(mean = mean(expression))
 ```
 
 :::::::::::::::::::::::::
