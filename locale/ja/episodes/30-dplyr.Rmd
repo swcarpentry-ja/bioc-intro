@@ -586,17 +586,16 @@ pivot_wider\`は主に3つの引数を取る：
 3. value_from\`: 新しいカラム
    を埋める値。
 
-\`\`{r, fig.cap="`rna`データのワイドピボット。", echo=FALSE, message=FALSE}
+```{r, fig.cap="Wide pivot of the `rna` data.", echo=FALSE, message=FALSE}
 knitr::include_graphics("fig/pivot_wider.png")
-
-````
+```
 
 ```{r, purl=TRUE}
 rna_wide <- rna_exp %>%
   pivot_wider(names_from = sample,
               values_from = expression)
 rna_wide
-````
+```
 
 デフォルトでは、`pivot_wider()` 関数は欠損値に対して `NA` を追加することに注意してください。
 
