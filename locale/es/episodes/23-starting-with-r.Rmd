@@ -886,9 +886,9 @@ set.seed(1)
 muestra(1:10)
 ```
 
-::::::::::::::::::::::::::::
+:::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### Extraer muestras de una distribución normal
 
@@ -917,8 +917,8 @@ Ahora que hemos aprendido cómo escribir scripts y los conceptos básicos de las
 de R, estamos listos para comenzar a trabajar con datos más grandes y
 aprender sobre marcos de datos.
 
-:::::::::::::::::::::::::::::::::::::::: puntos clave
+:::::::::::::::::::::::::::::::::::::::: keypoints
 
 - Cómo interactuar con R
 
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
