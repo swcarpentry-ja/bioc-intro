@@ -534,11 +534,11 @@ weight_g[c(TRUE, FALSE, TRUE, TRUE, FALSE)]
 のようにします。
 
 ```{r, purl=TRUE}
-## は、
-を満たすインデックスに対して TRUE の論理値を返します。 ## 条件
-Weight_g > 50
-## したがって、これを使用して 50
-Weight_g[weight_g > 50] を超える値のみを選択できます。
+## will return logicals with TRUE for the indices that meet
+## the condition
+weight_g > 50
+## so we can use this to select only the values above 50
+weight_g[weight_g > 50]
 ```
 
 `&` (両方の条件が true、
