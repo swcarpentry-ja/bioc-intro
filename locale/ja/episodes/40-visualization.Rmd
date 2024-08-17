@@ -126,7 +126,7 @@ ggplot(data = rna, mapping = aes(x = expression))
 `geom_histogram()` をまず使ってみよう：
 
 ```{r first-ggplot, cache=FALSE, purl=TRUE}
-ggplot(data = rna, mapping = aes(x = expression))+
+ggplot(data = rna, mapping = aes(x = expression)) +
   geom_histogram()
 ```
 
@@ -136,11 +136,11 @@ ggplot2`パッケージの`+`は特に便利で、
 、さまざまなタイプのプロットを便利に調べることができる：
 
 ```{r, eval=FALSE, purl=TRUE}
-# プロットを変数に代入
+# Assign plot to a variable
 rna_plot <- ggplot(data = rna,
                    mapping = aes(x = expression))
 
-# プロットを描く
+# Draw the plot
 rna_plot + geom_histogram()
 ```
 
@@ -151,7 +151,7 @@ rna_plot + geom_histogram()
 ヒストグラムを描画するときに表示される自動メッセージにお気づきでしょう：
 
 ```{r, echo=FALSE, fig.show="hide"}
-ggplot(rna, aes(x = expression))+
+ggplot(rna, aes(x = expression)) +
   geom_histogram()
 ```
 
@@ -163,12 +163,12 @@ geom_histogram()`の引数`bins`または`binwidth\` を変更して、
 ## ソリューション
 
 ```{r, purl=TRUE}
-# ビンを変更する
-ggplot(rna, aes(x = expression))+
+# change bins
+ggplot(rna, aes(x = expression)) +
     geom_histogram(bins = 15)
 
-# binwidth を変更
-ggplot(rna, aes(x = expression))+
+# change binwidth
+ggplot(rna, aes(x = expression)) +
     geom_histogram(binwidth = 2000)
 ```
 
@@ -190,7 +190,7 @@ rna<- rna %>%
 の分布は確かに正規分布に近くなっている。
 
 ```{r second-ggplot, cache=FALSE, purl=TRUE}
-ggplot(rna, aes(x = expression_log))+ geom_histogram()
+ggplot(rna, aes(x = expression_log)) + geom_histogram()
 ```
 
 これからは対数変換した発現値を扱うことにする。
@@ -259,9 +259,9 @@ rna_plot
 フォールドの変化を `rna_fc.` という新しいデータフレームに保存する。
 
 ```{r rna_fc, cache=FALSE, purl=TRUE}
-rna_fc<- rna %>% select(gene, time,
+rna_fc <- rna %>% select(gene, time,
                          gene_biotype, expression_log) %>%
-  group_by(gene, time、gene_biotype) %>%
+  group_by(gene, time, gene_biotype) %>%
   summarize(mean_exp = mean(expression_log)) %>%
   pivot_wider(names_from = time,
               values_from = mean_exp) %>%
@@ -311,7 +311,7 @@ ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
 
 ```{r color-by-gene_biotype2, cache=FALSE, purl=TRUE}
 ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
-                                color = gene_biotype))+
+                                color = gene_biotype)) +
   geom_point(alpha = 0.3)
 ```
 
@@ -320,7 +320,7 @@ ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
 
 ```{r adding-diag, cache=FALSE, purl=TRUE}
 ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
-                                color = gene_biotype))+
+                                color = gene_biotype)) +
   geom_point(alpha = 0.3) +
   geom_abline(intercept = 0)
 ```
@@ -330,7 +330,7 @@ ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
 
 ```{r color-by-gene_biotype3, cache=FALSE, purl=TRUE}
 ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
-                                color = gene_biotype))+
+                                color = gene_biotype)) +
   geom_jitter(alpha = 0.3) +
   geom_abline(intercept = 0)
 ```
@@ -394,7 +394,7 @@ ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
 ## ソリューション
 
 ```{r, eval=TRUE, purl=TRUE}
-ggplot(data = rna, mapping = aes(y = expression_log, x = sample))+
+ggplot(data = rna, mapping = aes(y = expression_log, x = sample)) +
     geom_point(aes(color = time))
 ```
 
@@ -409,7 +409,7 @@ ggplot(data = rna, mapping = aes(y = expression_log, x = sample))+
 
 ```{r boxplot, cache=FALSE, purl=TRUE}
 ggplot(data = rna,
-         mapping = aes(y = expression_log, x = sample))+
+         mapping = aes(y = expression_log, x = sample)) +
   geom_boxplot()
 ```
 
@@ -418,7 +418,7 @@ boxplotにポイントを追加することで、
 
 ```{r boxplot-with-points, cache=FALSE, purl=TRUE}
 ggplot(data = rna,
-         mapping = aes(y = expression_log, x = sample))+
+         mapping = aes(y = expression_log, x = sample)) +
   geom_jitter(alpha = 0.2, color = "tomato") +
   geom_boxplot(alpha = 0)
 ```
@@ -835,41 +835,41 @@ ggplot(data = mean_exp_by_time_sex,
 以下のようなカスタマイズが可能です：
 
 ```{r, purl=TRUE}
-# 線の太さを変更する
+# change the thickness of the lines
 ggplot(data = mean_exp_by_time_sex,
-       mapping = aes(x = time, y = mean_exp, color = sex))+
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line(size=1.5) +
   facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
   theme(panel.grid = element_blank())
 
-# 凡例とラベルの名前を変更する
+# change the name of the legend and the labels
 ggplot(data = mean_exp_by_time_sex,
-       mapping = aes(x = time, y = mean_exp, color = sex)).+
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
   facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
-  scale_color_discrete(name = "Gender", labels = c("F", "M")).
+  scale_color_discrete(name = "Gender", labels = c("F", "M"))
 
 # using a different color palette
 ggplot(data = mean_exp_by_time_sex,
-       mapping = aes(x = time, y = mean_exp, color = sex))+
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
   facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
-  scale_color_brewer(name = "Gender", labels = c("F", "M"), palette = "Dark2").
+  scale_color_brewer(name = "Gender", labels = c("F", "M"), palette = "Dark2")
 
-# 手動で色を指定
+# manually specifying the colors
 ggplot(data = mean_exp_by_time_sex,
-       mapping = aes(x = time, y = mean_exp, color = sex))+
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
   facet_wrap(~ gene, scales = "free_y") +
   theme_bw() +
   theme(panel.grid = element_blank()) +
-  scale_color_manual(name = "Gender", labels = c("F", "M"),
-                     values = c("royalblue", "deeppink")
+  scale_color_manual(name = "Gender",  labels = c("F", "M"),
+                     values = c("royalblue", "deeppink"))
 
 ```
 
@@ -893,11 +893,11 @@ log10スケールに変更した。
 
 ```{r sub1, purl=TRUE}
 rna$chromosome_name <- factor(rna$chromosome_name,
-                               levels = c(1：19, "X", "Y")
+                               levels = c(1:19,"X","Y"))
 
-count_gene_chromosome<- rna %>% select(chromosome_name, gene) %>%
+count_gene_chromosome <- rna %>% select(chromosome_name, gene) %>%
   distinct() %>% ggplot() +
-  geom_bar(aes(x = chromosome_name), fill = "seagreen"、
+  geom_bar(aes(x = chromosome_name), fill = "seagreen",
            position = "dodge", stat = "count") +
   labs(y = "log10(n genes)", x = "chromosome") +
   scale_y_log10()
@@ -910,7 +910,7 @@ count_gene_chromosome
 
 ```{r sub2, purl=TRUE}
 exp_boxplot_sex <- ggplot(rna, aes(y=expression_log, x = as.factor(time),
-                 color=sex)).+
+                 color=sex)) +
    geom_boxplot(alpha = 0) +
   labs(y = "Mean gene exp",
        x = "time") + theme(legend.position = "none")
@@ -994,23 +994,23 @@ grid.arrange(count_gene_chromosome, exp_boxplot_sex, ncol = 2)
 
 ```{r ggsave-example, eval=FALSE, purl=TRUE}
 my_plot <- ggplot(data = mean_exp_by_time_sex,
-       mapping = aes(x = time, y = mean_exp, color = sex)).+
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
   geom_line() +
   facet_wrap(~ gene, scales = "free_y") +
-  labs(title = "感染期間別の平均遺伝子発現",
-         x = "感染期間（日）",
-         y = "平均遺伝子発現") +
-  guides(color=guide_legend(title="Gender"))+
+  labs(title = "Mean gene expression by duration of the infection",
+         x = "Duration of the infection (in days)",
+         y = "Mean gene expression") +
+  guides(color=guide_legend(title="Gender")) +
   theme_bw() +
-  theme(axis.text.x = element_text(color = "royalblue4", size = 12),
-        axis.text.y = element_text(color = "royalblue4", size = 12),
+  theme(axis.text.x = element_text(colour = "royalblue4", size = 12),
+        axis.text.y = element_text(colour = "royalblue4", size = 12),
         text = element_text(size = 16),
-        panel.grid = element_line(color="lightsteelblue1"),
+        panel.grid = element_line(colour="lightsteelblue1"),
         legend.position = "top")
 ggsave("fig_output/mean_exp_by_time_sex.png", my_plot, width = 15,
        height = 10)
 
-# これは grid.arrange() プロットでも動作します
+# This also works for grid.arrange() plots
 combo_plot <- grid.arrange(count_gene_chromosome, exp_boxplot_sex,
                            ncol = 2, widths = c(4, 6))
 ggsave("fig_output/combo_plot_chromosome_sex.png", combo_plot,
@@ -1047,12 +1047,12 @@ Rに付属するデフォルトのグラフィックス・システムは、し�
 
 ```{r paintermodel, fig.width=12, fig.height=4, fig.cap="Successive layers added on top of each other."}
 par(mfrow = c(1, 3))
-plot(1:20, main = "最初のレイヤー、plot(1:20)で作成")
+plot(1:20, main = "First layer, produced with plot(1:20)")
 
-plot(1:20, main = "赤の水平線、abline(h = 10)で追加")
+plot(1:20, main = "A horizontal red line, added with abline(h = 10)")
 abline(h = 10, col = "red")
 
-plot(1：20, main = "A rectangle, added with rect(5, 5, 15, 15)")
+plot(1:20, main = "A rectangle, added with rect(5, 5, 15, 15)")
 abline(h = 10, col = "red")
 rect(5, 5, 15, 15, lwd = 3)
 ```
