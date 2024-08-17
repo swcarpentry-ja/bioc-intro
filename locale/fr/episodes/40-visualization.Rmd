@@ -1100,7 +1100,7 @@ alambiquée.
 
 Une bonne référence pour le package `lattice` est @latticebook.
 
-:::::::::::::::::::::::::::::::::::::::: points clés
+:::::::::::::::::::::::::::::::::::::::: keypoints
 
 - Visualisation en R
 
