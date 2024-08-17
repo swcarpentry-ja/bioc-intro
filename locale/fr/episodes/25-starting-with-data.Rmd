@@ -777,7 +777,7 @@ by default surround each field with quotes, and thus we will be able to
 read it back into R correctly, despite also using commas as column
 separators.
 
-:::::::::::::::::::::::::::::::::::::::: points clés
+:::::::::::::::::::::::::::::::::::::::: keypoints
 
 - Données tabulaires dans R
 
