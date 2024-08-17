@@ -677,7 +677,7 @@ heights_no_na <- na.omit(heights)
 ```
 
 ```{r, purl=TRUE}
-中位数（高度，na.rm = TRUE）
+median(heights, na.rm = TRUE)
 ```
 
 ```{r, purl=TRUE}
@@ -692,7 +692,7 @@ heights_no_na <- na.omit(heights)
 ## 生成向量 {#sec:genvec}
 
 ```{r, echo=FALSE}
-设置种子（1）
+set.seed(1)
 ```
 
 ### 构造函数
@@ -703,15 +703,15 @@ heights_no_na <- na.omit(heights)
 参数。 这些值将被初始化为 0。
 
 ```{r, purl=TRUE}
-数字（3）
-数字（10）
+numeric(3)
+numeric(10)
 ```
 
 请注意，如果我们要求长度为 0 的数字向量，我们将获得
 ：
 
 ```{r, purl=TRUE}
-数字（0）
+numeric(0)
 ```
 
 字符和逻辑值有类似的构造函数，分别名为
@@ -743,7 +743,7 @@ logical(2) ## FALSE
 值 -1 来初始化一个长度为 5 的数字向量，我们可以执行以下操作：
 
 ```{r, purl=TRUE}
-代表（-1，5）
+rep(-1, 5)
 ```
 
 类似地，要生成一个填充了缺失值的向量，
@@ -751,7 +751,7 @@ logical(2) ## FALSE
 设定假设：
 
 ```{r, purl=TRUE}
-代表（NA，5）
+rep(NA, 5)
 ```
 
 `rep` 可以将任意长度的向量作为输入（上面，我们使用了长度为 1 的向量
@@ -759,7 +759,7 @@ logical(2) ## FALSE
 值 1、2 和 3 五次，我们可以执行以下操作：
 
 ```{r, purl=TRUE}
-代表（c（1，2，3），5）
+rep(c(1, 2, 3), 5)
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -790,7 +790,7 @@ sort(rep(c(1, 2, 3), 5))
 的整数序列，可以使用：
 
 ```{r, purl=TRUE}
-seq(从 = 1，到 = 20，按 = 2)
+seq(from = 1, to = 20, by = 2)
 ```
 
 `by` 的默认值为 1，并且鉴于经常使用以 1 为步长生成一个值到另一个值的
@@ -807,7 +807,7 @@ seq(1, 5) ## 默认为
 的从 1 到 20 的数字序列，可以使用：
 
 ```{r, purl=TRUE}
-seq(从 = 1，到 = 20，长度.out = 3)
+seq(from = 1, to = 20, length.out = 3)
 ```
 
 ### 随机样本和排列
@@ -819,7 +819,7 @@ seq(从 = 1，到 = 20，长度.out = 3)
 根据他们姓名的字母顺序排列），然后：
 
 ```{r, purl=TRUE}
-样品（1:10）
+sample(1:10)
 ```
 
 如果没有进一步的参数，“sample”将返回向量中所有
@@ -828,7 +828,7 @@ seq(从 = 1，到 = 20，长度.out = 3)
 个字母：
 
 ```{r, purl=TRUE}
-样本（字母，5）
+sample(letters, 5)
 ```
 
 如果我想要一个大于输入向量的输出，或者能够
@@ -836,7 +836,7 @@ seq(从 = 1，到 = 20，长度.out = 3)
 参数设置为`TRUE`：
 
 ```{r, purl=TRUE}
-样本（1：5，10，替换=TRUE）
+sample(1:5, 10, replace = TRUE)
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -865,8 +865,8 @@ before drawing the random sample.
 不同的排列
 
 ```{r, purl=TRUE}
-样品（1:10）
-样品（1:10）
+sample(1:10)
+sample(1:10)
 ```
 
 与种子 123 相同的排列
@@ -881,10 +881,10 @@ sample(1:10)
 不同的种子
 
 ```{r, purl=TRUE}
-设置.种子（1）
-样本（1:10）
-设置.种子（1）
-样本（1:10）
+set.seed(1)
+sample(1:10)
+set.seed(1)
+sample(1:10)
 ```
 
 :::::::::::::::::::::::::
@@ -900,8 +900,8 @@ _N(100, 5)_。
 
 ```{r, echo=FALSE, fig.width=12, fig.height=6, fig.cap="Two normal distributions: *N(0, 1)* on the left and *N(100, 5)* on the right."}
 par(mfrow = c(1, 2))
-图(密度(rnorm(1000))，main = "", sub = "N(0, 1)")
-图(密度(rnorm(1000, 100, 5))，main = "", sub = "N(100, 5)")
+plot(density(rnorm(1000)), main = "", sub = "N(0, 1)")
+plot(density(rnorm(1000, 100, 5)), main = "", sub = "N(100, 5)")
 ```
 
 三个参数 `n`、`mean` 和 `sd` 定义了
