@@ -712,7 +712,7 @@ the file export.
 ！
 
 ```{r, results="markup", fig.cap="Saving an Excel file to CSV.", echo=FALSE, purl=FALSE, out.width="70%", fig.align="center"}
-knitr::include_graphics(“fig/excel-to-csv.png”)
+knitr::include_graphics("fig/excel-to-csv.png")
 ```
 
 **关于 R 和 `xls`** 的注释：有一些 R 包可以读取 `xls`
