@@ -336,11 +336,12 @@ rna %>%
   group_by(gene)
 ```
 
-group_by()`関数はデータ処理を行わず、
-データをサブセットにグループ化する。上の例では、
-`r nrow(rna)`オブザベーションの最初の`tibble`は、`r length(unique(rna$gene))`グループに`gene\` 変数に基づいて分割される。
+The `group_by()` function doesn't perform any data processing, it
+groups the data into subsets: in the example above, our initial
+`tibble` of `r nrow(rna)` observations is split into
+`r length(unique(rna$gene))` groups based on the `gene` variable.
 
-同様に、ティブルをサンプルごとにグループ分けすることもできる：
+We could similarly decide to group the tibble by the samples:
 
 ```{r}
 rna %>%
