@@ -351,7 +351,7 @@ Hemos visto que los vectores atómicos pueden ser de tipo carácter, numérico (
 doble), entero y lógico. Pero ¿qué pasa si intentamos mezclar
 estos tipos en un solo vector?
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -375,7 +375,7 @@ char_logic <- c("a", " b", "c", VERDADERO)
 complicado <- c(1, 2, 3, "4")
 ```
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -400,7 +400,7 @@ tricky
 
 ¿Por qué crees que sucede?
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -425,7 +425,7 @@ char_lógico <- c("a", "b", "c", VERDADERO)
 combinado_lógico <- c(núm_lógico, char_lógico )
 ```
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -452,7 +452,7 @@ _coerción_. Estas conversiones ocurren según una jerarquía,
 dibujar un diagrama que represente la jerarquía de cómo se coaccionan estos tipos de datos
 ?
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -576,7 +576,7 @@ molecules[molecules %in% c("rna", "dna", "metabolite", "peptide", "glycerol")]
 
 ¿Puedes entender por qué "cuatro" > "cinco" devuelve "VERDADERO"?
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -665,7 +665,7 @@ alturas <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, NA, 72, 65,
 2. Utilice la función `median()` para calcular la mediana del vector `alturas`.
 3. Usa R para calcular cuántas personas en el grupo miden más de 67 pulgadas.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -722,7 +722,7 @@ Hay constructores similares para caracteres y lógicos, llamados
 
 ¿Cuáles son los valores predeterminados para los vectores lógicos y de caracteres?
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -769,7 +769,7 @@ representante(c(1, 2, 3), 5)
 obtuviéramos cinco 1, cinco 2 y cinco 3 en ese orden? Hay dos posibilidades
 ; consulte `?rep` o `?sort` para obtener ayuda.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
@@ -857,7 +857,7 @@ Ahora establezca la semilla con, por ejemplo, `set.seed(123)` y repita el sorteo
 
 Repita colocando una semilla diferente.
 
-::::::::::::::: solución
+:::::::::::::::  solution
 
 ## Solución
 
