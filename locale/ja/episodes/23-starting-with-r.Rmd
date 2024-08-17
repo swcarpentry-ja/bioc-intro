@@ -1,5 +1,5 @@
 ---
-source: ＲＭＤ
+source: Rmd
 title: R の紹介
 teaching: 60
 exercises: 60
