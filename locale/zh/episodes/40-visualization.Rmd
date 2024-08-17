@@ -154,7 +154,7 @@ rna_plot + geom_histogram()
 绘制直方图时会出现一条自动消息：
 
 ```{r, echo=FALSE, fig.show="hide"}
-ggplot(rna，aes(x = 表达式)) +
+ggplot(rna, aes(x = expression)) +
   geom_histogram()
 ```
 
