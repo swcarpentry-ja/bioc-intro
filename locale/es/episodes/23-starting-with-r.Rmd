@@ -119,8 +119,8 @@ Ahora que R tiene `weight_kg` en la memoria, podemos hacer aritmética con él. 
 También podemos cambiar el valor de un objeto asignándole uno nuevo:
 
 ```{r, purl=TRUE}
-weight_kg <- 57,5
-2,2 * weight_kg
+weight_kg <- 57.5
+2.2 * weight_kg
 ```
 
 Esto significa que asignar un valor a un objeto no cambia los valores de
@@ -128,7 +128,7 @@ otros objetos. Por ejemplo, almacenemos el peso del animal en libras en un nuevo
 , `weight_lb`:
 
 ```{r, purl=TRUE}
-weight_lb <- 2,2 * weight_kg
+weight_lb <- 2.2 * weight_kg
 ```
 
 y luego cambie `weight_kg` a 100.
@@ -166,11 +166,11 @@ press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd>.
 ¿Cuáles son los valores después de cada declaración en lo siguiente?
 
 ```{r, purl=TRUE}
-masa <- 47,5 # masa?
-edad <- 122 # edad?
-masa <- masa * 2.0 # masa?
-edad <- edad - 20 # edad?
-índice_masa <- masa/edad # índice_masa?
+mass <- 47.5            # mass?
+age  <- 122             # age?
+mass <- mass * 2.0      # mass?
+age  <- age - 20        # age?
+mass_index <- mass/age  # mass_index?
 ```
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -774,7 +774,7 @@ obtuviéramos cinco 1, cinco 2 y cinco 3 en ese orden? Hay dos posibilidades
 ## Solución
 
 ```{r, purl=TRUE}
-rep(c(1, 2, 3), cada uno = 5)
+rep(c(1, 2, 3), each = 5)
 sort(rep(c(1, 2, 3), 5))
 ```
 
