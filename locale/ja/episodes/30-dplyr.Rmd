@@ -333,7 +333,7 @@ _split-apply-combine_パラダイムを使ってアプローチすることが�
 
 ```{r}
 rna %>%
-  group_by(遺伝子)
+  group_by(gene)
 ```
 
 group_by()`関数はデータ処理を行わず、
@@ -390,8 +390,8 @@ rna %>%
 
 ```{r, purl=TRUE}
 rna %>%
-  group_by(遺伝子, 感染, 時間) %>%
-  summary(mean_expression = mean(expression),
+  group_by(gene, infection, time) %>%
+  summarise(mean_expression = mean(expression),
             median_expression = median(expression))
 ```
 
@@ -425,14 +425,14 @@ rna %>%
 
 ```{r, purl=TRUE}
 rna %>%
-    count(感染)
+    count(infection)
 ```
 
 count()`関数は、すでに見たことのある、変数でグループ化し、そのグループ内のオブザベーションの数をカウントして要約する、ということの省略記法です。 言い換えれば、`rna %>% count(infection)\`は次のものと等価である：
 
 ```{r, purl=TRUE}
 rna %>%
-    group_by(感染) %>%
+    group_by(infection) %>%
     summarise(n = n())
 ```
 
