@@ -101,7 +101,7 @@ ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
   \*\* spécifique en utilisant l'argument `data`
 
 ```{r, eval=FALSE}
-ggplot (données = arn)
+ggplot(data = rna)
 ```
 
 - définir un **mapping** (en utilisant la fonction esthétique (`aes`)), en
@@ -166,12 +166,12 @@ changez le nombre ou la largeur des bacs.
 ## Solution
 
 ```{r, purl=TRUE}
-# changer les bacs
+# change bins
 ggplot(rna, aes(x = expression)) +
     geom_histogram(bins = 15)
 
-# changer la largeur de bac
-ggplot(rna, aes( x = expression)) +
+# change binwidth
+ggplot(rna, aes(x = expression)) +
     geom_histogram(binwidth = 2000)
 ```
 
@@ -377,7 +377,7 @@ library("hexbin")
 
 ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
   geom_hex() +
-  geom_abline(intercept = 0 )
+  geom_abline(intercept = 0)
 
 ```
 
@@ -423,8 +423,8 @@ mesures et de leur répartition :
 ```{r boxplot-with-points, cache=FALSE, purl=TRUE}
 ggplot(data = rna,
          mapping = aes(y = expression_log, x = sample)) +
-  geom_jitter(alpha = 0.2, color = "tomate") +
-  geom_boxplot( alpha = 0)
+  geom_jitter(alpha = 0.2, color = "tomato") +
+  geom_boxplot(alpha = 0)
 ```
 
 ::::::::::::::::::::::::::::::::::::::: défi
@@ -444,7 +444,7 @@ Nous devrions inverser l'ordre de ces deux géométries :
 ggplot(data = rna,
          mapping = aes(y = expression_log, x = sample)) +
   geom_boxplot(alpha = 0) +
-  geom_jitter(alpha = 0.2, color = "tomate")
+  geom_jitter(alpha = 0.2, color = "tomato")
 ```
 
 :::::::::::::::::::::::::
@@ -460,9 +460,9 @@ les étiquettes orientées en diagonale :
 ```{r boxplot-xaxis-rotated, cache=FALSE, purl=TRUE}
 ggplot(data = rna,
          mapping = aes(y = expression_log, x = sample)) +
-  geom_jitter(alpha = 0.2, color = "tomate") +
-  geom_boxplot( alpha = 0) +
-  thème(axis.text.x = element_text(angle = 90, hjust = 0,5, vjust = 0,5))
+  geom_jitter(alpha = 0.2, color = "tomato") +
+  geom_boxplot(alpha = 0) +
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
 ```
 
 ::::::::::::::::::::::::::::::::::::::: défi
@@ -522,7 +522,7 @@ pas dans un boxplot. Une alternative au boxplot est le tracé en violon
 ggplot(data = rna,
          mapping = aes(y = expression_log, x = sample)) +
   geom_violin(aes(fill = as.factor(time))) +
-  thème (axis.text.x = element_text (angle = 90, hjust = 0,5, vjust = 0,5))
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
 ```
 
 :::::::::::::::::::::::::
@@ -543,7 +543,7 @@ ggplot(data = rna,
 ggplot(data = rna,
          mapping = aes(y = expression_log, x = sample)) +
   geom_violin(aes(fill = sex)) +
-  theme(axis.text .x = element_text(angle = 90, hjust = 0,5, vjust = 0,5))
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
 ```
 
 :::::::::::::::::::::::::
