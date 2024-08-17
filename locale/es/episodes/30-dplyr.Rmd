@@ -318,12 +318,12 @@ este marco de datos.
 ## Solución
 
 ```{r, eval=TRUE, purl=TRUE}
-arn %>%
-  mutar(expresión = log(expresión)) %>%
-  seleccionar(gen, nombre_cromosoma, descripción_fenotipo, muestra, expresión) %>%
-  filtrar(nombre_cromosoma = = "X" | nombre_cromosoma == "Y") %>%
-  filtro(!is.na(descripción_fenotipo)) %>%
-  filtro(expresión > 5)
+rna %>%
+  mutate(expression = log(expression)) %>%
+  select(gene, chromosome_name, phenotype_description, sample, expression) %>%
+  filter(chromosome_name == "X" | chromosome_name == "Y") %>%
+  filter(!is.na(phenotype_description)) %>%
+  filter(expression > 5)
 ```
 
 ::::::::::::::::::::::::::::
