@@ -768,11 +768,11 @@ ci-dessus en mettant les valeurs entre guillemets (""). En appliquant cette règ
 pourraient ressembler à ceci :
 
 ```
-id_espèce, genre, espèce, taxons
-"AB", "Amphispiza", "bilineata", "Oiseau"
-"AH", "Ammospermophilus", "harrisi", "Rongeur, non recensé"
-"AS", "Ammodramus", "savannarum", "Oiseau"
-"BA", "Baiomys", "taylori", "Rongeur"
+species_id,genus,species,taxa
+"AB","Amphispiza","bilineata","Bird"
+"AH","Ammospermophilus","harrisi","Rodent, not censused"
+"AS","Ammodramus","savannarum","Bird"
+"BA","Baiomys","taylori","Rodent"
 ```
 
 Désormais, l'ouverture de ce fichier en tant que « csv » dans Excel n'entraînera pas une colonne
@@ -829,4 +829,4 @@ without having to look at it and/or fix it.
 
 - Une bonne organisation des données est la base de tout projet de recherche.
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
