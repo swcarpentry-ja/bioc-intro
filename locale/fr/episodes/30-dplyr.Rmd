@@ -17,17 +17,17 @@ exercises: 75
   comment remodeler un bloc de données d'un format à l'autre.
 - Montrez comment joindre des tables.
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
 - Analyse de données dans R à l'aide du méta-paquet Tidyverse
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r loaddata_dplyr, echo=FALSE, purl=FALSE, message=FALSE}
 if (!file.exists("data/rnaseq.csv"))
-download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/ data/rnaseq.csv",
+download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv",
               destfile = "data/rnaseq.csv")
 ```
 
@@ -73,8 +73,8 @@ Si vous avez effectué la configuration, vous devriez déjà avoir installé le 
 Vérifiez si vous l'avez en essayant de le charger depuis la bibliothèque :
 
 ```{r, message=FALSE, purl=TRUE}
-## chargez les packages Tidyverse, incl. dplyr
-bibliothèque("tidyverse")
+## load the tidyverse packages, incl. dplyr
+library("tidyverse")
 ```
 
 Si vous recevez un message d'erreur `il n'y a pas de package appelé 'tidyverse'` alors vous n'avez pas
@@ -95,7 +95,7 @@ function (notice the `_` instead of the `.`), from the tidyverse package
 ```{r, message=FALSE, purl=TRUE}
 rna <- read_csv("data/rnaseq.csv")
 
-## afficher les données
+## view the data
 rna
 ```
 
@@ -128,14 +128,14 @@ de cette fonction est la trame de données (`rna`), et les arguments
 suivants sont les colonnes à conserver.
 
 ```{r, purl=TRUE}
-sélectionner (ARN, gène, échantillon, tissu, expression)
+select(rna, gene, sample, tissue, expression)
 ```
 
 Pour sélectionner toutes les colonnes _sauf_ certaines, mettez un "-" devant
 la variable pour l'exclure.
 
 ```{r, purl=TRUE}
-sélectionner (arn, -tissu, -organisme)
+select(rna, -tissue, -organism)
 ```
 
 Cela sélectionnera toutes les variables de `rna` sauf `tissu`
@@ -144,7 +144,7 @@ et `organism`.
 Pour choisir des lignes en fonction d'un critère spécifique, utilisez `filter()` :
 
 ```{r, purl=TRUE}
-filter(arn, sex == "Male")
+filter(rna, sex == "Male")
 filter(rna, sex == "Male" & infection == "NonInfected")
 ```
 
@@ -156,8 +156,8 @@ allons créer un nouveau tableau contenant uniquement les 2 colonnes `gene` et
 `hsapiens_homolog_associated_gene_name`.
 
 ```{r}
-gènes <- select(arn, gene, hsapiens_homolog_associated_gene_name)
-gènes
+genes <- select(rna, gene, hsapiens_homolog_associated_gene_name)
+genes
 ```
 
 Certains gènes de souris n'ont pas d'homologues humains. Ceux-ci peuvent être récupérés en utilisant
@@ -165,7 +165,7 @@ Certains gènes de souris n'ont pas d'homologues humains. Ceux-ci peuvent être 
 quelque chose est un `NA`.
 
 ```{r, purl=TRUE}
-filtre (gènes, is.na (hsapiens_homolog_associated_gene_name))
+filter(genes, is.na(hsapiens_homolog_associated_gene_name))
 ```
 
 Si on veut conserver uniquement les gènes de souris qui ont un homologue humain, on peut
@@ -174,7 +174,7 @@ chaque ligne où hsapiens\_homolog\_associated\_gene\_name _n'est pas_ un
 `NA`.
 
 ```{r, purl=TRUE}
-filtre(gènes, !is.na(hsapiens_homolog_associated_gene_name))
+filter(genes, !is.na(hsapiens_homolog_associated_gene_name))
 ```
 
 ## Tuyaux
@@ -187,7 +187,7 @@ comme entrée de la fonction suivante, comme ceci :
 
 ```{r, purl=TRUE}
 rna2 <- filter(rna, sex == "Male")
-rna3 <- select(rna2, gène, échantillon, tissu, expression)
+rna3 <- select(rna2, gene, sample, tissue, expression)
 rna3
 ```
 
@@ -199,7 +199,7 @@ Vous pouvez également imbriquer des fonctions (c'est-à-dire une fonction dans 
 comme ceci :
 
 ```{r, purl=TRUE}
-rna3 <- select(filter(rna, sex == "Male"), gène, échantillon, tissu, expression)
+rna3 <- select(filter(rna, sex == "Male"), gene, sample, tissue, expression)
 rna3
 ```
 
@@ -227,9 +227,9 @@ inclure explicitement le bloc de données comme un argument pour les fonctions `
 `select()`.
 
 ```{r, purl=TRUE}
-arn %>%
+rna %>%
   filter(sex == "Male") %>%
-  select(gène, échantillon, tissu, expression)
+  select(gene, sample, tissue, expression)
 ```
 
 Certains trouveront peut-être utile de lire le tube comme le mot « alors ». Par exemple,
@@ -247,12 +247,12 @@ lui attribuer un nouveau nom :
 ```{r, purl=TRUE}
 rna3 <- rna %>%
   filter(sex == "Male") %>%
-  select(gène, échantillon, tissu, expression)
+  select(gene, sample, tissue, expression)
 
 rna3
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -260,21 +260,21 @@ rna3
 où le gène a une expression supérieure à 50 000, et ne conservez que les colonnes
 `gene`, `sample `, `time`, `expression` et `age`.
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
 ```{r}
-arn %>%
-  filtre(expression > 50000,
-         sexe == "Femme",
-         temps == 0 ) %>%
-  select(gène, échantillon , heure, expression, âge)
+rna %>%
+  filter(expression > 50000,
+         sex == "Female",
+         time == 0 ) %>%
+  select(gene, sample, time, expression, age)
 ```
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Subir une mutation
 
@@ -286,7 +286,7 @@ Pour créer une nouvelle colonne de temps en heures :
 
 ```{r, purl=TRUE}
 rna %>%
-  muter(time_hours = time * 24) %>%
+  mutate(time_hours = time * 24) %>%
   select(time, time_hours)
 ```
 
@@ -294,12 +294,12 @@ Vous pouvez également créer une deuxième nouvelle colonne basée sur la premi
 
 ```{r, purl=TRUE}
 rna %>%
-  muter(time_hours = time * 24,
+  mutate(time_hours = time * 24,
          time_mn = time_hours * 60) %>%
   select(time, time_hours, time_mn)
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -313,7 +313,7 @@ contenir uniquement des gènes situés sur les chromosomes sexuels, associés à
 **Astuce** : réfléchissez à la façon dont les commandes doivent être ordonnées pour produire
 ce bloc de données !
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
@@ -328,7 +328,7 @@ rna %>%
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Analyse de données fractionnée-appliquée-combinée
 
@@ -338,8 +338,8 @@ _split-apply-combine_ : divisez les données en groupes, appliquez une analyse
 rend cela très facile grâce à l'utilisation de la fonction `group_by()`.
 
 ```{r}
-arn %>%
-  group_by(gène)
+rna %>%
+  group_by(gene)
 ```
 
 La fonction `group_by()` n'effectue aucun traitement de données, elle
@@ -350,8 +350,8 @@ regroupe les données en sous-ensembles : dans l'exemple ci-dessus, notre
 On pourrait de même décider de regrouper les tibbles par échantillons :
 
 ```{r}
-arn %>%
-  group_by(échantillon)
+rna %>%
+  group_by(sample)
 ```
 
 Ici, notre `tibble` initial d'observations `r nrow(rna)` est divisé en groupes
@@ -370,9 +370,9 @@ réduit chaque groupe en un résumé sur une seule ligne de ce groupe.
 . Donc, pour calculer l'expression moyenne par gène :
 
 ```{r}
-arn %>%
+rna %>%
   group_by(gene) %>%
-  résumé(mean_expression = moyenne(expression))
+  summarise(mean_expression = mean(expression))
 ```
 
 Nous pourrions également vouloir calculer les niveaux d’expression moyens de tous les gènes dans chaque échantillon :
@@ -380,15 +380,15 @@ Nous pourrions également vouloir calculer les niveaux d’expression moyens de 
 ```{r}
 rna %>%
   group_by(sample) %>%
-  résumé(mean_expression = moyenne(expression))
+  summarise(mean_expression = mean(expression))
 ```
 
 Mais on peut aussi regrouper par plusieurs colonnes :
 
 ```{r}
-arn %>%
-  group_by(gène, infection, temps) %>%
-  résumé(mean_expression = moyenne(expression))
+rna %>%
+  group_by(gene, infection, time) %>%
+  summarise(mean_expression = mean(expression))
 ```
 
 Une fois les données regroupées, vous pouvez également résumer plusieurs variables en même temps
@@ -396,19 +396,19 @@ Une fois les données regroupées, vous pouvez également résumer plusieurs var
 indiquant l'expression médiane par gène et par condition :
 
 ```{r, purl=TRUE}
-arn %>%
-  group_by(gène, infection, temps) %>%
-  résumé(mean_expression = moyenne(expression),
-            médiane_expression = médiane(expression))
+rna %>%
+  group_by(gene, infection, time) %>%
+  summarise(mean_expression = mean(expression),
+            median_expression = median(expression))
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
 Calculer le niveau d’expression moyen du gène « Dok3 » par points temporels.
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
@@ -416,7 +416,7 @@ Calculer le niveau d’expression moyen du gène « Dok3 » par points temporels
 rna %>%
   filter(gene == "Dok3") %>%
   group_by(time) %>%
-  summarise(mean = moyenne(expression))
+  summarise(mean = mean(expression))
 ```
 
 :::::::::::::::::::::::::
@@ -487,7 +487,7 @@ arn %>%
   arrange(desc(n))
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -715,7 +715,7 @@ wide_with_NA %>%
 Passer à des formats plus larges et plus longs peut être un moyen utile d'équilibrer un ensemble de données
 afin que chaque réplique ait la même composition.
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Question
 
@@ -741,7 +741,7 @@ pivot_longer(names_to = "mouse_id", valeurs_to = "counts", -gene)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Question
 
@@ -798,7 +798,7 @@ rna_1 %>%
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Question
 
@@ -870,7 +870,7 @@ rna %>%
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Question
 
@@ -989,7 +989,7 @@ full_join(rna_mini, annot2, by = c("gene" = "external_gene_name"))
 Comme on peut le voir ci-dessus, le nom de variable de la première table est conservé
 dans celle jointe.
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
