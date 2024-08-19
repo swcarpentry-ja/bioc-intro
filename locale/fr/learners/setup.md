@@ -32,8 +32,7 @@ title: Setup
   si une version plus récente est disponible. Si c'est le cas, veuillez le télécharger et l'installer. Vous pouvez [consulter ici](https://cran.r-project.org/bin/windows/base/rw-FAQ.html#How-do-I-UNinstall-R_003f) pour
   plus d'informations sur la façon de supprimer les anciennes versions de votre système si vous souhaitez le faire.
 
-- Follow the steps in the instructions [for everyone](#for-everyone) at the
-  bottom of this page.
+- Suivez les étapes décrites dans les instructions [pour tout le monde](#pour-tout-le-monde) en bas de cette page.
 
 :::::::::::::::::::::::::
 
