@@ -581,7 +581,7 @@ Pouvez-vous comprendre pourquoi « quatre » > « cinq » renvoie « VRAI » ?
 ## Solution
 
 ```{r}
-"quatre" > "cinq"
+"four" > "five"
 ```
 
 Lorsque vous utilisez `>` ou `<` sur des chaînes, R compare leur ordre alphabétique.
@@ -590,7 +590,7 @@ Ici, `"quatre"` vient après `"cinq"`, et est donc _supérieur à_
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Des noms
 
@@ -600,9 +600,9 @@ récupérés.
 
 ```{r}
 x <- c(1, 5, 3, 5, 10)
-noms(x) ## pas de noms
-noms(x) <- c("A", "B", " C", "D", "E")
-noms(x) ## maintenant nous avons des noms
+names(x) ## no names
+names(x) <- c("A", "B", "C", "D", "E")
+names(x) ## now we have names
 ```
 
 Lorsqu'un vecteur possède des noms, il est possible d'accéder aux éléments par leur nom
@@ -638,18 +638,18 @@ avec les fonctions `is.na()`, `na.omit()` et `complete.cases()`. Voir
 ci-dessous pour des exemples.
 
 ```{r}
-## Extrayez les éléments pour lesquels il ne manque pas de valeurs.
+## Extract those elements which are not missing values.
 heights[!is.na(heights)]
 
-## Renvoie l'objet avec les cas incomplets supprimés.
-## L'objet retourné est un vecteur atomique de type `"numeric"`
-## (ou `"double"`).
+## Returns the object with incomplete cases removed.
+## The returned object is an atomic vector of type `"numeric"`
+## (or `"double"`).
 na.omit(heights)
 
-## Extrayez les éléments qui sont des cas complets.
-## L'objet retourné est un vecteur atomique de type `"numeric"`
-## (ou `"double"`).
-hauteurs[complete.cases(heights)]
+## Extract those elements which are complete cases.
+## The returned object is an atomic vector of type `"numeric"`
+## (or `"double"`).
+heights[complete.cases(heights)]
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -665,28 +665,28 @@ heights <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, NA, 72, 65,
 2. Utilisez la fonction `median()` pour calculer la médiane du vecteur `heights`.
 3. Utilisez R pour déterminer combien de personnes dans l’ensemble mesurent plus de 67 pouces.
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
 ```{r, purl=TRUE}
 heights_no_na <- heights[!is.na(heights)]
-## ou
+## or
 heights_no_na <- na.omit(heights)
 ```
 
 ```{r, purl=TRUE}
-médiane (hauteurs, na.rm = TRUE)
+median(heights, na.rm = TRUE)
 ```
 
 ```{r, purl=TRUE}
-hauteurs_above_67 <- heights_no_na[heights_no_na > 67]
-longueur(heights_above_67)
+heights_above_67 <- heights_no_na[heights_no_na > 67]
+length(heights_above_67)
 ```
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Génération de vecteurs {#sec:genvec}
 
@@ -702,15 +702,15 @@ générer un vecteur de valeurs numériques, on peut utiliser le constructeur `n
 . Les valeurs seront initialisées à 0.
 
 ```{r, purl=TRUE}
-numérique(3)
-numérique(10)
+numeric(3)
+numeric(10)
 ```
 
 Notez que si l'on demande un vecteur de numériques de longueur 0, on obtient
 exactement cela :
 
 ```{r, purl=TRUE}
-numérique(0)
+numeric(0)
 ```
 
 Il existe des constructeurs similaires pour les caractères et les logiques, nommés respectivement
@@ -722,18 +722,18 @@ Il existe des constructeurs similaires pour les caractères et les logiques, nom
 
 Quelles sont les valeurs par défaut pour les caractères et les vecteurs logiques ?
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
 ```{r, purl=TRUE}
-caractère(2) ## le caractère vide
-logique(2) ## FALSE
+character(2) ## the empty character
+logical(2)   ## FALSE
 ```
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### Répliquer des éléments
 
@@ -742,7 +742,7 @@ fois. Si nous voulons initier un vecteur de numériques de longueur 5 avec
 la valeur -1, par exemple, nous pourrions faire ce qui suit :
 
 ```{r, purl=TRUE}
-représentant(-1, 5)
+rep(-1, 5)
 ```
 
 De même, pour générer un vecteur rempli de valeurs manquantes, ce qui
@@ -750,7 +750,7 @@ est souvent une bonne façon de commencer, sans poser d'hypothèses sur les donn
 à collecter :
 
 ```{r, purl=TRUE}
-représentant(NA, 5)
+rep(NA, 5)
 ```
 
 `rep` peut prendre en entrée des vecteurs de n'importe quelle longueur (ci-dessus, nous avons utilisé des vecteurs
@@ -769,7 +769,7 @@ Et si nous voulions répéter les valeurs 1, 2 et 3 cinq fois, mais que
 obtenait cinq 1, cinq 2 et cinq 3 dans cet ordre ? Il existe deux
 possibilités - voir `?rep` ou `?sort` pour obtenir de l'aide.
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
@@ -780,7 +780,7 @@ sort(rep(c(1, 2, 3), 5))
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### Génération de séquence
 
@@ -789,7 +789,7 @@ nombres. Par exemple, pour générer une séquence d'entiers de 1 à 20
 par pas de 2, on utiliserait :
 
 ```{r, purl=TRUE}
-séq(de = 1, à = 20, par = 2)
+seq(from = 1, to = 20, by = 2)
 ```
 
 La valeur par défaut de `by` est 1 et, étant donné que la génération d'une séquence
@@ -798,7 +798,7 @@ il existe un raccourci :
 
 ```{r, purl=TRUE}
 seq(1, 5, 1)
-seq(1, 5) ## par défaut par
+seq(1, 5) ## default by
 1:5
 ```
 
@@ -806,7 +806,7 @@ Pour générer une séquence de nombres de 1 à 20 de longueur finale de 3,
 on utiliserait :
 
 ```{r, purl=TRUE}
-seq (de = 1, à = 20, longueur.out = 3)
+seq(from = 1, to = 20, length.out = 3)
 ```
 
 ### Échantillons aléatoires et permutations
@@ -818,7 +818,7 @@ un autre vecteur. Par exemple, pour tirer au sort un ordre aléatoire de 10 étu
 en fonction de l'ordre alphabétique de son nom) puis :
 
 ```{r, purl=TRUE}
-échantillon (1:10)
+sample(1:10)
 ```
 
 Sans autres arguments, `sample` renverra une permutation de tous les
@@ -827,7 +827,7 @@ définirais cette valeur comme deuxième argument. Ci-dessous, j'échantillonne 
 lettres aléatoires de l'alphabet contenu dans le vecteur `letters` prédéfini :
 
 ```{r, purl=TRUE}
-échantillon(lettres, 5)
+sample(letters, 5)
 ```
 
 Si je voulais une sortie plus grande que le vecteur d'entrée, ou pouvoir
@@ -835,7 +835,7 @@ dessiner certains éléments plusieurs fois, je devrais définir l'argument `rep
 sur `TRUE` :
 
 ```{r, purl=TRUE}
-échantillon (1:5, 10, remplacer = VRAI)
+sample(1:5, 10, replace = TRUE)
 ```
 
 :::::::::::::::::::::::::::::::::::::::  challenge
@@ -857,33 +857,33 @@ Définissez maintenant la graine avec, par exemple, `set.seed(123)` et répétez
 
 Répétez en définissant une graine différente.
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
 Différentes permutations
 
 ```{r, purl=TRUE}
-échantillon (1:10)
-échantillon (1:10)
+sample(1:10)
+sample(1:10)
 ```
 
 Mêmes permutations avec la graine 123
 
 ```{r, purl=TRUE}
 set.seed(123)
-échantillon(1:10)
+sample(1:10)
 set.seed(123)
-échantillon(1:10)
+sample(1:10)
 ```
 
 Une graine différente
 
 ```{r, purl=TRUE}
 set.seed(1)
-échantillon(1:10)
+sample(1:10)
 set.seed(1)
-échantillon(1:10)
+sample(1:10)
 ```
 
 :::::::::::::::::::::::::
@@ -900,7 +900,7 @@ _N(100, 5)_, sont présentées ci-dessous.
 ```{r, echo=FALSE, fig.width=12, fig.height=6, fig.cap="Two normal distributions: *N(0, 1)* on the left and *N(100, 5)* on the right."}
 par(mfrow = c(1, 2))
 plot(density(rnorm(1000)), main = "", sub = "N(0, 1)")
-plot(densité (rnorm(1000, 100, 5)), principal = "", sous = "N(100, 5)")
+plot(density(rnorm(1000, 100, 5)), main = "", sub = "N(100, 5)")
 ```
 
 Les trois arguments, `n`, `mean` et `sd`, définissent la taille de l'échantillon
