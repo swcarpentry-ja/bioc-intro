@@ -134,10 +134,10 @@ weight_lb <- 2.2 * weight_kg
 puis remplacez « weight_kg » par 100.
 
 ```{r}
-poids_kg <- 100
+weight_kg <- 100
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -159,7 +159,7 @@ you only want to comment out one line, you can put the cursor at any
 location of that line (i.e. no need to select the whole line), then
 press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd>.
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -210,7 +210,7 @@ de votre choix qui sera utilisée à la place de la valeur par défaut.
 Essayons une fonction qui peut prendre plusieurs arguments : `round()`.
 
 ```{r, results="show", purl=TRUE}
-rond(3.14159)
+round(3.14159)
 ```
 
 Ici, nous avons appelé `round()` avec un seul argument, `3.14159`, et il a
@@ -220,25 +220,25 @@ des informations sur la fonction `round`.  Nous pouvons utiliser `args(round)` o
 pour cette fonction en utilisant `?round`.
 
 ```{r, results="show", purl=TRUE}
-arguments (rond)
+args(round)
 ```
 
 ```{r, eval=FALSE, purl=TRUE}
-?rond
+?round
 ```
 
 Nous voyons que si nous voulons un nombre différent de chiffres, nous pouvons
 taper `digits=2` ou autant que nous le voulons.
 
 ```{r, results="show", purl=TRUE}
-rond(3.14159, chiffres = 2)
+round(3.14159, digits = 2)
 ```
 
 Si vous fournissez les arguments exactement dans le même ordre que celui dans lequel ils sont définis, vous
 n'avez pas besoin de les nommer :
 
 ```{r, results="show", purl=TRUE}
-rond(3.14159, 2)
+round(3.14159, 2)
 ```
 
 Et si vous nommez les arguments, vous pouvez changer leur ordre :
@@ -264,15 +264,15 @@ la fonction `c()`. Par exemple, nous pouvons créer un vecteur de poids d'animau
 à un nouvel objet `weight_g` :
 
 ```{r, purl=TRUE}
-poids_g <- c(50, 60, 65, 82)
-poids_g
+weight_g <- c(50, 60, 65, 82)
+weight_g
 ```
 
 Un vecteur peut également contenir des caractères :
 
 ```{r, purl=TRUE}
-molécules <- c("adna", "rna", "protein")
-molécules
+molecules <- c("dna", "rna", "protein")
+molecules
 ```
 
 Les guillemets autour de « adn », « arn », etc. sont ici essentiels. Sans les guillemets
@@ -284,8 +284,8 @@ Il existe de nombreuses fonctions qui vous permettent d'inspecter le contenu d'u
 . `length()` vous indique combien d'éléments se trouvent dans un vecteur particulier :
 
 ```{r, purl=TRUE}
-longueur (poids_g)
-longueur (molécules)
+length(weight_g)
+length(molecules)
 ```
 
 Une caractéristique importante d'un vecteur est que tous les éléments sont du
@@ -293,8 +293,8 @@ même type de données.  La fonction `class()` indique la classe (le type d'él�
 ) d'un objet :
 
 ```{r, purl=TRUE}
-classe (poids_g)
-classe (molécules)
+class(weight_g)
+class(molecules)
 ```
 
 La fonction `str()` fournit un aperçu de la structure d'un objet
@@ -302,16 +302,16 @@ et de ses éléments. C'est une fonction utile lorsque vous travaillez avec
 des objets volumineux et complexes :
 
 ```{r, purl=TRUE}
-str(poids_g)
-str(molécules)
+str(weight_g)
+str(molecules)
 ```
 
 Vous pouvez utiliser la fonction `c()` pour ajouter d'autres éléments à votre vecteur :
 
 ```{r}
-poids_g <- c(poids_g, 90) # ajouter à la fin du vecteur
-poids_g <- c(30, poids_g) # ajouter au début du vecteur
-poids_g
+weight_g <- c(weight_g, 90) # add to the end of the vector
+weight_g <- c(30, weight_g) # add to the beginning of the vector
+weight_g
 ```
 
 Dans la première ligne, nous prenons le vecteur d'origine `weight_g`, ajoutons la valeur
@@ -343,7 +343,7 @@ Les vecteurs sont l'une des nombreuses **structures de données** utilisées par
 importants sont les listes (`list`), les matrices (`matrix`), les trames de données
 (`data.frame`), les facteurs (`factor`) et les tableaux (`array` ).
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -351,7 +351,7 @@ Nous avons vu que les vecteurs atomiques peuvent être de type caractère, numé
 double), entier et logique. Mais que se passe-t-il si nous essayons de mélanger
 ces types dans un seul vecteur ?
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
@@ -359,9 +359,9 @@ R les convertit implicitement pour qu'ils soient tous du même type
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -375,7 +375,7 @@ char_logical <- c("a", "b", "c", TRUE)
 tricky <- c(1, 2, 3, "4")
 ```
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
@@ -392,15 +392,15 @@ tricky
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
 Pourquoi pensez-vous que cela arrive ?
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
@@ -410,9 +410,9 @@ ne perd aucune information.
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -435,14 +435,14 @@ dans `num_logical` est converti en `1` avant d'être converti
 en `"1"` dans `combined_logical`.
 
 ```{r}
-combiné_logique
+combined_logical
 ```
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -452,7 +452,7 @@ selon laquelle certains types sont préférentiellement contraints vers d'autres
 dessiner un diagramme qui représente la hiérarchie de la façon dont ces types de données
 sont forcés ?
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
@@ -460,7 +460,7 @@ logique → numérique → caractère ← logique
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r, echo=FALSE, eval=FALSE, purl=TRUE}
 ## We've seen that atomic vectors can be of type character, numeric, integer, and
@@ -494,9 +494,9 @@ Si l'on veut extraire une ou plusieurs valeurs d'un vecteur, il faut
 fournir un ou plusieurs indices entre crochets. Par exemple:
 
 ```{r, results="show", purl=TRUE}
-molécules <- c("ADN", "arn", "peptide", "protéine")
-molécules[2]
-molécules[c(3, 2)]
+molecules <- c("dna", "rna", "peptide", "protein")
+molecules[2]
+molecules[c(3, 2)]
 ```
 
 On peut également répéter les indices pour créer un objet avec plus d'éléments
@@ -516,10 +516,10 @@ Enfin, il est également possible d'obtenir tous les éléments d'un vecteur
 sauf certains éléments spécifiés en utilisant des indices négatifs :
 
 ```{r}
-molécules ## toutes les molécules
-molécules[-1] ## toutes sauf la première
-molécules[-c(1, 3)] ## toutes sauf les 1ère/3ème
-molécules[c(-1, -3)] ## toutes sauf les 1ère/3ème
+molecules ## all molecules
+molecules[-1] ## all but the first one
+molecules[-c(1, 3)] ## all but 1st/3rd ones
+molecules[c(-1, -3)] ## all but 1st/3rd ones
 ```
 
 ## Sous-ensemble conditionnel
@@ -528,8 +528,8 @@ Une autre méthode courante de sous-ensemble consiste à utiliser un vecteur log
 sélectionnera l'élément avec le même index, tandis que `FALSE` ne le fera pas :
 
 ```{r, purl=TRUE}
-poids_g <- c(21, 34, 39, 54, 55)
-poids_g[c(VRAI, FAUX, VRAI, VRAI, FAUX)]
+weight_g <- c(21, 34, 39, 54, 55)
+weight_g[c(TRUE, FALSE, TRUE, TRUE, FALSE)]
 ```
 
 Généralement, ces vecteurs logiques ne sont pas tapés à la main, mais sont la sortie
@@ -548,8 +548,8 @@ Vous pouvez combiner plusieurs tests en utilisant `&` (les deux conditions sont 
 AND) ou `|` (au moins une des conditions est vraie, OR) :
 
 ```{r, results="show", purl=TRUE}
-poids_g[poids_g < 30 | poids_g > 50]
-poids_g[poids_g >= 30 & poids_g == 21]
+weight_g[weight_g < 30 | weight_g > 50]
+weight_g[weight_g >= 30 & weight_g == 21]
 ```
 
 Ici, `<` signifie "inférieur à", `>` pour "supérieur à", `>=` pour
@@ -570,13 +570,13 @@ molecules %in% c("rna", "dna", "metabolite", "peptide", "glycerol")
 molecules[molecules %in% c("rna", "dna", "metabolite", "peptide", "glycerol")]
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
 Pouvez-vous comprendre pourquoi « quatre » > « cinq » renvoie « VRAI » ?
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
@@ -652,7 +652,7 @@ na.omit(heights)
 hauteurs[complete.cases(heights)]
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -716,7 +716,7 @@ numérique(0)
 Il existe des constructeurs similaires pour les caractères et les logiques, nommés respectivement
 `character()` et `logical()`.
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -761,7 +761,7 @@ de longueur 1) et de n'importe quel type. Par exemple, si nous voulons répéter
 rep(c(1, 2, 3), 5)
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -838,7 +838,7 @@ sur `TRUE` :
 échantillon (1:5, 10, remplacer = VRAI)
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
