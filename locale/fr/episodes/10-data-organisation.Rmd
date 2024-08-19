@@ -118,11 +118,10 @@ utiliser des tableurs pour bien plus que la saisie de données. Nous les utiliso
 pour créer des tableaux de données pour les publications, pour générer des statistiques récapitulatives
 et réaliser des chiffres.
 
-Generating tables for publications in a spreadsheet is not
-optimal - often, when formatting a data table for publication, we're
-reporting key summary statistics in a way that is not really meant to
-be read as data, and often involves special formatting
-(merging cells, creating borders, making it pretty). Nous vous conseillons de
+Générer des tableaux pour des publications dans une feuille de calcul n'est pas
+optimal - souvent, lors du formatage d'un tableau de données, nous
+rapportons les principales statistiques récapitulatives d'une manière qui n'est pas vraiment destinée à être lue comme des données, et implique souvent un formatage spécial
+(fusion de cellules, création de bordures, préférences esthétiques pour les couleurs, etc.). Nous vous conseillons de
 effectuer ce genre d'opération au sein de votre logiciel d'édition de documents.
 
 Ces deux dernières applications, génératrices de statistiques et de chiffres, doivent
@@ -414,7 +413,7 @@ Mais qu’en est-il des onglets du classeur ? Cela semble être un moyen simple
 , n'est-ce pas ? Eh bien, oui et non. Lorsque vous créez des onglets supplémentaires, vous ne parvenez pas
 à permettre à l'ordinateur de voir les connexions dans les données qui s'y trouvent (vous devez
 introduire des fonctions spécifiques à l'application de feuille de calcul ou
-des scripts pour garantir cette connexion). Supposons, par exemple, que vous créiez un
+des scripts pour garantir cette connexion). Supposons, par exemple, que vous aillez créé un
 onglet séparé pour chaque jour où vous prenez une mesure.
 
 Ce n'est pas une bonne pratique pour deux raisons :
@@ -423,10 +422,7 @@ Ce n'est pas une bonne pratique pour deux raisons :
    si à chaque fois que vous prenez une mesure, vous commencez à enregistrer les données
    dans un nouvel onglet, et
 
-2. even if you manage to prevent all inconsistencies from creeping in,
-   you will add an extra step for yourself before you analyse the data
-   because you will have to combine these data into a single
-   datatable. Vous devrez indiquer explicitement à l'ordinateur comment
+2. même si vous parvenez à empêcher toute incohérence, vous vous ajoutez une étape supplémentaire avant même d'analyser les données car vous devrez combiner ces données en une seule table de données. Vous devrez indiquer explicitement à l'ordinateur comment
    combiner les onglets - et si les onglets ne sont pas formatés de manière cohérente, vous
    devrez peut-être même le faire manuellement.
 
