@@ -421,7 +421,7 @@ rna %>%
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### Compte
 
@@ -431,16 +431,16 @@ pour chaque facteur ou combinaison de facteurs. Pour cette tâche, **`dplyr`** f
 chaque échantillon infecté et non infecté, nous ferions :
 
 ```{r, purl=TRUE}
-arn %>%
-    nombre (infection)
+rna %>%
+    count(infection)
 ```
 
 La fonction `count()` est un raccourci pour quelque chose que nous avons déjà vu : regrouper par une variable et le résumer en comptant le nombre d'observations dans ce groupe. En d'autres termes, « rna %>% count(infection) » équivaut à :
 
 ```{r, purl=TRUE}
-arn %>%
+rna %>%
     group_by(infection) %>%
-    résumé(n = n())
+    summarise(n = n())
 ```
 
 L'exemple précédent montre l'utilisation de `count()` pour compter le nombre de lignes/observations
@@ -449,8 +449,8 @@ Si nous voulions compter une _combinaison de facteurs_, telle que `infection` et
 nous spécifierions le premier et le deuxième facteur comme arguments de `count()` :
 
 ```{r, purl=TRUE}
-arn %>%
-    nombre (infection, temps)
+rna %>%
+    count(infection, time)
 ```
 
 ce qui équivaut à ceci :
@@ -458,7 +458,7 @@ ce qui équivaut à ceci :
 ```{r, purl=TRUE}
 rna %>%
   group_by(infection, time) %>%
-  résumé(n = n())
+  summarise(n = n())
 ```
 
 Il est parfois utile de trier le résultat pour faciliter les comparaisons.
@@ -466,23 +466,23 @@ Nous pouvons utiliser `arrange()` pour trier le tableau.
 Par exemple, nous pourrions vouloir organiser le tableau ci-dessus par heure :
 
 ```{r, purl=TRUE}
-arn %>%
-  compter (infection, temps) %>%
-  organiser (temps)
+rna %>%
+  count(infection, time) %>%
+  arrange(time)
 ```
 
 ou par comptages :
 
 ```{r, purl=TRUE}
-arn %>%
+rna %>%
   count(infection, time) %>%
-  arranger(n)
+  arrange(n)
 ```
 
 Pour trier par ordre décroissant, nous devons ajouter la fonction `desc()` :
 
 ```{r, purl=TRUE}
-arn %>%
+rna %>%
   count(infection, time) %>%
   arrange(desc(n))
 ```
@@ -496,7 +496,7 @@ arn %>%
 3. Choisissez un échantillon et évaluez le nombre de gènes par biotype.
 4. Identifiez les gènes associés à la description du phénotype « méthylation anormale de l’ADN » et calculez leur expression moyenne (en log) au temps 0, au temps 4 et au temps 8.
 
-::::::::::::::: solution
+:::::::::::::::  solution
 
 ## Solution
 
@@ -524,7 +524,7 @@ rna %>%
 
 :::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Remodeler les données
 
@@ -536,8 +536,8 @@ l'échantillon (organisme, âge, sexe, ...) soit le gène (gène\_biotype, ENTRE
 Les variables qui ne changent pas avec les gènes ou avec les échantillons auront la même valeur dans toutes les lignes.
 
 ```{r}
-arn %>%
-  arranger(gène)
+rna %>%
+  arrange(gene)
 ```
 
 Cette structure est appelée « format long », car une colonne contient toutes les valeurs,
@@ -554,9 +554,9 @@ entre les échantillons.
 
 ```{r, echo=FALSE}
 rna %>%
-  select(gène, échantillon, expression) %>%
-  pivot_wider(names_from = échantillon,
-              valeurs_from = expression)
+  select(gene, sample, expression) %>%
+  pivot_wider(names_from = sample,
+              values_from = expression)
 ```
 
 Pour convertir les valeurs d'expression génique de `rna` en un format large,
@@ -583,7 +583,7 @@ pour transformer les données en grand format.
 
 ```{r, purl=TRUE}
 rna_exp <- rna %>%
-  select(gène, échantillon, expression)
+  select(gene, sample, expression)
 rna_exp
 ```
 
