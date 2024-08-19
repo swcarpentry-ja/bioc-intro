@@ -8,14 +8,10 @@ title: Setup
 
 ### R et RStudio
 
-- R and RStudio are separate downloads and installations. R is the
-  underlying statistical computing environment, but using R alone is
-  no fun. RStudio is a graphical integrated development environment
-  (IDE) that makes using R much easier and more interactive. You need
-  to install R before you install RStudio. After installing both
-  programs, you will need to install some specific R packages within
-  RStudio. Follow the instructions below for your operating system,
-  and then follow the instructions to install packages.
+- R et RStudio sont des programmes a télécharger separemment et demandent des installations distincts. R est l'environnement de calcul statistique sous-jacent, mais utiliser R seul peut être pénible. RStudio est un environnement de développement graphique intégré
+  (IDE) qui rend l'utilisation de R beaucoup plus simple et plus interactive. Vous avez besoin d' installer R avant d'installer RStudio. Après avoir installé les deux programmes, vous devrez installer des paquets R spécifiques depuis
+  RStudio. Suivez les instructions ci-dessous pour votre système d'exploitation,
+  puis suivez les instructions pour installer des paquets.
 
 ### You are running Windows
 
@@ -23,19 +19,18 @@ title: Setup
 
 :::::::::::::::  solution
 
-## If you already have R and RStudio installed
+## Si vous avez déjà installé R et RStudio
 
-- Open RStudio, and click on "Help" > "Check for updates". If a new version is
-  available, quit RStudio, and download the latest version for RStudio.
+- Ouvrez RStudio et cliquez sur « Aide » > « Rechercher les mises à jour ». Si une nouvelle version est
+  disponible, quittez RStudio et téléchargez la dernière version de RStudio.
 
-- To check which version of R you are using, start RStudio and the first thing
-  that appears in the console indicates the version of R you are
-  running. Alternatively, you can type `sessionInfo()`, which will also display
-  which version of R you are running. Go on
-  the [CRAN website](https://cran.r-project.org/bin/windows/base/) and check
-  whether a more recent version is available. If so, please download and install
-  it. You can [check here](https://cran.r-project.org/bin/windows/base/rw-FAQ.html#How-do-I-UNinstall-R_003f) for
-  more information on how to remove old versions from your system if you wish to do so.
+- Pour vérifier quelle version de R vous utilisez, démarrez RStudio et la première chose
+  qui apparaît dans la console indique la version de R que vous
+  exécutez. Alternativement, vous pouvez taper `sessionInfo()`, qui affichera également
+  quelle version de R est installée. Allez sur
+  le [site Web du CRAN](https://cran.r-project.org/bin/windows/base/) et vérifiez
+  si une version plus récente est disponible. Si c'est le cas, veuillez le télécharger et l'installer. Vous pouvez [consulter ici](https://cran.r-project.org/bin/windows/base/rw-FAQ.html#How-do-I-UNinstall-R_003f) pour
+  plus d'informations sur la façon de supprimer les anciennes versions de votre système si vous souhaitez le faire.
 
 - Follow the steps in the instructions [for everyone](#for-everyone) at the
   bottom of this page.
