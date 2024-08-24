@@ -1,8 +1,8 @@
 ---
-source: 放射科
+source: Rmd
 title: 使用电子表格组织数据
-teaching: 三十
-exercises: 三十
+teaching: 30
+exercises: 30
 ---
 
 ```{r, include=FALSE}
