@@ -15,13 +15,13 @@ exercises: 0
 - Utilisez l'interface d'aide intégrée de RStudio pour rechercher plus d'informations sur les fonctions R.
 - Montrez comment fournir suffisamment d’informations pour le dépannage avec la communauté des utilisateurs R.
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
 - Que sont R et RStudio ?
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 > Cet épisode est basé sur la leçon _Analyse des données et
 > Visualisation dans R pour les écologistes_ de Data Carpentries.
@@ -260,7 +260,7 @@ créez un dossier nommé « données » dans votre répertoire de travail nouvel
 (par exemple, « ~/bioc -intro/données`). (Vous pouvez également taper `dir.create("data")`sur
 votre console R.) Répétez ces opérations pour créer un dossier`data_output/`et un`fig_output\`.
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
 
 Nous allons conserver le script à la racine de notre répertoire de travail
 car nous n'allons utiliser qu'un seul fichier et cela rendra les choses
@@ -453,7 +453,7 @@ pouvez taper :
 Si vous avez juste besoin de vous rappeler les noms des arguments, vous pouvez utiliser :
 
 ```{r, eval=FALSE, purl=TRUE}
-arguments(lm)
+args(lm)
 ```
 
 ### Je veux utiliser une fonction qui fait X, il doit y avoir une fonction pour ça mais je ne sais pas laquelle...
@@ -527,8 +527,8 @@ pouvez utiliser la fonction `dput()`. Il produira du code R qui peut être utili
 pour recréer exactement le même objet que celui en mémoire :
 
 ```{r, results="show", purl=TRUE}
-## iris est un exemple de bloc de données fourni avec R et head() est une
-## fonction qui renvoie la première partie du bloc de données
+## iris is an example data frame that comes with R and head() is a
+## function that returns the first part of the data frame
 dput(head(iris))
 ```
 
@@ -625,7 +625,7 @@ d'abord le charger pour pouvoir l'utiliser . Cela se fait avec la fonction
 `library()`. Ci-dessous, nous chargeons `ggplot2`.
 
 ```{r loadp, eval=FALSE, purl=TRUE}
-bibliothèque("ggplot2")
+library("ggplot2")
 ```
 
 ### Installation des packages
@@ -664,4 +664,4 @@ Par défaut, `BiocManager::install()` vérifiera également tous vos packages in
 
 - Commencez à utiliser R et RStudio
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::
