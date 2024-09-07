@@ -1,0 +1,458 @@
+---
+source: Rmd
+title: 次のステップ
+teaching: 45
+exercises: 45
+---
+
+```{r, include=FALSE}
+```
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- Bioconductorプロジェクトを紹介してみましょう。
+- データコンテナの概念を紹介してみましょう。
+- オミックス解析で多用される `SummarizedExperiment` の概要を説明する。
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- `SummarizedExperiment` とは何でしょうか？
+- Bioconductor と何でしょうか？
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## 次のステップ
+
+```{r, echo=FALSE, message=FALSE}
+library("tidyverse")
+```
+
+バイオインフォマティクスのデータはしばしば複雑です。  これに対処するため、
+開発者は、扱う必要のあるデータのプロパティに
+マッチする、特別なデータコンテナ（クラスと呼ばれる）を定義する。
+
+この側面は、パッケージ間で同じ**コア・データ・インフラ**を使用する**バイオコンダクター**\[^バイオコンダクター]プロジェクト
+。 この
+、Bioconductorの成功に貢献したことは間違いない。 Bioconductor パッケージ
+開発者は、
+プロジェクト全体に一貫性、相互運用性、安定性を提供するために、既存のインフラストラクチャを利用することをお勧めします
+。
+
+[^Bioconductor]: Bioconductor](https://www.bioconductor.org)は、
+    、
+    R言語の生みの親の一人であるロバート・ジェントルマンによって始められた。 Bioconductorは、オミックスデータ
+    分析に特化したツールを提供している。 Bioconductorは統計プログラミング言語R（
+    ）を使用しており、オープンソース、オープン開発である。
+
+このようなオミックス・データ・コンテナを説明するために、
+`SummarizedExperiment`クラスを紹介する。
+
+## 実験概要
+
+下図は、SummarizedExperimentクラスの構造を表しています。
+
+```{r SE, echo=FALSE, out.width="80%"}
+knitr::include_graphics("https://uclouvain-cbio.github.io/WSBIM1322/figs/SE.svg")
+```
+
+SummarizedExperimentクラスのオブジェクトには、：
+
+- \*\*定量的オミックスデータ
+  （発現データ）を含む1つ（または複数）のアッセイ \*\*、マトリックス状のオブジェクトとして格納されている。 特徴（遺伝子、
+  転写物、タンパク質、...） は行に沿って定義され、
+  は列に沿って定義される。
+
+- データフレームとして格納された、サンプルの共変量を含む **sample metadata** スロット。 この表の行はサンプルを表す（行は発現データの
+  列と正確に一致する）。
+
+- データフレームとして格納される、特徴共変量を含む **特徴メタデータ** スロット。 このデータフレームの行は、
+  式データの行と完全に一致する。
+
+SummarizedExperiment\`の調整された性質は、データ操作中に
+、異なるスロットの次元が
+、常に一致することを保証する（すなわち、発現データの列と
+サンプルメタデータの行、および発現データと
+特徴メタデータの行）。 例えば、
+、アッセイから1つのサンプルを除外しなければならない場合、同じ操作でサンプルメタデータから
+、自動的に除外される。
+
+メタデータ・スロットは、他の構造に影響を与えることなく、
+（カラム）の共変数を追加で増やすことができる。
+
+### SummarizedExperimentの作成
+
+SummarizedExperiment\`を作成するために、
+の各コンポーネント、すなわちカウントマトリックス、サンプル、遺伝子
+のメタデータをcsvファイルから作成する。 これらは通常、RNA-Seqデータが
+（生データが処理された後）提供される方法である。
+
+```{r, echo=FALSE, message=FALSE}
+rna <- read_csv("data/rnaseq.csv")
+
+## count matrix
+counts <- rna %>%
+  select(gene, sample, expression) %>%
+  pivot_wider(names_from = sample,
+              values_from = expression)
+
+## convert to matrix and set row names
+count_matrix <- counts %>% select(-gene) %>% as.matrix()
+rownames(count_matrix) <- counts$gene
+
+## sample annotation
+sample_metadata <- rna %>%
+  select(sample, organism, age, sex, infection, strain, time, tissue, mouse)
+
+## remove redundancy
+sample_metadata <- unique(sample_metadata)
+
+## gene annotation
+gene_metadata <- rna %>%
+  select(gene, ENTREZID, product, ensembl_gene_id, external_synonym,
+         chromosome_name, gene_biotype, phenotype_description,
+         hsapiens_homolog_associated_gene_name)
+
+# remove redundancy
+gene_metadata <- unique(gene_metadata)
+
+## write to csv
+write.csv(count_matrix, file = "data/count_matrix.csv")
+write.csv(gene_metadata, file = "data/gene_metadata.csv", row.names = FALSE)
+write.csv(sample_metadata, file = "data/sample_metadata.csv", row.names = FALSE)
+```
+
+- **An expression matrix**: カウント行列をロードし、
+  最初の列が行/遺伝子名を含むことを指定し、
+  `data.frame` を `matrix` に変換する。 ダウンロードは
+  [こちら](https://carpentries-incubator.github.io/bioc-intro/data/count_matrix.csv)。
+
+```{r}
+count_matrix <- read.csv("data/count_matrix.csv",
+                         row.names = 1) %>%
+    as.matrix()
+
+count_matrix[1:5, ]
+dim(count_matrix)
+```
+
+- **サンプルを説明する表**、
+  [こちら](https://carpentries-incubator.github.io/bioc-intro/data/sample_metadata.csv)。
+
+```{r}
+sample_metadata <- read.csv("data/sample_metadata.csv")
+sample_metadata
+dim(sample_metadata)
+```
+
+- **遺伝子を説明する表**、
+  [こちら](https://carpentries-incubator.github.io/bioc-intro/data/gene_metadata.csv)。
+
+```{r}
+gene_metadata <- read.csv("data/gene_metadata.csv")
+gene_metadata[1:10, 1:4]
+dim(gene_metadata)
+```
+
+これらのテーブルから `SummarizedExperiment` を作成する：
+
+- として使用されるカウント行列。
+
+- サンプルを記述したテーブルは、**サンプル
+  メタデータ**スロットとして使用される。
+
+- 遺伝子を記述したテーブルは、**features
+  メタデータ**スロットとして使用される。
+
+これを行うには、
+`SummarizedExperiment` コンストラクタを使って、異なるパーツをまとめることができる：
+
+```{r, message=FALSE, warning=FALSE}
+## BiocManager::install("SummarizedExperiment")
+library("SummarizedExperiment")
+```
+
+まず、
+カウントマトリックスとサンプルアノテーションにおいて、サンプルの順番が同じであることを確認する。また、
+カウントマトリックスと遺伝子アノテーションにおいて、遺伝子の順番が同じであることを確認する。
+
+```{r}
+stopifnot(rownames(count_matrix) == gene_metadata$gene)
+stopifnot(colnames(count_matrix) == sample_metadata$sample)
+```
+
+```{r}
+se <- SummarizedExperiment(assays = list(counts = count_matrix),
+                           colData = sample_metadata,
+                           rowData = gene_metadata)
+se
+```
+
+### データの保存
+
+以前のエピソードで行ったように、データをスプレッドシートにエクスポートするには、
+、第1章
+（小数点以下の区切り文字に`,`と`.`を使った場合の不整合の可能性、
+変数型の定義の欠如）で説明したようないくつかの制限がある。 さらに、
+スプレッドシートへのデータエクスポートは、データフレーム
+や行列のような長方形のデータにのみ関係する。
+
+データを保存するより一般的な方法は、Rに特有であり、
+どのオペレーティングシステムでも動作することが保証されている `saveRDS`
+関数を使用することである。 このようにオブジェクトを保存すると、ディスク上にバイナリ
+表現が生成されます（ここでは `rds` ファイル拡張子を使用します）。
+`readRDS` 関数を使用して R にロードし直すことができます。
+
+```{r, eval=FALSE}
+saveRDS(se, file = "data_output/se.rds")
+rm(se)
+se <- readRDS("data_output/se.rds")
+head(se)
+```
+
+結論として、Rからデータを保存し、
+Rで再度ロードする場合、`saveRDS`と`readRDS`で保存とロードを行うのが
+。 表形式のデータを、Rを使用していない誰か（
+）と共有する必要がある場合は、テキストベースのスプレッドシートにエクスポートするのが、
+良い選択肢である。
+
+このデータ構造を使って、
+`assay`関数で発現行列にアクセスすることができる：
+
+```{r}
+head(assay(se))
+dim(assay(se))
+```
+
+colData\`関数を使ってサンプルのメタデータにアクセスすることができる：
+
+```{r}
+colData(se)
+dim(colData(se))
+```
+
+また、`rowData`関数を使ってフィーチャーのメタデータにアクセスすることもできる：
+
+```{r}
+head(rowData(se))
+dim(rowData(se))
+```
+
+### SummarizedExperimentをサブセットする
+
+SummarizedExperiment は、データフレームと同じように、
+数値または論理の文字でサブセットできる。
+
+以下では、
+、3つの最初のサンプルの5つの最初の特徴のみを含む、SummarizedExperimentクラスの新しいインスタンスを作成します。
+
+```{r}
+se1 <- se[1:5, 1:3]
+se1
+```
+
+```{r}
+colData(se1)
+rowData(se1)
+```
+
+また、`colData()` 関数を使用して、
+サンプルメタデータから何かをサブセットしたり、`rowData()` 関数を使用して、
+フィーチャーメタデータから何かをサブセットすることもできます。  例えば、ここではmiRNAと
+に感染していないサンプルだけを残している：
+
+```{r}
+se1 <- se[rowData(se)$gene_biotype == "miRNA",
+          colData(se)$infection == "NonInfected"]
+se1
+assay(se1)
+colData(se1)
+rowData(se1)
+```
+
+<!--For the following exercise, you should download the SE.rda object
+(that contains the `se` object), and open the file using the 'load()'
+function.-->
+
+<!-- ```{r, eval = FALSE, echo = FALSE} -->
+
+<!-- download.file(url = "https://raw.githubusercontent.com/UCLouvain-CBIO/bioinfo-training-01-intro-r/master/data/SE.rda", -->
+
+<!--               destfile = "data/SE.rda") -->
+
+<!-- load("data/SE.rda") -->
+
+<!-- ``` -->
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## チャレンジ
+
+時刻0と時刻8のサンプル
+、最初の3遺伝子の遺伝子発現レベルを抽出する。
+
+:::::::::::::::  solution
+
+## ソリューション
+
+```{r, purl=FALSE}
+assay(se)[1:3, colData(se)$time != 4]
+
+# Equivalent to
+assay(se)[1:3, colData(se)$time == 0 | colData(se)$time == 8]
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## チャレンジ
+
+長い`rna`テーブルを使用して同じ値が得られることを確認する。
+
+:::::::::::::::  solution
+
+## ソリューション
+
+```{r, purl=FALSE}
+rna |>
+    filter(gene %in% c("Asl", "Apod", "Cyd2d22"))|>
+    filter(time != 4) |> select(expression)
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+長いテーブルと`SummarizedExperiment`は同じ
+情報を含むが、単に構造が異なるだけである。 各アプローチにはそれぞれ
+独自の利点がある。前者は `tidyverse` パッケージに適しており、
+一方、後者は多くのバイオインフォマティクスと
+統計処理ステップに適した構造である。 例えば、
+`DESeq2`パッケージを使用した典型的なRNA-Seq分析である。
+
+#### メタデータに変数を追加する
+
+メタデータに情報を追加することもできる。
+サンプルが採取されたセンターを追加したいとします...
+
+```{r}
+colData(se)$center <- rep("University of Illinois", nrow(colData(se)))
+colData(se)
+```
+
+これは、メタデータ・スロットが、
+、他の構造に影響を与えることなく、無限に成長できることを示している！
+
+### tidySummarizedExperiment
+
+`SummarizedExperiment` オブジェクトを操作するために tidyverse コマンドを使うことはできるのだろうか？
+`tidySummarizedExperiment` パッケージを使えば可能です。
+
+SummarizedExperimentオブジェクトがどのようなものか思い出してください：
+
+```{r, message=FALSE}
+シー
+```
+
+tidySummarizedExperiment\`をロードし、seオブジェクト
+。
+
+```{r, message=FALSE}
+#BiocManager::install("tidySummarizedExperiment")
+library("tidySummarizedExperiment")
+
+se
+```
+
+これはまだ`SummarizedExperiment`オブジェクトなので、効率的な
+構造を維持しているが、これでティブルとして見ることができる。
+の最初の行に注目してほしい。出力にはこう書いてあるが、これは `SummarizedExperiment`-`tibble`
+の抽象化である。 また、出力の2行目には、
+のトランスクリプトとサンプルの数を見ることができる。
+
+標準の`SummarizedExperiment`ビューに戻したい場合は、
+。
+
+```{r}
+options("restore_SummarizedExperiment_show" = TRUE)
+se
+```
+
+しかし、ここではティブル・ビューを使う。
+
+```{r}
+options("restore_SummarizedExperiment_show" = FALSE)
+se
+```
+
+`SummarizedExperiment` オブジェクトと対話するために、tidyverse コマンドを使用できるようになりました。
+
+filter\`を使用すると、条件を使って行をフィルタリングすることができる。例えば、
+、あるサンプルのすべての行を表示することができる。
+
+```{r}
+se %>% filter(.sample == "GSM2545336")
+```
+
+select\`を使って表示したいカラムを指定することができる。
+
+```{r}
+se %>% select(.sample)
+```
+
+mutate\`を使ってメタデータ情報を追加することができる。
+
+```{r}
+se %>% mutate(center = "ハイデルベルク大学")
+```
+
+tidyverseパイプ `%>%` を使ってコマンドを組み合わせることもできます。
+の例では、`group_by` と `summarise` を組み合わせて、各サンプルの
+カウントの合計を得ることができる。
+
+```{r}
+se %>%
+    group_by(.sample) %>%
+    summarise(total_counts=sum(counts))
+```
+
+整頓されたSummarizedExperimentオブジェクトを、プロット用の通常のtibble
+として扱うことができる。
+
+ここでは、サンプルごとのカウント数分布をプロットしている。
+
+```{r tidySE-plot}
+se %>%
+    ggplot(aes(counts + 1, group=.sample, color=infection))+
+    geom_density() +
+    scale_x_log10() +
+    theme_bw()
+```
+
+tidySummarizedExperimentの詳細については、パッケージ
+ウェブサイト
+[こちら](https://stemangiola.github.io/tidySummarizedExperiment/)を参照してください。
+
+\*\*テイクホーム・メッセージ
+
+- SummarizedExperiment\`は、オミックスデータを効率的に保存し、
+  。
+
+- これらは多くのBioconductorパッケージで使用されている。
+
+RNAシーケンス解析に焦点を当てた次のトレーニング、
+、Bioconductor `DESeq2`パッケージを使って、
+差分発現解析を行う方法を学ぶ。  DESeq2`パッケージの全解析は`SummarizedExperiment\` で処理される。
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- Bioconductorは、ハイスループットな生物学データの理解（
+  ）のためのサポートとパッケージを提供するプロジェクトである。
+- SummarizedExperiment\`は、ハイスループットのオミックスデータを保存し、
+  管理するのに便利なオブジェクトの一種である。
+
+::::::::::::::::::::::::::::::::::::::::::::::::::

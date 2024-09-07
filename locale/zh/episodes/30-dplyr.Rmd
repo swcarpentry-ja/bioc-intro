@@ -1,0 +1,1047 @@
+---
+source: 放射科
+title: 使用 dplyr 处理和分析数据
+teaching: 75
+exercises: 75
+---
+
+```{r, include=FALSE}
+```
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- 描述\*\*`dplyr`**和**`tidyr`\*\*包的用途。
+- 描述一些对于
+  操作数据极其有用的函数。
+- 描述宽表和长表格式的概念，并了解
+  如何将数据框从一种格式重塑为另一种格式。
+- 演示如何连接表格。
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- 使用 tidyverse 元包在 R 中进行数据分析
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+```{r loaddata_dplyr, echo=FALSE, purl=FALSE, message=FALSE}
+if (!file.exists("data/rnaseq.csv"))
+download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv",
+              destfile = "data/rnaseq.csv")
+```
+
+> 本集基于 Data Carpentries 的_面向生态学家的 R 语言数据分析和
+> 可视化_课程。
+
+## 使用 **`dplyr`** 和 **`tidyr`** 进行数据操作
+
+Bracket subsetting is handy, but it can be cumbersome and difficult to
+read, especially for complicated operations.
+
+当我们处理数据时，一些包可以极大地方便我们的任务。
+R 中的包基本上是一组附加函数，可让您
+做更多的事情。 我们迄今为止使用的函数，如 `str()` 或
+`data.frame()`，都是 R 内置的；加载包可以让您访问其他
+特定函数。 第一次使用包之前，您需要在您的机器上安装
+它，然后您应该在需要它时在每个后续的
+R 会话中导入它。
+
+- 包\*\*`dplyr`\*\*为数据操作任务提供了强大的工具。
+  它被构建为直接与数据框一起工作，并且许多操作任务
+  已经进行了优化。
+
+- 正如我们稍后会看到的，有时我们希望重塑数据框以便能够
+  进行一些特定的分析或进行可视化。 包\*\*`tidyr`\*\*解决了
+  这个常见的数据重塑问题，并提供了以整洁的方式操作
+  数据的工具。
+
+如果要在研讨会结束后了解有关 **`dplyr`** 和 **`tidyr`** 的更多信息，
+您可能需要查看这个 使用
+
+和这个 关于
+。
+
+- **`tidyverse`** 包是一个“总括包”，它安装了
+  几个用于数据分析的有用包，它们可以很好地协同工作，
+  例如 **`tidyr`**、**`dplyr`**、**`ggplot2`**、**`tibble`** 等。
+  这些包帮助我们处理数据并与之交互。
+  它们允许我们对您的数据做很多事情，例如子集化、转换、
+  可视化等。
+
+如果您已完成设置，则应该已经安装了 tidyverse 包。
+尝试从库中加载以检查您是否拥有它：
+
+```{r, message=FALSE, purl=TRUE}
+## load the tidyverse packages, incl. dplyr
+library("tidyverse")
+```
+
+如果您收到错误消息“没有名为‘tidyverse’的包”，那么您尚未
+为此版本的 R 安装该包。要安装\*\*`tidyverse`\*\*包类型：
+
+```{r, eval=FALSE, purl=TRUE}
+BiocManager::install(“tidyverse”)
+```
+
+如果您必须安装\*\*`tidyverse`\*\*包，请不要忘记使用上面的`library()`命令在此 R 会话中加载它！
+
+## 使用 tidyverse 加载数据
+
+我们不使用 `read.csv()`，而是使用 `read_csv()`
+函数（注意用 `_` 而不是 `.`）读取数据，该函数来自 tidyverse 包
+**`readr`**。
+
+```{r, message=FALSE, purl=TRUE}
+rna <- read_csv("data/rnaseq.csv")
+
+## view the data
+rna
+```
+
+请注意，数据类别现在被称为“tibble”。
+
+Tibbles 调整了我们之前在
+中介绍的数据框对象的一些行为。 该数据结构与数据框非常相似。 对于我们的目的
+来说，唯一的区别是：
+
+1. 它在名称下显示每列的数据类型。
+   请注意，\<`dbl`\> 是一种数据类型，定义为保存带有
+   小数点的数值。
+
+2. 它仅打印前几行数据，并且仅打印适合
+   一个屏幕的列数。
+
+我们现在要学习一些最常见的 **`dplyr`** 函数：
+
+- `select()`：子集列
+- `filter()`：根据条件将行设为子集
+- `mutate()`：使用其他列的信息创建新列
+- `group_by()` 和 `summarise()`：对分组数据创建汇总统计数据
+- `arrange()`：对结果进行排序
+- `count()`：计数离散值
+
+## 选择列和过滤行
+
+要选择数据框的列，请使用“select（）”。 该函数的第一个参数
+是数据框（`rna`），后续的
+参数是需要保留的列。
+
+```{r, purl=TRUE}
+select(rna, gene, sample, tissue, expression)
+```
+
+要选择除某些列之外的所有列，请在变量
+前面放置“-”以将其排除。
+
+```{r, purl=TRUE}
+select(rna, -tissue, -organism)
+```
+
+这将选择“rna”中除“tissue”
+和“organism”之外的所有变量。
+
+要根据特定标准选择行，请使用“filter（）”：
+
+```{r, purl=TRUE}
+filter(rna, sex == "Male")
+filter(rna, sex == "Male" & infection == "NonInfected")
+```
+
+现在让我们假设我们对该数据集中分析的小鼠
+基因的人类同源物感兴趣。 该信息可以在 `rna` tibble 的
+最后一列中找到，名为
+`hsapiens_homolog_associated_gene_name`。  为了轻松地将其形象化，我们
+将创建一个新表，仅包含 2 列“基因”和
+“hsapiens_homolog_associated_gene_name”。
+
+```{r}
+genes <- select(rna, gene, hsapiens_homolog_associated_gene_name)
+genes
+```
+
+一些小鼠基因没有人类同源物。 可以使用
+`filter()` 和 `is.na()` 函数检索这些，确定
+某物是否为 `NA`。
+
+```{r, purl=TRUE}
+filter(genes, is.na(hsapiens_homolog_associated_gene_name))
+```
+
+如果我们只想保留具有人类同源物的小鼠基因，我们可以在
+中插入一个“！”符号来否定结果，因此我们要求在 hsapiens\_homolog\_associated\_gene\_name _不是_
+`NA` 的每一行中都为
+。
+
+```{r, purl=TRUE}
+filter(genes, !is.na(hsapiens_homolog_associated_gene_name))
+```
+
+## 管道
+
+如果您想同时选择和过滤怎么办？ 有三种
+方法可以做到这一点：使用中间步骤、嵌套函数或管道。
+
+通过中间步骤，您可以创建一个临时数据框并使用
+作为下一个函数的输入，如下所示：
+
+```{r, purl=TRUE}
+rna2 <- filter(rna, sex == "Male")
+rna3 <- select(rna2, gene, sample, tissue, expression)
+rna3
+```
+
+这是可读的，但会使您的工作区变得混乱，因为有大量的
+中间对象需要您单独命名。 由于有多个
+步骤，因此很难跟踪。
+
+您还可以嵌套函数（即一个函数位于另一个函数内），
+如下所示：
+
+```{r, purl=TRUE}
+rna3 <- select(filter(rna, sex == "Male"), 基因, 样本, 组织, 表达)
+rna3
+```
+
+这很方便，但如果嵌套的函数太多，可能会难以阅读，因为
+R 从内到外评估表达式（在本例中，先过滤，然后选择）。
+
+最后一个选项 _管道_ 是最近添加到 R 中的。管道让您可以将
+一个函数的输出直接发送到下一个函数，当您需要对同一个数据集执行许多操作时，这很有用
+。
+
+R 中的管道看起来像 `%>%`（通过\*\*`magrittr`\*\*
+包提供）或 `|>`（通过基础 R）。 如果您使用 RStudio，则可以在管道中输入
+和 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> （如果您
+有 PC）或 <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> （如果您
+有 Mac）。
+
+在上面的代码中，我们使用管道首先将 `rna` 数据集
+通过 `filter()` 发送以保留 `sex` 为男性的行，然后通过
+`select()` 仅保留 `gene`、`sample`、`tissue` 和
+`expression` 列。
+
+管道 `%>%` 将其左侧的对象直接作为
+传递给其右侧的函数的第一个参数，我们不再需要
+明确将数据框作为 `filter()` 和
+`select()` 函数的参数。
+
+```{r, purl=TRUE}
+rna %>%
+  filter(sex == "Male") %>%
+  select(gene, sample, tissue, expression)
+```
+
+有些人可能会发现将管道读成“then”这个词很有帮助。 例如，在上面的例子中，
+我们取数据框 `rna`，_然后_我们 `过滤`
+中含有 `sex == "Male"` 的行，_然后_我们 `选择` 列 `gene`、`sample`、
+`tissue` 和 `expression`。
+
+**`dplyr`** 函数本身有些简单，但通过
+将它们与管道组合成线性工作流，我们可以完成
+更复杂的数据框操作。
+
+如果我们想用这个较小版本的数据创建一个新对象，我们
+可以给它分配一个新名称：
+
+```{r, purl=TRUE}
+rna3 <- rna %>%
+  filter(sex == "Male") %>%
+  select(gene, sample, organization, expression)
+
+rna3
+```
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+使用管道，对 `rna` 数据进行子集化，以保留时间 0 时雌性小鼠的观察结果，
+其中基因表达高于 50000，并且仅保留列
+`基因`、`样本`、`时间`、`表达` 和 `年龄`。
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r}
+rna %>%
+  filter(expression > 50000,
+         sex == "Female",
+         time == 0 ) %>%
+  select(gene, sample, time, expression, age)
+```
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## 合变
+
+您经常需要根据现有
+列的值创建新列，例如进行单位转换，或者查找两个
+列中的值之比。 为此，我们将使用“mutate()”。
+
+要创建以小时为单位的新时间列：
+
+```{r, purl=TRUE}
+rna %>%
+  mutate(time_hours = time * 24) %>%
+  select(time, time_hours)
+```
+
+您还可以在同一个 `mutate()` 调用中根据第一个新列创建第二个新列：
+
+```{r, purl=TRUE}
+rna %>%
+  mutate(time_hours = time * 24,
+         time_mn = time_hours * 60) %>%
+  select(time, time_hours, time_mn)
+```
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战
+
+从满足以下
+条件的`rna`数据中创建一个新的数据框：仅包含`gene`、`chromosome_name`、
+`phenotype_description`、`sample`和`expression`列。 表达式
+值应该进行对数变换。 该数据框必须
+仅包含位于性染色体上、与
+表型描述相关且对数表达高于 5 的基因。
+
+**提示**：思考一下应该如何排列命令来生成
+这个数据框！
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r, eval=TRUE, purl=TRUE}
+rna %>%
+  mutate(expression = log(expression)) %>%
+  select(gene, chromosome_name, phenotype_description, sample, expression) %>%
+  filter(chromosome_name == "X" | chromosome_name == "Y") %>%
+  filter(!is.na(phenotype_description)) %>%
+  filter(expression > 5)
+```
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## 拆分-应用-合并数据分析
+
+许多数据分析任务可以使用
+_split-apply-combine_ 范式来完成：将数据分成组，对每组应用一些
+分析，然后合并结果。 **`dplyr`**
+通过使用 `group_by()` 函数使这变得非常容易。
+
+```{r}
+rna %>%
+  group_by(gene)
+```
+
+`group_by()` 函数不执行任何数据处理，它
+将数据分组为子集：在上面的例子中，我们最初的
+`tibble` 的 `r nrow(rna)` 观测值根据 `gene` 变量被分成
+`r length(unique(rna$gene))` 组。
+
+我们可以类似地决定根据样本对 tibble 进行分组：
+
+```{r}
+rna %>%
+  group_by(样本)
+```
+
+这里我们最初的 `r nrow(rna)` 观测值的 `tibble` 被基于 `sample` 变量分成
+`r length(unique(rna$sample))` 组。
+
+Once the data has been grouped, subsequent operations will be
+applied on each group independently.
+
+### `summarise()` 函数
+
+`group_by()` is often used together with `summarise()`, which
+collapses each group into a single-row summary of that group.
+
+`group_by()` 将包含要计算摘要
+**分类** 变量的列名作为参数
+统计数据。 因此要计算基因的平均“表达”：
+
+```{r}
+rna %>%
+  group_by(gene) %>%
+  summarise(mean_expression = mean(expression))
+```
+
+我们还可能想计算每个样本中所有基因的平均表达水平：
+
+```{r}
+rna %>%
+  group_by(sample) %>%
+  总结(mean_expression = mean(expression))
+```
+
+但我们也可以按多列分组：
+
+```{r}
+rna %>%
+  group_by(gene, infection, time) %>%
+  summarise(mean_expression = mean(expression))
+```
+
+一旦数据被分组，您还可以在同一
+时间总结多个变量（不一定是同一个变量）。 例如，我们可以添加一个
+列，表示基因和条件的中位“表达”：
+
+```{r, purl=TRUE}
+rna %>%
+  group_by(gene, infection, time) %>%
+  summarise(mean_expression = mean(expression),
+            median_expression = median(expression))
+```
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战
+
+按时间点计算基因“Dok3”的平均表达水平。
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r, purl=TRUE}
+rna %>%
+  filter(gene == "Dok3") %>%
+  group_by(time) %>%
+  summarise(mean = mean(expression))
+```
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+### 数数
+
+处理数据时，我们常常想知道每个因素或因素组合的观测值数量
+。 对于这个任务，**`dplyr`** 提供了
+`count()`。 例如，如果我们想要计算每个感染和未感染样本的
+的数据行数，我们会这样做：
+
+```{r, purl=TRUE}
+rna %>%
+    count(infection)
+```
+
+`count()` 函数是我们已经见过的功能的简写：按变量分组，并通过计算该组中的观察次数进行汇总。 换句话说，`rna %>% count(infection)` 等同于：
+
+```{r, purl=TRUE}
+rna %>%
+    group_by(感染) %>%
+    总结(n = n())
+```
+
+前面的例子显示了使用 `count()` 来计算_一个_因素（即`感染`）的行数/观察数
+。
+如果我们想要计算_多种因素的组合_，例如`感染`和`时间`，
+我们会将第一个和第二个因素指定为`count()`的参数：
+
+```{r, purl=TRUE}
+rna %>%
+    count(infection, time)
+```
+
+这相当于：
+
+```{r, purl=TRUE}
+rna %>%
+  group_by(infection, time) %>%
+  summarise(n = n())
+```
+
+有时对结果进行排序以方便比较是很有用的。
+我们可以使用`arrange()`对表格进行排序。
+例如，我们可能想按时间排列上面的表格：
+
+```{r, purl=TRUE}
+rna %>%
+  count(infection, time) %>%
+  arrange(time)
+```
+
+或按计数：
+
+```{r, purl=TRUE}
+rna %>%
+  count(infection, time) %>%
+  arrange(n)
+```
+
+为了按降序排序，我们需要添加 `desc()` 函数：
+
+```{r, purl=TRUE}
+rna %>%
+  count(infection, time) %>%
+  arrange(desc(n))
+```
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战
+
+1. 每个样本分析了多少个基因？
+2. 使用 `group_by()` 和 `summarise()` 来评估每个样本中的测序深度（所有计数的总和）。 哪个样本的测序深度最高？
+3. 选择一个样本并根据生物型评估基因的数量。
+4. 识别与“异常 DNA 甲基化”表型描述相关的基因，并计算它们在时间 0、时间 4 和时间 8 的平均表达（以对数表示）。
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r}
+## 1.
+rna %>%
+  count(sample)
+## 2.
+rna %>%
+  group_by(sample) %>%
+  summarise(seq_depth = sum(expression)) %>%
+  range(desc(seq_depth))
+## 3.
+rna %>%
+  filter(sample == "GSM2545336") %>%
+  count(gene_biotype) %>%
+  range(desc(n))
+## 4.
+rna %>%
+  filter(phenotype_description == "异常 DNA 甲基化") %>%
+  group_by(gene, time) %>%
+  summarise(mean_expression = mean(log(expression))) %>%
+  range()
+```
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## 重塑数据
+
+在 `rna` tibble 中，行包含表达值（单位），这些值
+与其他两个变量的组合相关：`gene` 和 `sample`。
+
+All the other columns correspond to variables describing either
+the sample (organism, age, sex, ...) 或基因（gene_biotype、ENTREZ_ID、product、...）。
+不随基因或样本而改变的变量在所有行中具有相同的值。
+
+```{r}
+rna %>%
+  arrange(gene)
+```
+
+这种结构称为“长格式”，因为一列包含所有值，
+，而其他列列出值的上下文。
+
+在某些情况下，“长格式”并不是真正的“人类可读的”，而另一种格式，
+“宽格式”是首选，因为它是一种更紧凑的数据表示方式。
+这通常是基因表达值的情况，科学家习惯将
+视为矩阵，其中行代表基因，列代表样本。
+
+因此，在这种格式下，可以直接通过
+来探索样本内基因表达水平之间的关系，以及通过
+来探索样本间的关系。
+
+```{r, echo=FALSE}
+rna %>%
+  select(gene, sample, expression) %>%
+  pivot_wider(names_from = sample,
+              values_from = expression)
+```
+
+为了将基因表达值从“rna”转换为宽格式
+，我们需要创建一个新表，其中“sample”列的值将
+成为列变量的名称。
+
+这里的关键点是，我们仍然遵循
+整洁的数据结构，但是我们已经根据
+感兴趣的观察结果**重塑**了数据：每个基因的表达水平，而不是
+每个基因和每个样本记录它们的表达水平。
+
+相反的转换是将列名转换为新变量的
+值。
+
+我们可以使用两个 `tidyr` 函数完成这两种转换，
+`pivot_longer()` 和 `pivot_wider()`（有关
+详细信息，请参阅
+[此处](https://tidyr.tidyverse.org/dev/articles/pivot.html)）。
+
+### 将数据转换为更广泛的格式
+
+让我们选择“rna”的前三列并使用“pivot_wider()”
+将数据转换为宽格式。
+
+```{r, purl=TRUE}
+rna_exp <- rna %>%
+  select(gene, sample, expression)
+rna_exp
+```
+
+`pivot_wider` 有三个主要参数：
+
+1. 要转换的数据；
+2. `names_from` ：其值将成为新列
+   名称的列；
+3. `values_from`：其值将填充新的
+   列的列。
+
+\`\`\`{r, fig.cap="`rna` 数据的宽枢轴。", echo=FALSE, message=FALSE}
+knitr::include_graphics("fig/pivot_wider.png")
+
+````
+
+```{r, purl=TRUE}
+rna_wide <- rna_exp %>%
+  pivot_wider(names_from = sample,
+              values_from = expression)
+rna_wide
+````
+
+请注意，默认情况下，“pivot_wider()”函数将为缺失值添加“NA”。
+
+让我们想象一下，由于某种原因，某些样本中的某些
+基因缺少一些表达值。 在以下虚构的例子中，基因 Cyp2d22 在 GSM2545338 样本中只有
+一个表达值。
+
+```{r, purl=TRUE}
+rna_with_missing_values <- rna %>%
+  select(gene, sample, expression) %>%
+  filter(gene %in% c("Asl", "Apod", "Cyp2d22")) %>%
+  filter(sample %in% c("GSM2545336", "GSM2545337", "GSM2545338")) %>%
+  arrange(sample) %>%
+  filter(!(gene == "Cyp2d22" & sample != "GSM2545338"))
+rna_with_missing_values
+```
+
+默认情况下，`pivot_wider()` 函数将为缺失的
+值添加 `NA`。 这可以通过
+`pivot_wider()` 函数的 `values_fill` 参数进行参数化。
+
+```{r, purl=TRUE}
+rna_with_missing_values %>%
+  pivot_wider(names_from = 样本,
+              values_from = 表达式)
+
+rna_with_missing_values %>%
+  pivot_wider(names_from = 样本,
+              values_from = 表达式,
+              values_fill = 0)
+```
+
+### 将数据转换为更长的格式
+
+在相反的情况下，我们使用列名并将它们变成
+一对新变量。 一个变量将列名表示为
+值，另一个变量包含先前与列名相关联的
+值。
+
+`pivot_longer()` 有四个主要参数：
+
+1. 要转换的数据；
+2. `names_to`：我们希望创建的新列名，并用
+   当前列名填充；
+3. `values_to`：我们希望创建的新列名，并用
+   当前值填充；
+4. 用于填充“names_to”和
+   “values_to”变量（或删除）的列的名称。
+
+\`\`\`{r, fig.cap="`rna` 数据的长枢轴。", echo=FALSE, message=FALSE}
+knitr::include_graphics("fig/pivot_longer.png")
+
+````
+
+要从 `rna_wide` 重新创建 `rna_long`，我们需要创建一个名为 `sample` 的键
+和一个名为 `expression` 的值，并使用除 `gene` 之外的所有列
+作为键变量。在这里，我们用减号删除 `gene` 列
+。
+
+请注意这里如何引用新变量名称。
+
+```{r}
+rna_long <- rna_wide %>%
+    pivot_longer(names_to = "sample",
+                 values_to = "expression",
+                 -gene)
+rna_long
+````
+
+我们还可以使用规范来指定
+包含哪些列。 如果您有大量可识别的
+列，这将非常有用，而且指定要收集的内容比指定要保留
+的内容更容易。 这里，`starts_with()` 函数可以帮助检索样本
+名称，而无需将它们全部列出！
+另一种可能性是使用 `:` 运算符！
+
+```{r}
+rna_wide %>%
+    pivot_longer(names_to = "sample",
+                 values_to = "expression",
+                 cols = starts_with("GSM"))
+rna_wide %>%
+    pivot_longer(names_to = "sample",
+                 values_to = "expression",
+                 GSM2545336:GSM2545380)
+```
+
+请注意，如果我们在宽格式中缺少值，则`NA`将为
+，包含在新的长格式中。
+
+记住我们之前包含缺失值的虚构 tibble：
+
+```{r}
+rna_with_missing_values
+
+wide_with_NA <- rna_with_missing_values %>%
+  pivot_wider(names_from = sample,
+              values_from = expression)
+wide_with_NA
+
+wide_with_NA %>%
+    pivot_longer(names_to = "sample",
+                 values_to = "expression",
+                 -gene)
+```
+
+转向更宽更长的格式可以成为平衡数据集
+的有效方法，这样每个重复都有相同的组成。
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 问题
+
+从 rna 表开始，使用 `pivot_wider()` 函数创建
+一个宽格式表，给出每只小鼠的基因表达水平。
+然后使用`pivot_longer()`函数恢复长格式的表。
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r, answer=TRUE, purl=TRUE}
+rna1 <- rna %>%
+select(gene, mouse, expression) %>%
+pivot_wider(names_from = mouse, values_from = expression)
+rna1
+
+rna1 %>%
+pivot_longer(names_to = "mouse_id", values_to = "counts", -gene)
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 问题
+
+从 `rna` 数据框中子集位于 X 和 Y 染色体上的基因，并以
+为列、以 `sex` 为列、以 `chromosome_name` 为
+为行、以位于每条染色体上的基因平均表达为值、以
+为值，将数据框扩展到以下表：
+
+```{r, echo=FALSE, message=FALSE}
+knitr::include_graphics("fig/Exercise_pivot_W.png")
+```
+
+重塑之前需要先总结一下！
+
+:::::::::::::::  solution
+
+## 解决方案
+
+让我们首先从
+男性和女性样本中计算 X 和 Y 连锁基因的平均表达水平……
+
+```{r}
+ rna %>%
+  filter(chromosome_name == "Y" | chromosome_name == "X") %>%
+  group_by(sex, chromosome_name) %>%
+  summarise(mean = mean(expression))
+```
+
+并将表格旋转至宽格式
+
+```{r, answer=TRUE, purl=TRUE}
+rna_1 <- rna %>%
+  filter(chromosome_name == "Y" | chromosome_name == "X") %>%
+  group_by(sex, chromosome_name) %>%
+  summarise(mean = mean(expression)) %>%
+  pivot_wider(names_from = sex,
+              values_from = mean)
+
+rna_1
+```
+
+现在获取该数据框并使用“pivot_longer()”对其进行转换，因此
+每行都是一个按“性别”组合唯一的“chromosome_name”。
+
+```{r, answer=TRUE, purl=TRUE}
+rna_1 %>%
+  pivot_longer(names_to = "gender",
+               values_to = "mean",
+               -chromosome_name)
+
+```
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 问题
+
+使用 `rna` 数据集创建一个表达矩阵，其中每行
+代表基因的平均表达水平，每列代表
+不同的时间点。
+
+:::::::::::::::  solution
+
+## 解决方案
+
+我们首先计算基因和时间的平均表达
+
+```{r}
+rna %>%
+  group_by(gene, time) %>%
+  summarise(mean_exp = mean(expression))
+```
+
+在使用pivot_wider()函数之前
+
+```{r}
+rna_time <- rna %>%
+  group_by(gene, time) %>%
+  summarise(mean_exp = mean(expression)) %>%
+  pivot_wider(names_from = time,
+              values_from = mean_exp)
+rna_time
+```
+
+请注意，这会生成一个 tibble，其中的一些列名以数字开头。
+如果我们想选择与时间点相对应的列，
+我们不能直接使用列名…… 当我们选择第 4 列时会发生什么？
+
+```{r}
+rna %>%
+  group_by(gene, time) %>%
+  summarise(mean_exp = mean(expression)) %>%
+  pivot_wider(names_from = time,
+              values_from = mean_exp) %>%
+  select(gene, 4)
+```
+
+要选择时间点 4，我们必须用反引号“\\`”引用列名称
+
+```{r}
+rna %>%
+  group_by(gene, time) %>%
+  summarise(mean_exp = mean(expression)) %>%
+  pivot_wider(names_from = time,
+              values_from = mean_exp) %>%
+  select(gene, `4`)
+```
+
+另一种可能性是重命名该列，
+选择一个不以数字开头的名称：
+
+```{r}
+rna %>%
+  group_by(gene, time) %>%
+  summarise(mean_exp = mean(expression)) %>%
+  pivot_wider(names_from = time,
+              values_from = mean_exp) %>%
+  rename("time0" = `0`, "time4" = `4`, "time8" = `8`) %>%
+  select(gene, time4)
+```
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 问题
+
+使用包含每个时间点的平均表达水平的先前数据框并创建一个新列
+，其中包含时间点 8 和时间点 0 之间的倍数变化，以及时间点 8 和时间点 4 之间的倍数变化
+。
+将此表转换为长格式表，收集计算出的倍数变化。
+
+:::::::::::::::  solution
+
+## 解决方案
+
+从 rna\_time tibble 开始：
+
+```{r}
+rna_time
+```
+
+计算倍数变化：
+
+```{r}
+rna_time %>%
+  mutate(time_8_vs_0 = `8` / `0`, time_8_vs_4 = `8` / `4`)
+```
+
+并使用pivot\_longer()函数：
+
+```{r}
+rna_time %>%
+  mutate(time_8_vs_0 = `8` / `0`, time_8_vs_4 = `8` / `4`) %>%
+  pivot_longer(names_to = "comparisons",
+               values_to = "Fold_changes",
+               time_8_vs_0:time_8_vs_4)
+```
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## 连接表
+
+在许多现实生活中，数据分布在多个表中。
+Usually this occurs because different types of information are
+collected from different sources.
+
+对于某些分析来说，可能需要将两个或多个
+表中的数据基于所有表共有的
+列组合到单个数据框中。
+
+`dplyr` 包提供了一组连接函数，用于根据指定列内的匹配组合两个
+数据框。 在这里，我们
+对连接进行简单介绍。 如需进一步阅读，请
+参阅有关 表
+连接 的章节。
+数据转换秘籍
+表
+还提供了关于表连接的简要概述。
+
+我们将使用一个小表“rna_mini”来说明连接，我们将通过对原始“rna”表进行子集设置来创建它
+，只保留 3
+列和 10 行。
+
+```{r}
+rna_mini <- rna %>%
+   select(gene, sample, expression) %>%
+   head(10)
+rna_mini
+```
+
+第二个表“annot1”包含2列，gene 和
+gene\_description。 您可以通过单击链接然后将其移动到“data/”文件夹来
+[下载 annot1.csv](https://carpentries-incubator.github.io/bioc-intro/data/annot1.csv)
+，或者
+您可以使用下面的 R 代码将其直接下载到文件夹。
+
+```{r, message=FALSE}
+download.file(url = "https://carpentries-incubator.github.io/bioc-intro/data/annot1.csv",
+              destfile = "data/annot1.csv")
+annot1 <- read_csv(file = "data/annot1.csv")
+annot1
+```
+
+我们现在要使用 `dplyr` 包中的 `full_join()` 函数将这两个表合并为一个包含所有
+变量的表。
+函数将自动找到与第一个和第二个表中的
+列匹配的公共变量。  在这种情况下，“基因”是常见的
+变量。 这样的变量被称为键。 键用于匹配不同表之间的
+观察结果。
+
+```{r}
+full_join(rna_mini, annot1)
+```
+
+在现实生活中，基因注释有时会被标记不同。
+
+`annot2` 表与 `annot1` 完全相同，只是包含基因名称的
+变量的标签不同。 再次，要么
+自己 [下载 annot2.csv](https://carpentries-incubator.github.io/bioc-intro/data/annot2.csv)
+并将其移动到 `data/`，要么使用下面的 R 代码。
+
+```{r, message=FALSE}
+download.file(url = "https://carpentries-incubator.github.io/bioc-intro/data/annot2.csv",
+              destfile = "data/annot2.csv")
+annot2 <- read_csv(file = "data/annot2.csv")
+annot2
+```
+
+如果没有匹配的变量名，我们可以手动设置
+变量来用于匹配。  可以使用
+`by` 参数设置这些变量，如下面 `rna_mini` 和 `annot2` 表所示。
+
+```{r}
+full_join(rna_mini, annot2, by = c("gene" = "external_gene_name"))
+```
+
+从上可以看出，第一个表的变量名在连接后的表中保留为
+。
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+通过点击
+[此处](https://carpentries-incubator.github.io/bioc-intro/data/annot3.csv)
+下载 `annot3` 表，并将该表放入您的数据/存储库中。  使用 `full_join()`
+函数，连接表 `rna_mini` 和 `annot3`。
+基因 _Klk6_、_mt-Tf_、_mt-Rnr1_、_mt-Tv_、_mt-Rnr2_ 和 _mt-Tl1_ 发生了什么？
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r, message=FALSE}
+annot3 <- read_csv("data/annot3.csv")
+full_join(rna_mini, annot3)
+```
+
+基因 _Klk6_ 仅存在于 `rna_mini` 中，而基因 _mt-Tf_、_mt-Rnr1_、_mt-Tv_、
+_mt-Rnr2_ 和 _mt-Tl1_ 仅存在于 `annot3` 表中。 表中
+变量的各自值已被编码为缺失。
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## 导出数据
+
+现在您已经了解了如何使用“dplyr”从
+中提取信息或总结原始数据，您可能希望导出这些新数据集以便与您的合作者共享
+或用于存档。
+
+与用于将 CSV 文件读入 R 的 `read_csv()` 函数类似，有一个
+函数 `write_csv()`，可以从数据框生成 CSV 文件。
+
+在使用“write_csv()”之前，我们将在工作目录中创建一个新文件夹“data_output”，
+，用于存储生成的数据集。 我们不希望
+将生成的数据集写入与原始数据相同的目录中。
+将它们分开是一种很好的做法。 `data` 文件夹应该只包含
+原始、未改变的数据，并且应该保持不变以确保我们不会删除
+或修改它。 相反，我们的脚本将生成 `data_output`
+目录的内容，因此即使它包含的文件被删除，我们也总是可以
+重新生成它们。
+
+让我们使用`write_csv()`来保存我们之前创建的rna_wide表。
+
+```{r, purl=TRUE, eval=FALSE}
+write_csv（rna_wide，文件 = “data_output/rna_wide.csv”）
+```
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- 使用 tidyverse 元包在 R 中生成表格数据
+
+::::::::::::::::::::::::::::::::::::::::::::::::::

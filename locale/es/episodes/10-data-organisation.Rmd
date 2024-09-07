@@ -1,0 +1,832 @@
+---
+source: Rmd
+title: Organización de datos con hojas de cálculo
+teaching: 30
+exercises: 30
+---
+
+```{r, include=FALSE}
+```
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- Aprenda sobre las hojas de cálculo, sus fortalezas y debilidades.
+- ¿Cómo damos formato a los datos en hojas de cálculo para un uso eficaz de los datos?
+- Obtenga información sobre los errores comunes de las hojas de cálculo y cómo corregirlos.
+- Organice sus datos de acuerdo con los principios de datos ordenados.
+- Obtenga información sobre los formatos de hojas de cálculo basados en texto, como los formatos separados por comas (CSV) o separados por tabulaciones (TSV).
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- ¿Cómo organizar datos tabulares?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+> Este episodio se basa en la lección _Análisis de datos y
+> Visualización en R para ecologistas_ de Data Carpentries.
+
+## Programas de hoja de cálculo
+
+**Pregunta**
+
+- ¿Cuáles son los principios básicos para usar hojas de cálculo para una buena organización de datos
+  ?
+
+**Objetivo**
+
+- Describir las mejores prácticas para organizar datos para que las computadoras puedan hacer
+  el mejor uso de los conjuntos de datos.
+
+**Punto clave**
+
+- Una buena organización de los datos es la base de cualquier proyecto de investigación.
+
+Una buena organización de los datos es la base de su proyecto de investigación
+. La mayoría de los investigadores tienen datos o los ingresan en
+hojas de cálculo. Los programas de hojas de cálculo son interfaces gráficas
+muy útiles para diseñar tablas de datos y manejar datos muy básicos
+funciones de control de calidad. Ver también @Broman:2018.
+
+### Esquema de hoja de cálculo
+
+Las hojas de cálculo son buenas para la entrada de datos. Por lo tanto, tenemos muchos datos
+en hojas de cálculo.  Gran parte de su tiempo como investigador lo dedicará a
+esta etapa de "disputación de datos".  No es lo más divertido, pero es
+necesario. Le enseñaremos cómo pensar en la organización de datos y
+algunas prácticas para una gestión de datos más eficaz.
+
+### Lo que esta lección no te enseñará
+
+- Cómo hacer _estadísticas_ en una hoja de cálculo
+- Cómo hacer _trazar_ en una hoja de cálculo
+- Cómo _escribir código_ en programas de hojas de cálculo
+
+Si desea hacer esto, una buena referencia es Head First
+Excel,
+publicado por O'Reilly.
+
+### ¿Por qué no enseñamos análisis de datos en hojas de cálculo?
+
+- El análisis de datos en hojas de cálculo suele requerir mucho trabajo manual
+  . Si desea cambiar un parámetro o ejecutar un análisis con un
+  nuevo conjunto de datos, normalmente tendrá que rehacer todo a mano. (Sabemos
+  que puedes crear macros, pero mira el siguiente punto).
+
+- También es difícil rastrear o reproducir análisis estadísticos o gráficos
+  realizados en programas de hojas de cálculo cuando desea volver a
+  su trabajo o alguien solicita detalles de su análisis.
+
+Hay muchos programas de hojas de cálculo disponibles. Dado que la mayoría de los participantes
+utilizan Excel como su programa principal de hoja de cálculo, esta lección
+utilizará ejemplos de Excel. Un programa de hoja de cálculo gratuito que también se puede utilizar
+es LibreOffice. Los comandos pueden diferir un poco entre programas,
+pero la idea general es la misma.
+
+Los programas de hojas de cálculo abarcan muchas de las cosas que necesitamos poder hacer
+como investigadores. Podemos usarlos para:
+
+- Entrada de datos
+- Organizar datos
+- Subcomponer y ordenar datos
+- Estadísticas
+- Graficado
+
+Los programas de hojas de cálculo utilizan tablas para representar y mostrar datos. Los datos
+formateados como tablas también son el tema principal de este capítulo, y
+veremos cómo organizar los datos en tablas de una manera estandarizada para
+garantizar un análisis posterior eficiente.
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Desafío: discute los siguientes puntos con tu vecino.
+
+- ¿Has utilizado hojas de cálculo en tus investigaciones, cursos,
+  o en casa?
+- ¿Qué tipo de operaciones hacéis en hojas de cálculo?
+- ¿Para cuáles crees que son buenas las hojas de cálculo?
+- ¿Has hecho accidentalmente algo en un programa de hoja de cálculo que te hizo
+  frustrado o triste?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+### Problemas con las hojas de cálculo
+
+Las hojas de cálculo son buenas para ingresar datos, pero en realidad tendemos a
+usar programas de hojas de cálculo para mucho más que ingresar datos. Los usamos
+para crear tablas de datos para publicaciones, para generar estadísticas resumidas
+y hacer cifras.
+
+Generating tables for publications in a spreadsheet is not
+optimal - often, when formatting a data table for publication, we're
+reporting key summary statistics in a way that is not really meant to
+be read as data, and often involves special formatting
+(merging cells, creating borders, making it pretty). Le recomendamos que
+realice este tipo de operación dentro de su software de edición de documentos.
+
+Las dos últimas aplicaciones, que generan estadísticas y cifras, deben usarse
+con precaución: debido a la naturaleza gráfica, de arrastrar y soltar, de los programas de hojas de cálculo
+, puede ser muy difícil, si no imposible,
+replica tus pasos (y mucho menos vuelve sobre los de cualquier otra persona), especialmente si tus estadísticas o cifras de
+requieren que hagas cálculos más complejos. Además,
+al hacer cálculos en una hoja de cálculo, es fácil aplicar accidentalmente una fórmula
+ligeramente diferente a varias celdas adyacentes. Cuando se utiliza un programa de estadísticas basado en línea de comandos
+como R o SAS, es prácticamente
+imposible aplicar un cálculo a una observación en su conjunto de datos
+pero no a otra, a menos que esté haciendo a propósito.
+
+### Uso de hojas de cálculo para la entrada y limpieza de datos.
+
+En esta lección, asumiremos que lo más probable es que esté utilizando Excel como
+su programa de hoja de cálculo principal; hay otros (gnumeric, Calc
+de OpenOffice) y su funcionalidad es similar, pero Excel parece
+ser el programa más utilizado por biólogos e investigadores biomédicos.
+
+En esta lección vamos a hablar de:
+
+1. Formatear tablas de datos en hojas de cálculo
+2. Problemas de formato
+3. Exportar datos
+
+## Formatear tablas de datos en hojas de cálculo
+
+**Preguntas**
+
+- ¿Cómo damos formato a los datos en hojas de cálculo para un uso eficaz de los datos?
+
+**Objetivos**
+
+- Describir las mejores prácticas para la entrada y formato de datos en
+  hojas de cálculo.
+
+- Aplique las mejores prácticas para organizar variables y observaciones en una hoja de cálculo
+  .
+
+**Puntos clave**
+
+- Nunca modifique sus datos sin procesar. Siempre haga una copia antes de realizar
+  cambios.
+
+- Realice un seguimiento de todos los pasos que sigue para limpiar sus datos en un
+  archivo de texto sin formato.
+
+- Organice sus datos de acuerdo con los principios de datos ordenados.
+
+El error más común que se comete es tratar los programas de hojas de cálculo como cuadernos de laboratorio
+, es decir, confiar en el contexto, las notas al margen, el diseño espacial
+de los datos y los campos para transmitir información. Como humanos, podemos
+(generalmente) interpretar estas cosas, pero las computadoras no ven la información
+de la misma manera, y a menos que le expliquemos a la computadora qué significa cada cosa
+(¡y eso puede ser difícil!), no podrá ver cómo
+encajan nuestros datos.
+
+Usando el poder de las computadoras, podemos administrar y analizar datos de maneras mucho
+más efectivas y rápidas, pero para usar ese poder, tenemos que configurar
+nuestros datos para que la computadora pueda entenderlo (y
+las computadoras son muy literales).
+
+Por eso es extremadamente importante configurar tablas bien formateadas
+desde el principio, incluso antes de comenzar a ingresar datos de su
+primer experimento preliminar. La organización de datos es la base de
+su proyecto de investigación. Puede hacer que sea más fácil o más difícil trabajar con
+sus datos a lo largo de su análisis, por lo que vale la pena pensar en cuándo
+está ingresando datos o configurando su experimento. Puedes
+configurar las cosas de diferentes maneras en hojas de cálculo, pero algunas de estas
+opciones pueden limitar tu capacidad para trabajar con los datos en otros programas
+o tener la tuya de- Dentro de 6 meses o tu colaborador trabajará con
+los datos.
+
+**Nota:** los mejores diseños/formatos (así como el software y las
+interfaces) para la entrada y el análisis de datos pueden ser diferentes. Es
+importante tener esto en cuenta e idealmente automatizar la
+conversión de uno a otro.
+
+### Seguimiento de sus análisis
+
+Cuando trabajas con hojas de cálculo, durante la limpieza de datos o
+análisis, es muy fácil terminar con una hoja de cálculo que se ve muy
+diferente de la que tenías al principio. Para poder
+reproducir tus análisis o descubrir qué hiciste cuando un revisor o
+instructor te pide un análisis diferente, debes
+
+- cree un nuevo archivo con sus datos limpios o analizados. ¡No modifiques
+  el conjunto de datos original o nunca sabrás por dónde empezaste!
+
+- Lleve un registro de los pasos que siguió en su limpieza o análisis. Usted
+  debe realizar un seguimiento de estos pasos como lo haría con cualquier paso de un experimento.
+  recomendamos que haga esto en un archivo de texto sin formato almacenado en la misma carpeta
+  que el archivo de datos.
+
+Este podría ser un ejemplo de configuración de una hoja de cálculo:
+
+![](fig/spreadsheet-setup-updated.png)
+
+Pon estos principios en práctica hoy durante tus ejercicios.
+
+Si bien el control de versiones está fuera del alcance de este curso, puede consultar la lección
+Carpentries en
+['Git'](https://swcarpentry.github.io/git-novice/) para aprenda cómo
+mantener **control de versiones** sobre sus datos. Vea también este blog
+post para un tutorial rápido o
+@Perez-Riverol:2016 para un tutorial más orientado a la investigación. caso de uso.
+
+### Estructurar datos en hojas de cálculo.
+
+Las reglas fundamentales para el uso de programas de hojas de cálculo para datos:
+
+1. Coloque todas sus variables en columnas: lo que está midiendo,
+   como 'peso' o 'temperatura'.
+2. Coloque cada observación en su propia fila.
+3. No combine varias piezas de información en una celda. A veces
+   simplemente parece una cosa, pero piensa si esa es la única manera
+   en la que querrás poder usar u ordenar esos datos.
+4. Deje los datos sin procesar, ¡no los cambie!
+5. Exporte los datos limpios a un formato basado en texto como CSV
+   (valores separados por comas). Esto garantiza que cualquiera pueda usar
+   los datos y es requerido por la mayoría de los repositorios de datos.
+
+Por ejemplo, tenemos datos de pacientes que visitaron varios
+hospitales en Bruselas, Bélgica. Registraron la fecha de la visita,
+el hospital, el sexo, el peso y el grupo sanguíneo de los pacientes.
+
+Si tuviéramos que realizar un seguimiento de los datos como este:
+
+![](fig/multiple-info.png)
+
+el problema es que los grupos ABO y Rhesus están en la misma columna de tipo `Blood`
+. Entonces, si quisieran ver todas las observaciones del grupo A
+o ver las distribuciones de peso por grupo ABO, sería complicado
+hacerlo usando esta configuración de datos. Si en cambio ponemos los grupos ABO y Rhesus
+en columnas diferentes, puedes ver que sería mucho más fácil.
+
+![](fig/single-info.png)
+
+Una regla importante al configurar una hoja de datos es que **las columnas se usan
+para las variables** y **las filas se usan para las observaciones**:
+
+- las columnas son variables
+- las filas son observaciones
+- las celdas son valores individuales
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Desafío: tomaremos un conjunto de datos desordenado y describiremos cómo lo limpiaríamos.
+
+1. Descargue un conjunto de datos desordenado haciendo clic en
+   [aquí](https://github.com/UCLouvain-CBIO/WSBIM1207/raw/master/data/messy_covid.xlsx).
+
+2. Abra los datos en un programa de hoja de cálculo.
+
+3. Puedes ver que hay dos pestañas. Los datos contienen varias
+   variables clínicas registradas en varios hospitales de Bruselas durante
+   la primera y segunda oleada de COVID-19 en 2020. Como puede ver, los datos
+   se registraron de manera diferente durante las oleadas
+   de marzo y noviembre. Ahora eres la persona a cargo de este proyecto y quieres que
+   pueda comenzar a analizar los datos.
+
+4. Con la persona a tu lado, identifica qué está mal en esta hoja de cálculo
+   . También analice los pasos que necesitaría seguir para limpiar
+   las pestañas de la primera y segunda ola, y juntarlas todas en una
+   hoja de cálculo.
+
+**Importante:** No olvide nuestro primer consejo: para crear un
+nuevo archivo (o pestaña) para los datos limpios, nunca modifique sus datos originales
+(sin procesar).
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Después de realizar este ejercicio, discutiremos en grupo qué
+estaba mal con estos datos y cómo solucionarlo.
+
+<!-- - Take about 10 minutes to work on this exercise. -->
+
+<!-- - All the mistakes in the *common mistakes* section below are present -->
+
+<!--   in the messy dataset. If the exercise is done during a workshop, ask -->
+
+<!--   people what they saw as wrong with the data. As they bring up -->
+
+<!--   different points, you can refer to the common mistakes or expand a -->
+
+<!--   bit on the point they brought up. -->
+
+<!-- - If you get a response where they've fixed the date, you can pause -->
+
+<!--   and go to the dates lesson. Or you can say you'll come back to dates -->
+
+<!--   at the end. -->
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Desafío: una vez que haya ordenado los datos, responda las siguientes preguntas:
+
+- ¿Cuántos hombres y mujeres participaron en el estudio?
+- ¿Cuántos tipos A, AB y B se han probado?
+- ¿Como arriba, pero sin tener en cuenta las muestras contaminadas?
+- ¿Cuántos Rhesus + y - se han probado?
+- ¿Cuántos donantes universales (O-) se han probado?
+- ¿Cuál es el peso promedio de los hombres AB?
+- ¿Cuántas muestras se han analizado en los diferentes hospitales?
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Una **excelente referencia**, en particular con respecto a las secuencias de comandos R
+es el artículo _Tidy Data_ @Wickham:2014.
+
+## Errores comunes en las hojas de cálculo
+
+**Preguntas**
+
+- ¿Cuáles son algunos de los desafíos comunes al formatear datos en hojas de cálculo
+  y cómo podemos evitarlos?
+
+**Objetivos**
+
+- Reconocer y resolver problemas comunes de formato de hojas de cálculo.
+
+**Puntos clave**
+
+- Evite el uso de varias tablas dentro de una hoja de cálculo.
+- Evite distribuir datos en varias pestañas.
+- Registre los ceros como ceros.
+- Utilice un valor nulo apropiado para registrar los datos faltantes.
+- No utilices el formato para transmitir información o hacer que tu hoja de cálculo luzca bonita.
+- Coloque los comentarios en una columna separada.
+- Registre las unidades en los encabezados de las columnas.
+- Incluya solo una pieza de información en una celda.
+- Evite espacios, números y caracteres especiales en los encabezados de las columnas.
+- Evite caracteres especiales en sus datos.
+- Registre los metadatos en un archivo de texto sin formato separado.
+
+<!-- This lesson is meant to be used as a reference for discussion as -->
+
+<!-- learners identify issues with the messy dataset discussed in the -->
+
+<!-- previous lesson. Instructors: don't go through this lesson except to -->
+
+<!-- refer to responses to the exercise in the previous lesson. -->
+
+Hay algunos errores potenciales a los que debe prestar atención en sus propios datos
+, así como en los datos de sus colaboradores o de Internet. Si es
+consciente de los errores y del posible efecto negativo en el análisis de datos y la interpretación de resultados de
+posteriores, podría motivarse a usted mismo
+y a los miembros de su proyecto a intentar evitarlos. Hacer pequeños cambios
+en la forma en que formatea sus datos en las hojas de cálculo puede tener un gran
+impacto en la eficiencia y confiabilidad cuando se trata de limpieza y análisis de datos
+.
+
+- [Usando varias tablas](#tables)
+- [Usar varias pestañas](#pestañas)
+- [Sin completar ceros](#zeros)
+- [Usando valores nulos problemáticos](#null)
+- [Usar formato para transmitir información](#formateo)
+- [Usar formato para que la hoja de datos se vea bonita](#formatting_pretty)
+- [Colocar comentarios o unidades en celdas](#unidades)
+- [Ingresar más de un dato en una celda](#info)
+- [Usando nombres de campos problemáticos](#field_name)
+- [Usar caracteres especiales en los datos](#special)
+- [Inclusión de metadatos en tabla de datos](#metadata)
+
+### Usando múltiples tablas {#tables}
+
+Una estrategia común es crear varias tablas de datos dentro de una
+hoja de cálculo. Esto confunde a la computadora, ¡así que no hagas esto!  Cuando
+creas varias tablas dentro de una hoja de cálculo, estás dibujando
+asociaciones falsas entre cosas para la computadora, que ve cada fila como
+una observación. También estás potencialmente usando el mismo nombre de campo en
+varios lugares, lo que hará que sea más difícil limpiar tus datos en
+un formulario utilizable. El siguiente ejemplo muestra el problema:
+
+![](fig/2_datasheet_example.jpg)
+
+En el ejemplo anterior, la computadora verá (por ejemplo) la fila 4 y
+asumirá que todas las columnas A-AF se refieren a la misma muestra. Esta fila
+en realidad representa cuatro muestras distintas (muestra 1 para cada una de las cuatro
+fechas de recolección diferentes: 29 de mayo, 12 de junio, 19 de junio y
+26 de junio), así como algunas estadísticas resumidas calculadas (un promedio (avr)
+y un error estándar de medición (SEM)) para dos de esas
+muestras. Otras filas son igualmente problemáticas.
+
+### Usando múltiples pestañas {#tabs}
+
+Pero ¿qué pasa con las pestañas del libro de trabajo? Parece una manera fácil de organizar
+datos, ¿verdad? Bueno, sí y no. Cuando crea pestañas adicionales, no
+permite que la computadora vea las conexiones en los datos que están allí (usted
+tiene que introducir funciones específicas de la aplicación de hoja de cálculo o
+secuencias de comandos para garantizar esta conexión). Digamos, por ejemplo, que creas una
+pestaña separada para cada día que tomas una medición.
+
+Esta no es una buena práctica por dos razones:
+
+1. es más probable que accidentalmente agregue inconsistencias a sus
+   datos si cada vez que toma una medición, comienza a registrar datos
+   en una nueva pestaña, y
+
+2. even if you manage to prevent all inconsistencies from creeping in,
+   you will add an extra step for yourself before you analyse the data
+   because you will have to combine these data into a single
+   datatable. Tendrás que decirle explícitamente a la computadora cómo
+   combinar pestañas, y si las pestañas tienen un formato inconsistente, es posible que
+   incluso tengas que hacerlo manualmente.
+
+La próxima vez que ingrese datos y vaya a crear otra pestaña
+o tabla, pregúntese si podría evitar agregar esta pestaña agregando
+otra columna a su hoja de cálculo original. Usamos varias pestañas en
+nuestro ejemplo de un archivo de datos desordenado, pero ahora has visto cómo puedes
+reorganizar tus datos para consolidarlos entre pestañas.
+
+Su hoja de datos puede volverse muy larga durante el transcurso del experimento
+. Esto hace que sea más difícil ingresar datos si no puedes ver los encabezados
+en la parte superior de la hoja de cálculo. Pero no repita la fila del encabezado
+. Estos pueden mezclarse fácilmente con los datos, generando problemas
+en el futuro. En su lugar, puede [congelar los encabezados de la columna
+](https://support.office.com/en-ca/article/Freeze-column-headings-for-easy-scrolling-57ccce0c-cf85-4725-9579 -c5d13106ca6a)
+para que permanezcan visibles incluso cuando tengas una hoja de cálculo con muchas
+filas.
+
+### No completar ceros {#zeros}
+
+Puede ser que cuando estás midiendo algo, generalmente sea un cero,
+dice la cantidad de veces que se observa un conejo en la encuesta. ¿Por qué molestarse
+en escribir el número cero en esa columna, cuando en su mayoría son ceros?
+
+Sin embargo, existe una diferencia entre un cero y una celda en blanco en una hoja de cálculo
+. Para la computadora, un cero son en realidad datos. Lo mediste o
+lo contaste. Una celda en blanco significa que no se midió y la computadora
+la interpretará como un valor desconocido (también conocido como nulo
+o valor faltante).
+
+Es probable que las hojas de cálculo o los programas estadísticos malinterpreten
+celdas en blanco que usted pretende que sean ceros. Al no ingresar el valor de
+su observación, le está diciendo a su computadora que represente esos datos
+como desconocidos o faltantes (nulos). Esto puede causar problemas con
+cálculos o análisis posteriores. Por ejemplo, el promedio de un conjunto de números
+que incluye un único valor nulo siempre es nulo (porque la computadora
+no puede adivinar el valor de las observaciones faltantes). Debido a
+esto, es muy importante registrar los ceros como ceros y realmente
+los datos faltantes como nulos.
+
+### Usar valores nulos problemáticos {#null}
+
+**Ejemplo**: usar -999 u otros valores numéricos (o cero) para
+representar datos faltantes.
+
+**Soluciones**:
+
+Hay algunas razones por las que los valores nulos se representan de manera diferente
+dentro de un conjunto de datos. A veces, los valores nulos confusos se registran automáticamente
+desde el dispositivo de medición. Si ese es el caso, no hay
+mucho que puedas hacer, pero se puede abordar en la limpieza de datos con una herramienta
+como
+[OpenRefine](https://www.datacarpentry .org/OpenRefine-ecology-lesson/)
+antes del análisis. Otras veces se utilizan diferentes valores nulos para transmitir
+diferentes razones por las que los datos no están ahí. Esta es
+información importante para capturar, pero en realidad se utiliza una columna para capturar
+dos piezas de información. Like for using formatting to convey
+information it would be good here to create a new
+column like 'data\_missing' and use that column to capture the
+different reasons.
+
+Cualquiera sea el motivo, es un problema si datos desconocidos o faltantes se registran
+como -999, 999 o 0.
+
+Muchos programas estadísticos no reconocerán que estos
+pretenden representar valores faltantes (nulos). La forma en que se interpreten estos valores
+dependerá del software que utilice para analizar sus datos. Es
+esencial utilizar un indicador nulo claramente definido y consistente.
+
+Los espacios en blanco (la mayoría de las aplicaciones) y NA (para R) son buenas opciones
+. @White:2013 explica buenas opciones para indicar valores nulos
+para diferentes aplicaciones de software en su artículo:
+
+![](fig/3_white_table_1.jpg)
+
+### Usar formato para transmitir información {#formatting}
+
+**Ejemplo**: resaltar celdas, filas o columnas que deben excluirse
+de un análisis, dejando filas en blanco para indicar
+separaciones en los datos.
+
+![](fig/formateo.png)
+
+**Solución**: cree un nuevo campo para codificar qué datos deben excluirse
+.
+
+![](fig/good_formatting.png)
+
+### Usar formato para que la hoja de datos se vea bonita {#formatting\_pretty}
+
+**Ejemplo**: fusionar celdas.
+
+**Solución**: Si no tiene cuidado, formatear una hoja de cálculo para que sea más
+estéticamente agradable puede comprometer la capacidad de su computadora para ver
+asociaciones en los datos. Las celdas combinadas harán que sus datos sean ilegibles
+para el software de estadísticas. Considere reestructurar sus datos de tal manera
+que no necesite fusionar celdas para organizar sus datos.
+
+### Colocar comentarios o unidades en celdas {#units}
+
+La mayoría del software de análisis no puede ver los comentarios de Excel o LibreOffice, y
+se confundiría con los comentarios colocados dentro de sus celdas de datos. Como
+se describió anteriormente para el formato, cree otro campo si necesita
+agregar notas a las celdas. De manera similar, no incluyas unidades en las celdas: idealmente,
+todas las medidas que coloques en una columna deberían estar en la misma
+unidad, pero si por alguna razón no lo están, crea otro campo y
+especifican las unidades en las que se encuentra la celda.
+
+### Ingresar más de un dato en una celda {#info}
+
+**Ejemplo**: Grabar grupos ABO y Rhesus en una celda, como A+,
+B+, A-, ...
+
+**Solución**: No incluyas más de un dato en una celda
+. Esto limitará las formas en que puede analizar sus datos.  Si
+necesita ambas medidas, diseñe su hoja de datos para incluir
+esta información. Por ejemplo, incluya una columna para el grupo ABO y
+una para el grupo Rhesus.
+
+### Usar nombres de campos problemáticos {#field\_name}
+
+Elija nombres de campos descriptivos, pero tenga cuidado de no incluir espacios, números
+ni caracteres especiales de ningún tipo. Los espacios pueden ser
+mal interpretados por analizadores que usan espacios en blanco como delimitadores y a algunos programas
+no les gustan los nombres de campos que son cadenas de texto que comienzan con
+números.
+
+Los guiones bajos (`_`) son una buena alternativa a los espacios. Considere escribir
+nombres en mayúsculas y minúsculas (como este: Ejemplo de nombre de archivo) para mejorar la legibilidad de
+. Recuerda que las abreviaturas que tienen sentido en este momento
+pueden no ser tan obvias en 6 meses, pero no te excedas con nombres que
+son excesivamente largos. Incluir las unidades en los nombres de los campos evita
+confusión y permite que otros interpreten fácilmente sus campos.
+
+**Ejemplos**
+
+| Buen nombre                                              | Buena alternativa                          | Evitar                                     |
+| -------------------------------------------------------- | ------------------------------------------ | ------------------------------------------ |
+| Máx\_temp\_C | Temperatura máxima                         | Temperatura máxima (°C) |
+| Precipitación\_mm                  | Precipitación                              | precm                                      |
+| Crecimiento medio\_año\_                               | Crecimiento medio anual                    | Crecimiento medio/año                      |
+| sexo                                                     | sexo                                       | L/F                                        |
+| peso                                                     | peso                                       | w.                         |
+| tipo de célula                                           | Tipo de célula                             | Tipo de célula                             |
+| Observación\_01                    | primera\_observación | 1.ª observación            |
+
+### Usar caracteres especiales en datos {#special}
+
+**Ejemplo**: Tratas tu programa de hoja de cálculo como un procesador de textos
+cuando escribes notas, por ejemplo, copiando datos directamente desde Word u
+otras aplicaciones.
+
+**Solución**: Esta es una estrategia común. Por ejemplo, al escribir
+texto más largo en una celda, las personas suelen incluir saltos de línea, guiones,
+, etc. en su hoja de cálculo. Además, al copiar datos desde
+aplicaciones como Word, se incluyen
+formatos y caracteres elegantes no estándar
+(como comillas alineadas a la izquierda y a la derecha). Al exportar estos datos a un entorno de codificación/estadístico
+o a una base de datos relacional, pueden ocurrir cosas peligrosas,
+, como líneas cortadas por la mitad y errores de codificación.
+
+La mejor práctica general es evitar agregar caracteres como nuevas líneas, pestañas
+y pestañas verticales. En otras palabras, trate una celda de texto como si
+fuera un formulario web simple que solo puede contener texto y espacios.
+
+### Inclusión de metadatos en tabla de datos {#metadata}
+
+**Ejemplo**: Agrega una leyenda en la parte superior o inferior de su tabla de datos
+explicando el significado de las columnas, las unidades, las excepciones, etc.
+
+**Solución**: Registrar datos sobre sus datos ("metadatos") es
+esencial. You may be on intimate terms with your dataset while you
+are collecting and analysing it, but the chances that you will still
+remember that the variable "sglmemgp" means single member of group,
+for example, or the exact algorithm you used to transform a variable
+or create a derived one, after a few months, a year, or more are slim.
+
+Además, hay muchas razones por las que otras personas pueden querer examinar o
+usar sus datos: para comprender sus hallazgos, para verificar sus hallazgos,
+para revisar la publicación enviada, para replicar sus resultados, para
+diseñar un estudio similar, o incluso archivar sus datos para que otros puedan acceder a ellos y
+reutilizarlos. Si bien los datos digitales, por definición, son
+legibles por máquina, comprender su significado es una tarea para los seres humanos
+. No se puede sobrestimar la importancia de documentar sus datos durante la fase de recopilación
+y análisis de su investigación,
+, especialmente si su investigación va a ser parte del registro académico
+.
+
+Sin embargo, los metadatos no deben estar contenidos en el propio archivo de datos
+. A diferencia de una tabla en un documento o un archivo complementario, los metadatos (en
+la forma de leyendas) no deben incluirse en un archivo de datos ya que esta información
+no son datos, y su inclusión puede alterar la forma Los programas
+de computadora interpretan su archivo de datos. Más bien, los metadatos deben almacenarse
+como un archivo separado en el mismo directorio que su archivo de datos, preferiblemente
+en formato de texto sin formato con un nombre que lo asocie claramente con su archivo de datos
+. . Because metadata files are free text format, they also
+allow you to encode comments, units, information about how null values
+are encoded, etc. that are important to document but can disrupt the
+formatting of your data file.
+
+Además, los metadatos a nivel de archivo o base de datos describen cómo los archivos que
+componen el conjunto de datos se relacionan entre sí; en qué formato están; y
+si reemplazan o son reemplazados por archivos anteriores. Un archivo readme.txt a nivel de carpeta
+es la forma clásica de contabilizar todos
+los archivos y carpetas de un proyecto.
+
+(Texto sobre metadatos adaptado del curso en línea Research Data
+[MANTRA](https://datalib.edina.ac.uk/mantra) de EDINA y Data Library,
+Universidad de Edimburgo. MANTRA tiene una licencia Creative Commons
+Attribution 4.0 International
+.)
+
+## Exportar datos
+
+**Pregunta**
+
+- ¿Cómo podemos exportar datos de hojas de cálculo de una manera que sea útil para
+  aplicaciones posteriores?
+
+**Objetivos**
+
+- Almacene datos de hojas de cálculo en formatos de archivo universales.
+- Exporte datos de una hoja de cálculo a un archivo CSV.
+
+**Puntos clave**
+
+- Los datos almacenados en formatos comunes de hojas de cálculo a menudo no se leerán
+  correctamente en el software de análisis de datos, lo que introducirá errores en sus datos
+  .
+
+- Exportar datos de hojas de cálculo a formatos como CSV o TSV los coloca
+  en un formato que la mayoría de los programas pueden usar de manera consistente.
+
+Almacenar los datos con los que va a trabajar para sus análisis en el formato de archivo predeterminado de Excel
+(`*.xls` o `*.xlsx`, dependiendo de la versión de Excel
+) no es una buena idea. ¿Por qué?
+
+- Debido a que es un formato propietario, y es posible que en el
+  futuro, la tecnología no exista (o se vuelva lo suficientemente rara) como para
+  hacer que sea inconveniente, si no imposible, abrir el formato. archivo.
+
+- Es posible que otro software de hoja de cálculo no pueda abrir archivos guardados en un formato propietario de Excel
+  .
+
+- Las diferentes versiones de Excel pueden manejar los datos de manera diferente, lo que genera
+  inconsistencias. [Fechas](https://datacarpentry.org/spreadsheet-ecology-lesson/03-dates-as-data/index.html)
+  es un ejemplo bien documentado de inconsistencias en el almacenamiento de datos.
+
+- Finalmente, más revistas y agencias de subvenciones exigen que
+  deposite sus datos en un repositorio de datos, y la mayoría de ellos no
+  aceptan el formato Excel. Debe estar en uno de los formatos que se analizan
+  a continuación.
+
+- Los puntos anteriores también se aplican a otros formatos, como los formatos de datos abiertos
+  utilizados por LibreOffice/Open Office. Estos formatos no son
+  estáticos y no se analizan de la misma manera por diferentes paquetes de software
+  .
+
+Almacenar datos en un formato universal, abierto y estático ayudará a solucionar
+este problema. Pruebe delimitado por tabulaciones (valores separados por tabulaciones o TSV) o
+delimitado por comas (valores separados por comas o CSV). Los archivos CSV son archivos de texto simple
+donde las columnas están separadas por comas, de ahí 'valores separados por coma
+' o CSV. La ventaja de un archivo CSV sobre un
+Excel/SPSS/etc. El archivo es que podemos abrir y leer un archivo CSV usando
+casi cualquier software, incluidos editores de texto sin formato como TextEdit o
+NotePad. Los datos en un archivo CSV también se pueden importar fácilmente a otros
+formatos y entornos, como SQLite y R. No estamos atados a una
+determinada versión de un determinado programa costoso cuando trabajamos con Archivos CSV
+, por lo que es un buen formato para trabajar para máxima portabilidad y
+resistencia. La mayoría de los programas de hojas de cálculo pueden guardar fácilmente en formatos de texto delimitado
+como CSV, aunque pueden darte una advertencia durante
+la exportación del archivo.
+
+Para guardar un archivo que ha abierto en Excel en formato CSV:
+
+1. En el menú superior, seleccione "Archivo" y "Guardar como".
+2. En el campo 'Formato', de la lista, seleccione 'Valores
+   separados por comas' (`*.csv`).
+3. Verifique dos veces el nombre del archivo y la ubicación donde desea guardarlo
+   y presione 'Guardar'.
+
+Una nota importante para la compatibilidad con versiones anteriores: ¡puedes abrir archivos CSV
+en Excel!
+
+```{r, results="markup", fig.cap="Saving an Excel file to CSV.", echo=FALSE, purl=FALSE, out.width="70%", fig.align="center"}
+knitr::include_graphics("fig/excel-to-csv.png")
+```
+
+**Una nota sobre R y `xls`**: Hay paquetes de R que pueden leer archivos `xls`
+(así como hojas de cálculo de Google). Incluso es posible acceder a
+diferentes hojas de trabajo en los documentos `xls`.
+
+**Pero**
+
+- algunos de estos sólo funcionan en Windows.
+- esto equivale a reemplazar una exportación (simple pero manual) a `csv` con
+  complejidad/dependencias adicionales en el código R de análisis de datos.
+- Las mejores prácticas de formato de datos aún se aplican.
+- ¿Existe realmente una buena razón por la cual `csv` (o similar) no es
+  adecuado?
+
+### Advertencias sobre las comas
+
+En algunos conjuntos de datos, los propios valores de los datos pueden incluir comas
+(,). En ese caso, lo más probable es que el software que utilice (incluido Excel)
+muestre incorrectamente los datos en columnas. Esto se debe a que
+las comas que forman parte de los valores de datos se interpretarán como
+delimitadores.
+
+Por ejemplo, nuestros datos podrían verse así:
+
+```
+species_id,genus,species,taxa
+AB,Amphispiza,bilineata,Bird
+AH,Ammospermophilus,harrisi,Rodent, not censused
+AS,Ammodramus,savannarum,Bird
+BA,Baiomys,taylori,Rodent
+```
+
+En el registro `AH,Ammospermophilus,harrisi,Roedor, no censado` el valor
+para `taxa` incluye una coma (`Roedor, no censado`).  Si intentamos
+leer lo anterior en Excel (u otro programa de hoja de cálculo),
+obtendremos algo como esto:
+
+```{r, results="markup", fig.cap="The risks of having commas inside comma-separated data.", echo=FALSE, purl=FALSE, out.width="80%", fig.align="center"}
+knitr::include_graphics("fig/csv-mistake.png")
+```
+
+El valor de `taxa` se dividió en dos columnas (en lugar de colocarse
+en una columna `D`). Esto puede propagarse a una serie de errores
+adicionales. Por ejemplo, la columna adicional se interpretará como una columna
+con muchos valores faltantes (y sin un encabezado adecuado). Además de
+eso, el valor en la columna `D` para el registro en la fila 3 (por lo tanto, el
+donde el valor de 'taxa' contenía la coma) ahora es incorrecto.
+
+Si desea almacenar sus datos en formato `csv` y espera que sus valores de datos
+puedan contener comas, puede evitar el problema discutido
+anteriormente poniendo los valores entre comillas (""). Aplicando esta regla, nuestros datos
+podrían verse así:
+
+```
+spec_id,género,especie,taxones
+"AB","Amphispiza","bilineata","Bird"
+"AH","Ammospermophilus","harrisi","Roedor, no censado"
+"AS","Ammodramus","savannarum","Pájaro"
+"BA","Baiomys","taylori","Roedor"
+```
+
+Ahora, abrir este archivo como `csv` en Excel no generará una columna
+adicional, porque Excel solo usará comas que queden fuera de las comillas
+como caracteres delimitadores.
+
+Alternativamente, si está trabajando con datos que contienen comas,
+probablemente necesitará usar otro delimitador cuando trabaje en una hoja de cálculo
+[^decsep]. En este caso, considere usar pestañas como delimitador y
+trabajar con archivos TSV. Los archivos TSV se pueden exportar desde programas de hoja de cálculo
+de la misma manera que los archivos CSV.
+
+[^decsep]: Esto es particularmente relevante en los países europeos
+    donde la coma se usa como separador decimal
+    . En tales casos, el separador de valores predeterminado en un archivo csv
+    será el punto y coma (;), o los valores se citarán
+    sistemáticamente.
+
+Si está trabajando con un conjunto de datos ya existente en el que los valores de datos
+no están incluidos en "" pero que tienen comas como delimitadores
+y partes de los valores de datos, potencialmente se enfrenta a un problema importante.
+con limpieza de datos. Si el conjunto de datos con el que está tratando contiene
+cientos o miles de registros, límpielos manualmente (ya sea
+eliminando comas de los valores de datos o poniendo los valores entre
+comillas - "") no solo llevará horas y horas, sino que
+potencialmente terminará introduciendo accidentalmente muchos errores.
+
+La limpieza de conjuntos de datos es uno de los principales problemas en muchas disciplinas científicas
+. El enfoque casi siempre depende del contexto
+particular. Sin embargo, es una buena práctica limpiar los datos de forma
+automatizada, por ejemplo escribiendo y ejecutando un script. Las
+lecciones de Python y R le brindarán la base para desarrollar habilidades para
+crear scripts relevantes.
+
+## Resumen
+
+```{r analysis, results="asis", fig.margin=TRUE, fig.cap="A typical data analysis workflow.", fig.width=7, fig.height=4, echo=FALSE, purl=FALSE}
+knitr::include_graphics("fig/analysis.png")
+```
+
+En la figura anterior,
+, se ilustra un flujo de trabajo de análisis de datos típico, donde los datos se transforman, visualizan y modelan repetidamente. Esta iteración
+se repite varias veces hasta que se comprenden los datos. Sin embargo, en
+muchos casos de la vida real, la mayor parte del tiempo se dedica a limpiar y
+preparar los datos, en lugar de analizarlos y comprenderlos
+.
+
+An agile data analysis workflow, with several fast iterations of the
+transform/visualise/model cycle is only feasible if the data is
+formatted in a predictable way and one can reason about the data
+without having to look at it and/or fix it.
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- Una buena organización de los datos es la base de cualquier proyecto de investigación.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::

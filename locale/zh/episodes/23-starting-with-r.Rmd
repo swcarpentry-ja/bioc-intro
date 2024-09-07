@@ -1,0 +1,925 @@
+---
+source: Rmd
+title: R 简介
+teaching: 60
+exercises: 60
+---
+
+```{r, include=FALSE}
+```
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- 定义与 R 相关的以下术语：对象、分配、调用、函数、参数、选项。
+- 为 R 中的对象分配值。
+- 学习如何命名物体
+- 使用注释来告知脚本。
+- 解决 R 中的简单算术运算。
+- 调用函数并使用参数来改变其默认选项。
+- 检查向量的内容并操作其内容。
+- 从向量中取子集并提取值。
+- 分析缺失数据的向量。
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- R 中的第一个命令
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+> 本集基于 Data Carpentries 的_面向生态学家的 R 语言数据分析和
+> 可视化_课程。
+
+## 在 R 中创建对象
+
+只需在控制台中输入数学即可获得 R 的输出：
+
+```{r, purl=TRUE}
+3 + 5
+12 / 7
+```
+
+然而，为了做一些有用和有趣的事情，我们需要为
+_对象_分配\*值。 要创建一个对象，我们需要给它一个名字，后跟
+赋值运算符`<-`，以及我们想要赋予它的值：
+
+```{r, purl=TRUE}
+weight_kg <- 55
+```
+
+`<-` 是赋值运算符。 它将右侧的值分配给左侧的
+对象。 因此，执行 `x <- 3` 后，`x` 的值为
+`3`。 箭头可以读作 3 **进入** `x`。  由于历史
+原因，您也可以使用 `=` 进行赋值，但并非在每个
+上下文中都是如此。 由于语法上存在
+[细微差别](https://blog.revolutionanalytics.com/2008/12/use-equals-or-arrow-for-assignment.html)
+，因此在赋值时始终使用 `<-` 是一种很好的做法。
+
+在 RStudio 中，输入 <kbd>Alt</kbd> + <kbd>\-</kbd> （同时按下 <kbd>Alt</kbd>
+和 <kbd>\-</kbd> 键）将在 PC 上的单个
+按键中写入 `<-`，而输入 <kbd>Option</kbd> + <kbd>\-</kbd> （同时按下 <kbd>Option</kbd> 和 <kbd>\-</kbd> 键）则不会在单个
+按键中写入 `<-`。
+在 Mac 上也一样。
+
+### 命名变量
+
+对象可以被赋予任何名称，例如“x”、“current_temperature”或
+“subject_id”。 You want your object names to be explicit and not too
+long. 它们不能以数字开头（`2x` 无效，但 `x2`
+有效）。 R 区分大小写（例如，`weight_kg` 与
+`Weight_kg` 不同）。 有些名称不能使用，因为它们
+是 R 中基本函数的名称（例如，`if`、`else`、
+`for`，请参阅
+[此处](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html)
+了解完整列表）。 In general, even if it's allowed, it's best to
+not use other function names (e.g., `c`, `T`, `mean`, `data`, `df`,
+`weights`). 如果有疑问，请检查帮助以查看该名称是否已被
+使用。 最好避免在对象名称中使用点（“。”），如
+“my.dataset”。 由于历史原因，R 中有许多函数名称中带有点
+，但由于点在 R
+（用于方法）和其他编程语言中具有特殊含义，因此最好避免使用
+它们。 还建议使用名词作为对象名称，使用动词
+作为函数名称。 保持代码
+样式的一致性（空格的位置、对象命名方式等）非常重要。 使用
+一致的编码风格可以让您的代码更清晰地供您
+未来的自己和您的合作者阅读。 在 R 中，一些流行的风格指南
+是 [Google 的](https://google.github.io/styleguide/Rguide.xml)、
+[tidyverse 的](https://style.tidyverse.org/) 风格和 Bioconductor
+风格
+指南。 The
+tidyverse's is very comprehensive and may seem overwhelming at
+first. 您可以安装
+[**`lintr`**](https://github.com/jimhester/lintr) 包来
+自动检查代码样式中的问题。
+
+> **Objects vs. variables**: What are known as `objects` in `R` are
+> known as `variables` in many other programming languages. Depending
+> on the context, `object` and `variable` can have drastically
+> different meanings. However, in this lesson, the two words are used
+> synonymously. 有关更多信息
+> [请参阅此处](https://cran.r-project.org/doc/manuals/r-release/R-lang.html#Objects)
+
+当为一个对象分配值时，R 不会打印任何内容。 您
+可以使用括号或键入
+对象名称来强制 R 打印该值：
+
+```{r, purl=TRUE}
+weight_kg <- 55    # doesn't print anything
+(weight_kg <- 55)  # but putting parenthesis around the call prints the value of `weight_kg`
+weight_kg          # and so does typing the name of the object
+```
+
+现在 R 内存中有了“weight_kg”，我们可以用它进行算术运算。 例如，对于
+来说，我们可能希望将这个重量转换为磅（磅重量是公斤重量的 2.2 倍）：
+
+```{r, purl=TRUE}
+2.2 * weight_kg
+```
+
+我们还可以通过分配新值来更改对象的值：
+
+```{r, purl=TRUE}
+weight_kg <- 57.5
+2.2 * weight_kg
+```
+
+这意味着为一个对象分配一个值不会改变
+其他对象的值例如，让我们将动物的体重（磅）存储在一个新的
+对象`weight_lb`中：
+
+```{r, purl=TRUE}
+weight_lb <- 2.2 * weight_kg
+```
+
+然后将“weight_kg”改为100。
+
+```{r}
+weight_kg <- 100
+```
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+您认为对象“weight_lb”的当前内容是什么？
+126\.5 还是 220？
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## 评论
+
+R 中的注释字符是 `#`，
+脚本中 `#` 右边的任何内容都将被 R 忽略。在脚本中留下注释和
+解释很有用。
+
+RStudio 可以轻松注释或取消注释一个段落：在
+选择要注释的行后，同时按下键盘上
+上的 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd>。 如果
+你只想注释掉一行，你可以将光标放在该行的任意
+位置（即不需要选择整行），然后
+按 <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd>。
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战
+
+以下每个语句后面的值是什么？
+
+```{r, purl=TRUE}
+mass <- 47.5            # mass?
+age  <- 122             # age?
+mass <- mass * 2.0      # mass?
+age  <- age - 20        # age?
+mass_index <- mass/age  # mass_index?
+```
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## 函数及其参数
+
+函数是“固定脚本”，可以自动执行更复杂的命令集
+，包括操作分配等。 Many functions are predefined, or can be
+made available by importing R _packages_ (more on that later). 函数
+通常会获得一个或多个称为 _参数_ 的输入。 函数通常（但并非总是
+）返回一个 _值_。 一个典型的例子是函数“sqrt()”。
+输入（参数）必须是一个数字，返回值（实际上是
+输出）是该数字的平方根。 执行一个函数（“运行它”）
+被称为_调用_该函数。 函数调用的一个示例是：
+
+```{r, eval=FALSE, purl=FALSE}
+b <- sqrt(a)
+```
+
+这里，将 `a` 的值传递给 `sqrt()` 函数，`sqrt()` 函数
+计算平方根，并返回该值，然后将该值赋值给
+对象 `b`。 这个函数非常简单，因为它只接受一个参数。
+
+函数的返回“值”不必是数字（如 `sqrt()` 的值），
+并且它也不必是单个项：它可以是一组事物，或者
+甚至是一个数据集。 当我们将数据文件读入 R 时，我们就会看到这一点。
+
+参数可以是任何东西，不仅是数字或文件名，还可以是其他
+对象。 每个参数的具体含义因函数而异，必须在文档中查找
+（见下文）。 一些函数接受的参数
+可以由用户指定，或者，如果省略，则采用_默认_值：
+，这些被称为_选项_。 选项通常用于改变
+函数的运行方式，例如是否忽略“坏值”，或者
+在图中使用什么符号。  但是，如果您想要一些特定的东西，您可以指定一个您选择的值
+来代替默认值。
+
+让我们尝试一个可以接受多个参数的函数：“round()”。
+
+```{r, results="show", purl=TRUE}
+round(3.14159)
+```
+
+在这里，我们仅用一个参数“3.14159”调用了“round()”，并且它
+返回了值“3”。  这是因为默认设置是四舍五入到最接近的
+整数。 如果我们想要更多的数字，我们可以通过获取有关“round”函数的
+信息来了解如何做到这一点。  我们可以使用“args(round)”或者使用“?round”查看此函数的
+帮助。
+
+```{r, results="show", purl=TRUE}
+args(round)
+```
+
+```{r, eval=FALSE, purl=TRUE}
+?round
+```
+
+我们看到，如果我们想要不同数量的数字，我们可以
+输入“digits=2”或任意我们想要的数字。
+
+```{r, results="show", purl=TRUE}
+round(3.14159, digits = 2)
+```
+
+如果您按照定义参数的完全相同的顺序提供参数，则
+不必命名它们：
+
+```{r, results="show", purl=TRUE}
+round(3.14159, 2)
+```
+
+如果你确实命名了参数，你可以切换它们的顺序：
+
+```{r, results="show", purl=TRUE}
+round(digits = 2, x = 3.14159)
+```
+
+很好的做法是，在函数调用中将非可选参数（比如
+四舍五入的数字）放在第一位，并指定所有可选
+参数的名称。  如果你不这样做，阅读你代码的人可能必须查找具有不熟悉参数的函数的
+定义才能理解你在
+做什么。 通过指定参数的名称，您还可以保护
+免受函数接口将来可能发生的变化的影响，这些变化可能会
+在现有参数之间添加新参数。
+
+## 向量和数据类型
+
+向量是 R 中最常见、最基本的数据类型，基本上是
+R 的主力。向量由一系列值组成，例如
+数字或字符。 我们可以使用
+`c()` 函数为向量分配一系列值。 例如，我们可以创建一个动物体重向量，并将
+分配给一个新的对象“weight_g”：
+
+```{r, purl=TRUE}
+weight_g <- c(50, 60, 65, 82)
+weight_g
+```
+
+向量也可以包含字符：
+
+```{r, purl=TRUE}
+molecules <- c("dna", "rna", "protein")
+molecules
+```
+
+这里“dna”、“rna”等周围的引号至关重要。 如果没有
+引号，R 将假定存在名为 `dna`、`rna` 和
+`protein` 的对象。 由于这些对象在 R 的内存中不存在，因此会出现
+错误消息。
+
+有许多函数可让您检查
+向量的内容。 `length()` 告诉你特定向量中有多少个元素：
+
+```{r, purl=TRUE}
+length(weight_g)
+length(molecules)
+```
+
+向量的一个重要特征是，所有元素都是
+相同类型的数据。  函数 `class()` 表示对象的类（元素的
+类型）：
+
+```{r, purl=TRUE}
+class(weight_g)
+class(molecules)
+```
+
+函数“str()”概述了
+对象及其元素的结构。 在处理
+大型复杂对象时，它是一个很有用的函数：
+
+```{r, purl=TRUE}
+str(weight_g)
+str(molecules)
+```
+
+您可以使用 `c()` 函数将其他元素添加到向量中：
+
+```{r}
+weight_g <- c(weight_g, 90) # 添加到向量末尾
+weight_g <- c(30, weight_g) # 添加到向量开头
+weight_g
+```
+
+在第一行中，我们取原始向量“weight_g”，将
+值“90”添加到其末尾，然后将结果保存回
+“weight_g”。 Then we add the value `30` to the beginning, again saving
+the result back into `weight_g`.
+
+我们可以反复这样做来增加一个向量，或者组装一个
+数据集。  在我们编程时，这可能有助于添加我们正在
+收集或计算的结果。
+
+**原子向量**是最简单的 R **数据类型**，是单一类型的线性
+向量。 上面，我们看到了 R 使用的 6 个主要**原子
+向量**类型中的 2 个：“字符”和“数字”（或
+“双精度”）。 这些是构建所有 R 对象
+的基本构建块。 其他 4 种 **原子向量** 类型是：
+
+- `“逻辑”` 表示 `TRUE` 和 `FALSE`（布尔数据类型）
+- `“integer”` 表示整数（例如 `2L`，`L` 向 R
+  表示它是一个整数）
+- `“complex”` 表示具有实部和虚部
+  的复数（例如 `1 + 4i`），这就是我们要说的
+- “raw” 表示比特流，我们不会进一步讨论
+
+您可以使用 `typeof()` 函数
+并输入您的向量作为参数来检查您的向量的类型。
+
+向量是 R 使用的众多**数据结构**之一。 其他
+重要的是列表（`list`）、矩阵（`matrix`）、数据框
+（`data.frame`）、因子（`factor`）和数组（`array`）。
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+我们已经看到，原子向量可以是字符类型、数字类型（或
+双精度型）、整数类型和逻辑类型。 但是如果我们尝试在一个向量中混合
+这些类型会发生什么？
+
+:::::::::::::::  solution
+
+## 解决方案
+
+R 隐式地将它们全部转换为同一类型
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+每个例子中会发生什么？ （提示：使用 `class()` 来
+检查对象的数据类型并输入其名称以查看会发生什么）：
+
+```{r, eval=TRUE}
+num_char <- c(1, 2, 3, "a")
+num_logical <- c(1, 2, 3, TRUE, FALSE)
+char_logical <- c("a", "b", "c", TRUE)
+tricky <- c(1, 2, 3, "4")
+```
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r, purl=TRUE}
+class(num_char)
+num_char
+class(num_logical)
+num_logical
+class(char_logical)
+char_logical
+class(tricky)
+tricky
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+您认为为什么会发生这种情况？
+
+:::::::::::::::  solution
+
+## 解决方案
+
+向量只能是一种数据类型。 R 尝试转换（强制）
+该向量的内容以找到
+不会丢失任何信息的 _共同点_。
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+以下示例中，`combined_logical` 中有多少个值为 `“TRUE”`（作为字符）
+：
+
+```{r, eval=TRUE}
+num_logical <- c(1, 2, 3, TRUE)
+char_logical <- c("a", "b", "c", TRUE)
+combined_logical <- c(num_logical, char_logical)
+```
+
+:::::::::::::::  solution
+
+## 解决方案
+
+只有一个。 没有过去数据类型的记忆，并且强制
+发生在第一次评估向量时。 因此，`num_logical` 中的 `TRUE`
+在 `combined_logical` 中的
+转换为 `"1"` 之前，会先转换为 `1`。
+
+```{r}
+combined_logical
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+在 R 中，我们将对象从一个类转换为另一个类称为
+_强制_。 这些转换根据层次结构进行，
+，某些类型优先被强制转换为其他类型。 Can
+you draw a diagram that represents the hierarchy of how these data
+types are coerced?
+
+:::::::::::::::  solution
+
+## 解决方案
+
+逻辑 → 数字 → 字符 ← 逻辑
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+```{r, echo=FALSE, eval=FALSE, purl=TRUE}
+## We've seen that atomic vectors can be of type character, numeric, integer, and
+## logical. But what happens if we try to mix these types in a single
+## vector?
+
+## What will happen in each of these examples? (hint: use `class()` to
+## check the data type of your object)
+num_char <- c(1, 2, 3, "a")
+
+num_logical <- c(1, 2, 3, TRUE)
+
+char_logical <- c("a", "b", "c", TRUE)
+
+tricky <- c(1, 2, 3, "4")
+
+## Why do you think it happens?
+
+## You've probably noticed that objects of different types get
+## converted into a single, shared type within a vector. In R, we call
+## converting objects from one class into another class
+## _coercion_. These conversions happen according to a hierarchy,
+## whereby some types get preferentially coerced into other types. Can
+## you draw a diagram that represents the hierarchy of how these data
+## types are coerced?
+```
+
+## 向量子集
+
+如果我们想从一个向量中提取一个或多个值，我们必须
+在方括号中提供一个或多个索引。 例如：
+
+```{r, results="show", purl=TRUE}
+molecules <- c("dna", "rna", "peptide", "protein")
+molecules[2]
+molecules[c(3, 2)]
+```
+
+我们还可以重复索引来创建一个比原始对象具有更多元素
+的对象：
+
+```{r, results="show", purl=TRUE}
+more_molecules <- molecules[c(1, 2, 3, 2, 1, 4)]
+more_molecules
+```
+
+R 索引从 1 开始。 Fortran、MATLAB、
+Julia 和 R 等编程语言从 1 开始计数，因为这是人类
+通常所做的。 C 系列语言（包括 C++、Java、Perl、
+和 Python）从 0 开始计数，因为这对于计算机来说更简单。
+
+最后，还可以使用负索引获取向量
+的所有元素，除了一些指定元素：
+
+```{r}
+molecules ## all molecules
+molecules[-1] ## all but the first one
+molecules[-c(1, 3)] ## all but 1st/3rd ones
+molecules[c(-1, -3)] ## all but 1st/3rd ones
+```
+
+## 条件子集
+
+另一种常见的子集方法是使用逻辑向量。 `TRUE` 将
+选择具有相同索引的元素，而 `FALSE` 则不会：
+
+```{r, purl=TRUE}
+weight_g <- c(21, 34, 39, 54, 55)
+weight_g[c(TRUE, FALSE, TRUE, TRUE, FALSE)]
+```
+
+通常，这些逻辑向量不是手工输入的，而是其他函数或逻辑测试的
+输出。 例如，如果您
+只想选择 50 以上的值：
+
+```{r, purl=TRUE}
+## will return logicals with TRUE for the indices that meet
+## the condition
+weight_g > 50
+## so we can use this to select only the values above 50
+weight_g[weight_g > 50]
+```
+
+您可以使用 `&`（两个条件都为真，
+AND）或 `|`（至少有一个条件为真，OR）组合多个测试：
+
+```{r, results="show", purl=TRUE}
+weight_g[weight_g < 30 | weight_g > 50]
+weight_g[weight_g >= 30 & weight_g == 21]
+```
+
+这里，`<` 代表“小于”，`>` 代表“大于”，`>=` 代表
+“大于或等于”，`==` 代表“等于”。 双等号
+符号 `==` 用于测试左右两边
+之间是否数值相等，不要与单个 `=` 符号混淆，后者
+执行变量赋值（类似于 `<-`）。
+
+一个常见的任务是在向量中搜索某些字符串。  人们可以
+使用“或”运算符 `|` 来测试多个值是否相等，但是
+这很快就会变得乏味。 函数 `%in%` 允许您
+测试是否找到搜索向量的任何元素：
+
+```{r, purl=TRUE}
+molecules <- c("dna", "rna", "protein", "peptide")
+molecules[molecules == "rna" | molecules == "dna"] # returns both rna and dna
+molecules %in% c("rna", "dna", "metabolite", "peptide", "glycerol")
+molecules[molecules %in% c("rna", "dna", "metabolite", "peptide", "glycerol")]
+```
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+你能弄清楚为什么 `"four" > "five"` 返回 `TRUE` 吗？
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r}
+"four" > "five"
+```
+
+在字符串上使用 `>` 或 `<` 时，R 会比较它们的字母顺序。
+这里的“four”位于“five”之后，因此大于
+它。
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## 名字
+
+可以命名向量的每个元素。 下面的代码块
+显示了没有任何名称的初始向量，如何设置名称，以及如何检索
+。
+
+```{r}
+x <- c(1, 5, 3, 5, 10)
+names(x) ## no names
+names(x) <- c("A", "B", "C", "D", "E")
+names(x) ## now we have names
+```
+
+当向量具有名称时，除了索引之外，还可以通过其
+名称来访问元素。
+
+```{r}
+x[c(1, 3)]
+x[c("A", "C")]
+```
+
+## 缺失数据
+
+由于 R 旨在分析数据集，因此它包含
+缺失数据的概念（这在其他编程
+语言中并不常见）。 缺失数据在向量中表示为“NA”。
+
+When doing operations on numbers, most functions will return `NA` if
+the data you are working with include missing values. 此功能
+使您更难忽视处理
+缺失数据的情况。  您可以添加参数“na.rm = TRUE”来计算
+结果，同时忽略缺失值。
+
+```{r}
+heights <- c(2, 4, 4, NA, 6)
+mean(heights)
+max(heights)
+mean(heights, na.rm = TRUE)
+max(heights, na.rm = TRUE)
+```
+
+If your data include missing values, you may want to become familiar
+with the functions `is.na()`, `na.omit()`, and `complete.cases()`. 请参阅下文
+中的示例。
+
+```{r}
+## 提取那些不是缺失值的元素。
+heights[!is.na(heights)]
+
+## 返回删除了不完整案例的对象。
+## 返回的对象是类型为 `"numeric"` 的原子向量
+## （或 `"double"`）。
+na.omit(heights)
+
+## 提取那些完整案例的元素。
+## 返回的对象是类型为 `"numeric"` 的原子向量
+## （或 `"double"`）。
+heights[complete.cases(heights)]
+```
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+1. 使用这个以英寸为单位的高度向量，创建一个删除了 NA 的新向量。
+
+```{r}
+高度 <- c(63, 69, 60, 65, NA, 68, 61, 70, 61, 59, 64, 69, 63, 63, NA, 72, 65, 64, 70, 63, 65)
+```
+
+2. 使用函数“median（）”计算“高度”向量的中值。
+3. 使用 R 找出集合中有多少人的身高超过 67 英寸。
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r, purl=TRUE}
+heights_no_na <- heights[!is.na(heights)]
+## 或
+heights_no_na <- na.omit(heights)
+```
+
+```{r, purl=TRUE}
+median(heights, na.rm = TRUE)
+```
+
+```{r, purl=TRUE}
+高度_高于_67 <- 高度_无_na[高度_无_na > 67]
+长度(高度_高于_67)
+```
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## 生成向量 {#sec:genvec}
+
+```{r, echo=FALSE}
+set.seed(1)
+```
+
+### 构造函数
+
+存在一些函数来生成不同类型的向量。 要
+生成一个数字向量，可以使用 `numeric()`
+构造函数，并将输出向量的长度作为
+参数。 这些值将被初始化为 0。
+
+```{r, purl=TRUE}
+numeric(3)
+numeric(10)
+```
+
+请注意，如果我们要求长度为 0 的数字向量，我们将获得
+：
+
+```{r, purl=TRUE}
+numeric(0)
+```
+
+字符和逻辑值有类似的构造函数，分别名为
+`character()` 和 `logical()`。
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+字符和逻辑向量的默认值是什么？
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r, purl=TRUE}
+character(2) ## 空字符
+logical(2) ## FALSE
+```
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+### 复制元素
+
+`rep` 函数允许将一个值重复一定次数
+次。 例如，如果我们想要用
+值 -1 来初始化一个长度为 5 的数字向量，我们可以执行以下操作：
+
+```{r, purl=TRUE}
+rep(-1, 5)
+```
+
+类似地，要生成一个填充了缺失值的向量，
+通常是一个很好的开始方式，而无需对要收集的数据
+设定假设：
+
+```{r, purl=TRUE}
+rep(NA, 5)
+```
+
+`rep` 可以将任意长度的向量作为输入（上面，我们使用了长度为 1 的向量
+）和任何类型。 例如，如果我们想重复
+值 1、2 和 3 五次，我们可以执行以下操作：
+
+```{r, purl=TRUE}
+rep(c(1, 2, 3), 5)
+```
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+如果我们想重复值 1、2 和 3 五次，但
+却按顺序获得五个 1、五个 2 和五个 3，该怎么办？ 有两种
+可能性 - 请参阅 `?rep` 或 `?sort` 寻求帮助。
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r, purl=TRUE}
+rep(c(1, 2, 3), each = 5)
+sort(rep(c(1, 2, 3), 5))
+```
+
+:::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+### 序列生成
+
+另一个非常有用的函数是“seq”，用于生成一个
+数字序列。 例如，为了以 2 为步长生成从 1 到 20
+的整数序列，可以使用：
+
+```{r, purl=TRUE}
+seq(from = 1, to = 20, by = 2)
+```
+
+`by` 的默认值为 1，并且鉴于经常使用以 1 为步长生成一个值到另一个值的
+序列，
+有一个快捷方式：
+
+```{r, purl=TRUE}
+seq(1, 5, 1)
+seq(1, 5) ## 默认为
+1:5
+```
+
+要生成最终长度为 3，
+的从 1 到 20 的数字序列，可以使用：
+
+```{r, purl=TRUE}
+seq(from = 1, to = 20, length.out = 3)
+```
+
+### 随机样本和排列
+
+最后一组有用的函数是那些生成随机
+数据的函数。 第一个，“样本”，生成另一个向量的随机排列
+。 例如，为了对 10 名学生
+口语考试进行随机排序，我首先为每个学生分配一个从 1 到 10 的数字（例如
+根据他们姓名的字母顺序排列），然后：
+
+```{r, purl=TRUE}
+sample(1:10)
+```
+
+如果没有进一步的参数，“sample”将返回向量中所有
+元素的排列。 如果我想要一个特定大小的随机样本，我
+会将该值设置为第二个参数。 下面，我从预定义的“字母”向量中的字母表中随机抽取 5 个
+个字母：
+
+```{r, purl=TRUE}
+sample(letters, 5)
+```
+
+如果我想要一个大于输入向量的输出，或者能够
+多次绘制一些元素，我需要将`replace`
+参数设置为`TRUE`：
+
+```{r, purl=TRUE}
+sample(1:5, 10, replace = TRUE)
+```
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战：
+
+当尝试上述函数时，您将意识到
+样本确实是随机的，并且不会两次得到相同的
+排列。 To be able to reproduce these random draws, one can
+set the random number generation seed manually with `set.seed()`
+before drawing the random sample.
+
+和你的邻居一起测试此功能。 首先独立绘制两个随机的
+排列 `1:10`，并观察是否得到了
+个不同的结果。
+
+现在设置种子，例如`set.seed(123)`并重复
+随机抽取。 注意，您现在获得相同的随机抽取。
+
+通过设置不同的种子来重复。
+
+:::::::::::::::  solution
+
+## 解决方案
+
+不同的排列
+
+```{r, purl=TRUE}
+sample(1:10)
+sample(1:10)
+```
+
+与种子 123 相同的排列
+
+```{r, purl=TRUE}
+set.seed(123)
+sample(1:10)
+set.seed(123)
+sample(1:10)
+```
+
+不同的种子
+
+```{r, purl=TRUE}
+set.seed(1)
+sample(1:10)
+set.seed(1)
+sample(1:10)
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+### 从正态分布中抽取样本
+
+我们将要看到的最后一个函数是`rnorm`，它从正态分布中抽取一个随机的
+样本。 下面显示了两个均值 0
+和 100、标准差 1 和 5 的正态分布，分别记为 _N(0, 1)_ 和
+_N(100, 5)_。
+
+```{r, echo=FALSE, fig.width=12, fig.height=6, fig.cap="Two normal distributions: *N(0, 1)* on the left and *N(100, 5)* on the right."}
+par(mfrow = c(1, 2))
+plot(density(rnorm(1000)), main = "", sub = "N(0, 1)")
+plot(density(rnorm(1000, 100, 5)), main = "", sub = "N(100, 5)")
+```
+
+三个参数 `n`、`mean` 和 `sd` 定义了
+样本的大小，以及正态分布的参数，即平均值
+及其标准差。 后者的默认值为0和1。
+
+```{r, purl=TRUE}
+rnorm(5)
+rnorm(5, 2, 2)
+rnorm(5, 100, 5)
+```
+
+现在我们已经学习了如何编写脚本，以及 R 的
+数据结构的基础知识，我们已经准备好开始处理更大的数据，并且
+了解数据框。
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- 如何与 R 交互
+
+::::::::::::::::::::::::::::::::::::::::::::::::::

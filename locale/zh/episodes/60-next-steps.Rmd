@@ -1,0 +1,464 @@
+---
+source: 放射科
+title: 下一步
+teaching: 四十五
+exercises: 四十五
+---
+
+```{r, include=FALSE}
+```
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- 介绍Bioconductor项目。
+- 引入数据容器的概念。
+- 概述在
+  组学分析中广泛使用的`SummarizedExperiment`。
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- 什么是“SummarizedExperiment”？
+- 什么是 Bioconductor？
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## 下一步
+
+```{r, echo=FALSE, message=FALSE}
+library("tidyverse")
+```
+
+生物信息学中的数据通常很复杂。  为了解决这个问题，
+开发人员定义了专门的数据容器（称为类），
+与他们需要处理的数据的属性相匹配。
+
+这一方面是 **Bioconductor**[^Bioconductor] 项目
+的核心，它在各个包中使用相同的 **核心数据基础设施**。 这
+无疑为 Bioconductor 的成功做出了贡献。 Bioconductor package
+developers are advised to make use of existing infrastructure to
+provide coherence, interoperability, and stability to the project as a
+whole.
+
+[^Bioconductor]: The [Bioconductor](https://www.bioconductor.org) was
+    initiated by Robert Gentleman, one of the two creators of the R
+    language. Bioconductor 提供专用于组学数据
+    分析的工具。 Bioconductor 使用 R 统计编程语言
+    ，并且是开源和开放开发的。
+
+为了说明这样的组学数据容器，我们将介绍
+`SummarizedExperiment`类。
+
+## 总结实验
+
+下图显示了 SummarizedExperiment 类的结构。
+
+```{r SE, echo=FALSE, out.width="80%"}
+knitr::include_graphics("https://uclouvain-cbio.github.io/WSBIM1322/figs/SE.svg")
+```
+
+SummarizedExperiment 类的对象包含：
+
+- **一个（或多个）分析**包含定量组学数据
+  （表达数据），存储为类似矩阵的对象。 特征（基因、
+  转录本、蛋白质……） 沿着行定义，并沿着列采样
+  。
+
+- 包含样本协变量的**样本元数据**槽，存储为
+  数据框。 该表中的行代表样本（行与表达数据的
+  列完全匹配）。
+
+- 包含特征协变量的**特征元数据**槽，存储为
+  数据框。 该数据框的行与
+  表达数据的行完全匹配。
+
+`SummarizedExperiment` 的协调特性保证了在数据操作过程中
+不同插槽的维度将
+始终匹配（即表达数据中的列，然后是
+样本元数据中的行，以及表达数据和
+特征元数据中的行）。 例如，如果我们必须
+从检测中排除一个样本，那么它将在同一操作中自动从样本元数据中删除
+。
+
+元数据槽可以增加额外的协变量
+（列）而不会影响其他结构。
+
+### 创建汇总实验
+
+为了创建一个`SummarizedExperiment`，我们将从 csv 文件中创建
+个单独组件，即计数矩阵、样本和基因
+元数据。 这些通常是 RNA-Seq 数据
+的提供方式（在原始数据被处理之后）。
+
+```{r, echo=FALSE, message=FALSE}
+rna <- read_csv("data/rnaseq.csv")
+
+## count matrix
+counts <- rna %>%
+  select(gene, sample, expression) %>%
+  pivot_wider(names_from = sample,
+              values_from = expression)
+
+## convert to matrix and set row names
+count_matrix <- counts %>% select(-gene) %>% as.matrix()
+rownames(count_matrix) <- counts$gene
+
+## sample annotation
+sample_metadata <- rna %>%
+  select(sample, organism, age, sex, infection, strain, time, tissue, mouse)
+
+## remove redundancy
+sample_metadata <- unique(sample_metadata)
+
+## gene annotation
+gene_metadata <- rna %>%
+  select(gene, ENTREZID, product, ensembl_gene_id, external_synonym,
+         chromosome_name, gene_biotype, phenotype_description,
+         hsapiens_homolog_associated_gene_name)
+
+# remove redundancy
+gene_metadata <- unique(gene_metadata)
+
+## write to csv
+write.csv(count_matrix, file = "data/count_matrix.csv")
+write.csv(gene_metadata, file = "data/gene_metadata.csv", row.names = FALSE)
+write.csv(sample_metadata, file = "data/sample_metadata.csv", row.names = FALSE)
+```
+
+- **表达矩阵**：我们加载计数矩阵，指定
+  第一列包含行/基因名称，并将
+  `data.frame`转换为`matrix`。 您可以从 [这里](https://carpentries-incubator.github.io/bioc-intro/data/count_matrix.csv) 下载它
+  。
+
+```{r}
+count_matrix <- read.csv("data/count_matrix.csv",
+                         row.names = 1) %>%
+    as.matrix()
+
+count_matrix[1:5, ]
+dim(count_matrix)
+```
+
+- **描述样本的表格**，可在
+  [此处](https://carpentries-incubator.github.io/bioc-intro/data/sample_metadata.csv) 获取。
+
+```{r}
+sample_metadata <- read.csv("data/sample_metadata.csv")
+sample_metadata
+dim(sample_metadata)
+```
+
+- **描述基因的表格**，可在
+  [此处](https://carpentries-incubator.github.io/bioc-intro/data/gene_metadata.csv) 获取。
+
+```{r}
+gene_metadata <- read.csv("data/gene_metadata.csv")
+gene_metadata[1:10, 1:4]
+dim(gene_metadata)
+```
+
+我们将根据以下表格创建一个“SummarizedExperiment”：
+
+- 将用作\*\*\`分析\*\*的计数矩阵
+
+- 描述样本的表格将用作**样本
+  元数据**槽
+
+- 描述基因的表格将用作**特征
+  元数据**槽
+
+为此，我们可以使用
+`SummarizedExperiment` 构造函数将不同的部分放在一起：
+
+```{r, message=FALSE, warning=FALSE}
+## BiocManager::install("SummarizedExperiment")
+library("SummarizedExperiment")
+```
+
+首先，我们确保
+计数矩阵和样本注释中的样本顺序相同，并且
+计数矩阵和基因注释中的基因顺序相同。
+
+```{r}
+stopifnot(rownames(count_matrix) == gene_metadata$gene)
+stopifnot(colnames(count_matrix) == sample_metadata$sample)
+```
+
+```{r}
+se <- SummarizedExperiment(assays = list(counts = count_matrix),
+                           colData = sample_metadata,
+                           rowData = gene_metadata)
+se
+```
+
+### 保存数据
+
+就像我们在上一集中所做的那样，将数据导出到电子表格有
+几个限制，例如第一章
+中描述的限制（小数分隔符 `,` 和 `.` 可能不一致，以及
+缺少变量类型定义）。 此外，将数据导出到
+电子表格仅与矩形数据（例如数据框
+和矩阵）相关。
+
+保存数据的更通用的方法是使用 `saveRDS`
+函数，这种方法特定于 R，并且
+保证可以在任何操作系统上运行。 像这样保存对象将在磁盘上生成二进制
+表示（此处使用`rds`文件扩展名），可以使用`readRDS`函数将其
+加载回R。
+
+```{r, eval=FALSE}
+saveRDS(se，file = “data_output/se.rds”)
+rm(se)
+se <- readRDS(“data_output/se.rds”)
+head(se)
+```
+
+To conclude, when it comes to saving data from R that will be loaded
+again in R, saving and loading with `saveRDS` and `readRDS` is the
+preferred approach. 如果需要与不使用 R 的人
+共享表格数据，那么导出到基于文本的电子表格是一个
+不错的选择。
+
+使用这个数据结构，我们可以通过
+`assay` 函数访问表达矩阵：
+
+```{r}
+head(assay(se))
+dim(assay(se))
+```
+
+我们可以使用“colData”函数访问样本元数据：
+
+```{r}
+colData(se)
+dim(colData(se))
+```
+
+我们还可以使用“rowData”函数访问特征元数据：
+
+```{r}
+head(rowData(se))
+dim(rowData(se))
+```
+
+### 对 SummarizedExperiment 进行子集设置
+
+SummarizedExperiment 可以像数据框一样被子集化，具有
+数字或逻辑字符。
+
+下面，我们创建 SummarizedExperiment 类的新实例，其中
+仅包含前 3 个样本的前 5 个特征。
+
+```{r}
+se1 <- se[1:5, 1:3]
+se1
+```
+
+```{r}
+colData(se1)
+rowData(se1)
+```
+
+我们还可以使用 `colData()` 函数从
+样本元数据中对某些内容进行子集化，或者使用 `rowData()` 从
+特征元数据中对某些内容进行子集化。  例如，这里我们只保留 miRNA 和非
+感染的样本：
+
+```{r}
+se1 <- se[rowData(se)$gene_biotype == "miRNA",
+          colData(se)$infection == "NonInfected"]
+se1
+assay(se1)
+colData(se1)
+rowData(se1)
+```
+
+<!--For the following exercise, you should download the SE.rda object
+(that contains the `se` object), and open the file using the 'load()'
+function.-->
+
+<!-- ```{r, eval = FALSE, echo = FALSE} -->
+
+<!-- download.file(url = "https://raw.githubusercontent.com/UCLouvain-CBIO/bioinfo-training-01-intro-r/master/data/SE.rda", -->
+
+<!--               destfile = "data/SE.rda") -->
+
+<!-- load("data/SE.rda") -->
+
+<!-- ``` -->
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战
+
+提取时间 0 和时间 8 时样本
+中前 3 个基因的基因表达水平。
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r, purl=FALSE}
+assay(se)[1:3, colData(se)$time != 4]
+
+# Equivalent to
+assay(se)[1:3, colData(se)$time == 0 | colData(se)$time == 8]
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## 挑战
+
+验证您是否使用长“rna”表获得相同的值。
+
+:::::::::::::::  solution
+
+## 解决方案
+
+```{r, purl=FALSE}
+rna |>
+    filter(gene %in% c("Asl", "Apod", "Cyd2d22")) |>
+    filter(time != 4) |> select(expression)
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+长表和`SummarizedExperiment`包含相同的
+信息，但是结构不同。 每种方法都有其
+自身的优势：前者非常适合`tidyverse`包，
+而后者是许多生物信息学和
+统计处理步骤的首选结构。 例如，典型的 RNA-Seq 分析使用
+`DESeq2` 包。
+
+#### 向元数据添加变量
+
+我们还可以向元数据中添加信息。
+假设您想添加收集样本的中心……
+
+```{r}
+colData(se)$center <- rep("University of Illinois", nrow(colData(se)))
+colData(se)
+```
+
+This illustrates that the metadata slots can grow indefinitely without
+affecting the other structures!
+
+### tidy总结实验
+
+您可能想知道，我们可以使用 tidyverse 命令与
+`SummarizedExperiment` 对象交互吗？ 答案是肯定的，我们可以使用
+`tidySummarizedExperiment` 包。
+
+记住我们的 SummarizedExperiment 对象是什么样的：
+
+```{r, message=FALSE}
+se
+```
+
+加载“tidySummarizedExperiment”，然后再次查看 se 对象
+。
+
+```{r, message=FALSE}
+#BiocManager::install("tidySummarizedExperiment")
+library("tidySummarizedExperiment")
+
+se
+```
+
+它仍然是一个 `SummarizedExperiment` 对象，因此保持了高效的
+结构，但现在我们可以将其视为一个 tibble。 注意输出的第一行
+说明了这一点，它是一个 `SummarizedExperiment`\-`tibble`
+抽象。 我们还可以在输出的第二行看到
+份成绩单和样本的数量。
+
+如果我们想恢复到标准的“SummarizedExperiment”视图，我们
+可以这样做。
+
+```{r}
+options("restore_SummarizedExperiment_show" = TRUE)
+se
+```
+
+但这里我们使用 tibble 视图。
+
+```{r}
+options("restore_SummarizedExperiment_show" = FALSE)
+se
+```
+
+我们现在可以使用 tidyverse 命令与
+`SummarizedExperiment` 对象交互。
+
+我们可以使用“过滤器”根据条件过滤行，例如查看
+一个样本的所有行。
+
+```{r}
+se %>% filter(.sample == "GSM2545336")
+```
+
+我们可以使用“select”来指定我们想要查看的列。
+
+```{r}
+se %>% select(.sample)
+```
+
+我们可以使用“mutate”来添加元数据信息。
+
+```{r}
+se %>% mutate(center = "Heidelberg University")
+```
+
+我们还可以将命令与 tidyverse 管道“%>%”组合起来。 对于
+示例，我们可以结合 `group_by` 和 `summarise` 来获取每个样本的总
+计数。
+
+```{r}
+se %>%
+    group_by(.sample) %>%
+    summarise(total_counts=sum(counts))
+```
+
+我们可以将整洁的 SummarizedExperiment 对象视为用于绘图的正常 tibble
+。
+
+这里我们绘制了每个样本的计数分布。
+
+```{r tidySE-plot}
+se %>%
+    ggplot(aes(counts + 1, group=.sample, color=infection)) +
+    geom_density() +
+    scale_x_log10() +
+    theme_bw()
+```
+
+有关 tidySummarizedExperiment 的更多信息，请参阅包
+网站
+[此处](https://stemangiola.github.io/tidySummarizedExperiment/)。
+
+**带回家的信息**
+
+- `SummarizedExperiment` 代表了一种存储和
+  处理组学数据的有效方法。
+
+- 它们被用于许多 Bioconductor 包中。
+
+如果您参加下一次以 RNA 测序分析为重点的培训，
+您将学习使用 Bioconductor `DESeq2` 包进行一些
+差异表达分析。  `DESeq2`
+包的整个分析在 `SummarizedExperiment` 中处理。
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- Bioconductor 是一个为
+  理解高通量生物学数据提供支持和包的项目。
+- A `SummarizedExperiment` is a type of object useful to store and
+  manage high-throughput omics data.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::

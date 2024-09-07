@@ -1,0 +1,1107 @@
+---
+source: Rmd
+title: Visualisation de données
+teaching: 60
+exercises: 60
+---
+
+```{r loaddata_vis, echo=FALSE, purl=FALSE, message=FALSE}
+if (!file.exists("data/rnaseq.csv"))
+download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/ data/rnaseq.csv",
+              destfile = "data/rnaseq.csv")
+```
+
+::::::::::::::::::::::::::::::::::::::: objectives
+
+- Produisez des nuages de points, des boxplots, des tracés linéaires, etc. en utilisant ggplot.
+- Définissez les paramètres de tracé universels.
+- Décrivez ce qu'est le facettage et appliquez le facettage dans ggplot.
+- Modifiez l'esthétique d'un tracé ggplot existant (y compris les étiquettes des axes et la couleur).
+- Créez des tracés complexes et personnalisés à partir de données dans un bloc de données.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::: questions
+
+- Visualisation en R
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+```{r vis_setup, echo=FALSE}
+arn <- read.csv("data/rnaseq.csv")
+```
+
+> Cet épisode est basé sur la leçon _Analyse des données et
+> Visualisation dans R pour les écologistes_ de Data Carpentries.
+
+## Visualisation de données
+
+Nous commençons par charger les packages requis. **`ggplot2`** est inclus dans
+le package **`tidyverse`**.
+
+```{r load-package, message=FALSE, purl=TRUE}
+bibliothèque("tidyverse")
+```
+
+Si vous n'êtes pas encore dans l'espace de travail, chargez les données que nous avons enregistrées dans la leçon
+précédente.
+
+```{r load-data, eval=FALSE, purl=TRUE}
+arn <- read.csv("data/rnaseq.csv")
+```
+
+La Data Visualization Cheat
+
+couvrira les bases et les fonctionnalités plus avancées de ` ggplot2` et
+aidera, en plus de servir de rappel, à obtenir un aperçu des
+nombreuses représentations de données disponibles dans le package. Les didacticiels vidéo suivants
+([partie 1](https://www.youtube.com/watch?v=h29g21z0a68) et
+[2](https://www.youtube.com /watch?v=0m4yywqNPVY)) de Thomas Lin Pedersen
+sont également très instructifs.
+
+## Tracer avec `ggplot2`
+
+`ggplot2` est un package de traçage qui simplifie la création de tracés
+complexes à partir de données dans un bloc de données. Il fournit une interface
+plus programmatique pour spécifier les variables à tracer, comment elles sont affichées,
+et les propriétés visuelles générales. La fondation théorique qui prend en charge
+le `ggplot2` est la _Grammar of Graphics_ (@Wilkinson :2005). En utilisant cette approche
+, nous n'avons besoin que de changements minimes si les données sous-jacentes changent ou
+si nous décidons de passer d'un diagramme à barres à un nuage de points. Cela aide à
+créer des tracés de qualité de publication avec un minimum d'ajustements
+et de peaufinages.
+
+Il existe un livre sur `ggplot2` (@ggplot2book) qui fournit un bon aperçu de
+, mais il est obsolète. La 3ème édition est en préparation et sera
+[disponible gratuitement en ligne](https://ggplot2-book.org/). La page Web `ggplot2`
+([https://ggplot2.tidyverse.org](https://ggplot2.tidyverse.org)) fournit une documentation abondante.
+
+`ggplot2` fonctionne comme des données au format « long », c'est-à-dire une colonne pour
+chaque dimension et une ligne pour chaque observation. Des données bien structurées
+vous feront gagner beaucoup de temps lors de la création de chiffres avec `ggplot2`.
+
+Les graphiques ggplot sont construits étape par étape en ajoutant de nouveaux éléments. L'ajout de
+couches de cette manière permet une grande flexibilité et une
+personnalisation des tracés.
+
+> L'idée derrière la grammaire graphique est que vous pouvez construire chaque graphique
+> à partir des 3 mêmes composants : (1) un ensemble de données, (2) un système de coordonnées,
+> et (3) des géoms. — c'est-à-dire des marques visuelles qui représentent des points de données \[^trois\\_comp\\_ggplot2]
+
+[^three_comp_ggplot2]: Source : [Aide-mémoire pour la visualisation des données](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf).
+
+Pour construire un ggplot, nous utiliserons le modèle de base suivant qui peut être
+utilisé pour différents types de tracés :
+
+```
+ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
+```
+
+- utilisez la fonction `ggplot()` et liez le tracé à un cadre \*\*data
+  \*\* spécifique en utilisant l'argument `data`
+
+```{r, eval=FALSE}
+ggplot(data = rna)
+```
+
+- définir un **mapping** (en utilisant la fonction esthétique (`aes`)), en
+  sélectionnant les variables à tracer et en spécifiant comment les présenter
+  dans le graphique, par exemple sous la forme x/ y positions ou caractéristiques telles que
+  taille, forme, couleur, etc.
+
+```{r, eval=FALSE}
+ggplot(data = rna, mapping = aes(x = expression))
+```
+
+- ajoutez '**geoms**' - géométries ou représentations graphiques des données
+  dans le tracé (points, lignes, barres). `ggplot2` propose de nombreuses
+  géométries différentes ; nous en utiliserons quelques-uns courants aujourd’hui, notamment :
+
+  ```
+  * `geom_point()` pour les nuages de points, les diagrammes de points, etc.
+  * `geom_histogram()` pour les histogrammes
+  * `geom_boxplot()` pour, eh bien, les boxplots !
+  * `geom_line()` pour les lignes de tendance, les séries chronologiques, etc.
+  ```
+
+Pour ajouter une géométrie au tracé, utilisez l'opérateur `+`. Utilisons d'abord
+`geom_histogram()` :
+
+```{r first-ggplot, cache=FALSE, purl=TRUE}
+ggplot(data = rna, mapping = aes(x = expression)) +
+  geom_histogram()
+```
+
+Le `+` dans le package `ggplot2` est particulièrement utile car il
+vous permet de modifier les objets `ggplot` existants. Cela signifie que vous pouvez
+facilement configurer des modèles de tracé et explorer facilement différents types de
+tracés, de sorte que le tracé ci-dessus peut également être généré avec un code comme celui-ci :
+
+```{r, eval=FALSE, purl=TRUE}
+# Assign plot to a variable
+rna_plot <- ggplot(data = rna,
+                   mapping = aes(x = expression))
+
+# Draw the plot
+rna_plot + geom_histogram()
+```
+
+::::::::::::::::::::::::::::::::::::::: défi
+
+## Défi
+
+Vous avez probablement remarqué un message automatique qui apparaît lorsque
+dessine l'histogramme :
+
+```{r, echo=FALSE, fig.show="hide"}
+ggplot(rna, aes(x = expression)) +
+  geom_histogram()
+```
+
+Modifiez les arguments `bins` ou `binwidth` de `geom_histogram()` en
+changez le nombre ou la largeur des bacs.
+
+:::::::::::::::  solution
+
+## Solution
+
+```{r, purl=TRUE}
+# change bins
+ggplot(rna, aes(x = expression)) +
+    geom_histogram(bins = 15)
+
+# change binwidth
+ggplot(rna, aes(x = expression)) +
+    geom_histogram(binwidth = 2000)
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+Nous pouvons observer ici que les données sont biaisées vers la droite. Nous pouvons appliquer la transformation
+log2 pour avoir une distribution plus symétrique. Notez que nous
+ajoutons ici une petite valeur constante (`+1`) pour éviter que les valeurs `-Inf`
+soient renvoyées pour les valeurs d'expression égales à 0.
+
+```{r log-transfo, cache=FALSE, purl=TRUE}
+arn <- arn %>%
+  muter(expression_log = log2(expression + 1))
+```
+
+Si l'on dessine maintenant l'histogramme des expressions transformées en log2, la distribution
+est en effet plus proche d'une distribution normale.
+
+```{r second-ggplot, cache=FALSE, purl=TRUE}
+ggplot(rna, aes(x = expression_log)) + geom_histogram()
+```
+
+À partir de maintenant, nous travaillerons sur les valeurs d’expression transformées en log.
+
+::::::::::::::::::::::::::::::::::::::: défi
+
+## Défi
+
+Une autre façon de visualiser cette transformation est de considérer l’échelle
+des observations. Par exemple, il peut être intéressant de changer l'échelle
+de l'axe pour mieux répartir les observations dans l'espace de la parcelle
+. Changer l'échelle des axes se fait de la même manière que
+ajouter/modifier d'autres composants (c'est-à-dire en ajoutant progressivement des commandes
+). Essayez de faire cette modification :
+
+- Représenter l'expression non transformée sur l'échelle log10 ; voir
+  `scale_x_log10()`. Comparez-le avec le graphique précédent. Pourquoi
+  des messages d'avertissement apparaissent-ils maintenant ?
+
+::::::::::::::: solution
+
+## Solution
+
+```{r, eval=TRUE, purl=TRUE, echo=TRUE}
+ggplot(data = rna,mapping = aes(x = expression))+
+  geom_histogram() +
+  scale_x_log10()
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+**Remarques**
+
+- Tout ce que vous mettez dans la fonction `ggplot()` peut être vu par n'importe quelle couche geom
+  que vous ajoutez (c'est-à-dire qu'il s'agit de paramètres de tracé globaux). Ce
+  inclut le mappage des axes x et y que vous avez configuré dans `aes()`.
+- Vous pouvez également spécifier des mappages pour une géom donnée indépendamment des mappages
+  définis globalement dans la fonction `ggplot()`.
+- Le signe `+` utilisé pour ajouter de nouveaux calques doit être placé à la fin de la ligne
+  contenant le calque _précédent_. If, instead, the `+` sign is
+  added at the beginning of the line containing the new layer,
+  `ggplot2` will not add the new layer and will return an error
+  message.
+
+```{r, eval=FALSE}
+# This is the correct syntax for adding layers
+rna_plot +
+  geom_histogram()
+
+# This will not add the new layer and will return an error message
+rna_plot
+  + geom_histogram()
+```
+
+## Construire vos parcelles de manière itérative
+
+Nous allons maintenant dessiner un nuage de points avec deux variables continues et la fonction
+`geom_point()`. Ce graphique représentera les changements de pli log2
+de l'expression comparant le temps 8 au temps 0 et le temps 4 au temps 0.
+À cette fin, nous devons d'abord calculer les moyennes des valeurs d'expression
+transformées en log par gène et par temps, puis le pli du log change en
+en soustrayant les expressions du log moyen entre le temps 8 et le temps 0. et
+entre le temps 4 et le temps 0. Notez que nous incluons également ici le biotype du gène
+que nous utiliserons plus tard pour représenter les gènes. Nous enregistrerons
+les changements de repli dans un nouveau bloc de données appelé `rna_fc.`
+
+```{r rna_fc, cache=FALSE, purl=TRUE}
+rna_fc <- rna %>% select(gene, time,
+                         gene_biotype, expression_log) %>%
+  group_by(gene, time, gene_biotype) %>%
+  summary(mean_exp = moyenne (expression_log)) %>%
+  pivot_wider(names_from = temps,
+              valeurs_from = moyenne_exp) %>%
+  mutate(time_8_vs_0 = `8` - `0`, time_4_vs_0 = `4` - `0`)
+
+```
+
+Nous pouvons ensuite construire un ggplot avec l'ensemble de données nouvellement créé `rna_fc`.
+Construire des parcelles avec `ggplot2` est généralement un processus itératif. Nous
+commençons par définir l'ensemble de données que nous allons utiliser, tracer les axes et choisir une
+géom :
+
+```{r create-ggplot-object, cache=FALSE, purl=TRUE}
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
+  geom_point()
+```
+
+Ensuite, nous commençons à modifier ce tracé pour en extraire plus d’informations.
+Par exemple, nous pouvons ajouter de la transparence (« alpha ») pour éviter le surtraçage :
+
+```{r adding-transparency, cache=FALSE, purl=TRUE}
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
+  geom_point(alpha = 0.3)
+```
+
+On peut également ajouter des couleurs pour tous les points :
+
+```{r adding-colors, cache=FALSE, purl=TRUE}
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
+  geom_point(alpha = 0.3, color = "blue")
+```
+
+Ou pour colorer différemment chaque gène du tracé, vous pouvez utiliser un vecteur comme
+entrée dans l'argument **color**. `ggplot2` fournira une couleur
+différente correspondant à différentes valeurs dans le vecteur. Voici un
+exemple où nous colorons avec `gene_biotype` :
+
+```{r color-by-gene_biotype1, cache=FALSE, purl=TRUE}
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
+  geom_point(alpha = 0.3, aes(color = gene_biotype))
+
+```
+
+Nous pouvons également spécifier les couleurs directement à l'intérieur du mappage fourni dans
+la fonction `ggplot()`. Cela sera visible par toutes les couches géométriques et la cartographie
+sera déterminée par les axes x et y définis dans `aes()`.
+
+```{r color-by-gene_biotype2, cache=FALSE, purl=TRUE}
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
+                                color = gene_biotype)) +
+  geom_point(alpha = 0.3)
+```
+
+Enfin, nous pourrions également ajouter une ligne diagonale avec la fonction `geom_abline()`
+ :
+
+```{r adding-diag, cache=FALSE, purl=TRUE}
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
+                                color = gene_biotype)) +
+  geom_point(alpha = 0.3) +
+  geom_abline(intercept = 0)
+```
+
+Notez que nous pouvons changer la couche géométrique de `geom_point` à
+`geom_jitter` et les couleurs seront toujours déterminées par `gene_biotype`.
+
+```{r color-by-gene_biotype3, cache=FALSE, purl=TRUE}
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
+                                color = gene_biotype)) +
+  geom_jitter(alpha = 0.3) +
+  geom_abline(intercept = 0)
+```
+
+```{r, echo=FALSE, message=FALSE}
+bibliothèque("hexbin")
+```
+
+::::::::::::::::::::::::::::::::::::::: défi
+
+## Défi
+
+Les nuages de points peuvent être des outils d’exploration utiles pour de petits ensembles de données. Pour les ensembles de données
+avec un grand nombre d'observations, tels que l'ensemble de données `rna_fc`
+, le surtraçage des points peut constituer une limitation des nuages de points.
+Une stratégie pour gérer de tels paramètres consiste à utiliser le regroupement hexagonal d'observations
+. L’espace de l’intrigue est divisé en hexagones. Chaque
+hexagone se voit attribuer une couleur en fonction du nombre d'observations qui
+tombent dans ses limites.
+
+- Pour utiliser le regroupement hexagonal dans `ggplot2`, installez d'abord le package R
+  `hexbin` depuis CRAN et chargez-le.
+
+- Utilisez ensuite la fonction `geom_hex()` pour produire la figure hexbin.
+
+- Quelles sont les forces et les faiblesses relatives d'un diagramme hexagonal
+  par rapport à un nuage de points ? Examinez le nuage de points ci-dessus
+  et comparez-le avec le diagramme hexagonal que vous avez créé.
+
+::::::::::::::: solution
+
+## Solution
+
+```{r, eval=FALSE, purl=TRUE}
+install.packages("hexbin")
+```
+
+```{r, purl=TRUE}
+library("hexbin")
+
+ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
+  geom_hex() +
+  geom_abline(intercept = 0)
+
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::: défi
+
+## Défi
+
+Utilisez ce que vous venez d'apprendre pour créer un nuage de points de `expression_log`
+sur `sample` à partir de l'ensemble de données `rna` avec l'heure affichée dans
+différentes couleurs. Est-ce une bonne façon d’afficher ce type de données ?
+
+::::::::::::::: solution
+
+## Solution
+
+```{r, eval=TRUE, purl=TRUE}
+ggplot(data = rna, mapping = aes(y = expression_log, x = sample)) +
+    geom_point(aes(color = time))
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Boîte à moustaches
+
+Nous pouvons utiliser des boxplots pour visualiser la distribution des expressions géniques
+au sein de chaque échantillon :
+
+```{r boxplot, cache=FALSE, purl=TRUE}
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
+  geom_boxplot()
+```
+
+En ajoutant des points au boxplot, on peut avoir une meilleure idée du nombre de
+mesures et de leur répartition :
+
+```{r boxplot-with-points, cache=FALSE, purl=TRUE}
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
+  geom_jitter(alpha = 0.2, color = "tomato") +
+  geom_boxplot(alpha = 0)
+```
+
+::::::::::::::::::::::::::::::::::::::: défi
+
+## Défi
+
+Notez comment la couche de boîte à moustaches se trouve devant la couche de gigue ? Que devez-vous
+modifier dans le code pour placer le boxplot sous les points ?
+
+::::::::::::::: solution
+
+## Solution
+
+Nous devrions inverser l'ordre de ces deux géométries :
+
+```{r boxplot-with-points2, cache=FALSE, purl=TRUE}
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
+  geom_boxplot(alpha = 0) +
+  geom_jitter(alpha = 0.2, color = "tomato")
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+Vous remarquerez peut-être que les valeurs sur l'axe des x ne sont toujours pas correctement
+lisibles. Modifions l'orientation des étiquettes et ajustons-les
+verticalement et horizontalement afin qu'elles ne se chevauchent pas. Vous pouvez utiliser un angle de
+90 degrés ou expérimenter pour trouver l'angle approprié pour
+les étiquettes orientées en diagonale :
+
+```{r boxplot-xaxis-rotated, cache=FALSE, purl=TRUE}
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
+  geom_jitter(alpha = 0.2, color = "tomato") +
+  geom_boxplot(alpha = 0) +
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
+```
+
+::::::::::::::::::::::::::::::::::::::: défi
+
+## Défi
+
+Ajoutez de la couleur aux points de données sur votre boxplot en fonction de la durée
+de l'infection (« time »).
+
+_Indice :_ Vérifiez la classe pour « heure ». Envisagez de changer la classe de
+`time` d'entier pour prendre en compte directement dans le mappage ggplot. Pourquoi
+cela change-t-il la façon dont R crée le graphique ?
+
+::::::::::::::: solution
+
+## Solution
+
+```{r boxplot-color-time, cache=FALSE, purl=TRUE}
+# time as integer
+ggplot(data = rna,
+         mapping = aes(y = expression_log,
+                       x = sample)) +
+  geom_jitter(alpha = 0.2, aes(color = time)) +
+  geom_boxplot(alpha = 0) +
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
+
+# time as factor
+ggplot(data = rna,
+         mapping = aes(y = expression_log,
+                       x = sample)) +
+  geom_jitter(alpha = 0.2, aes(color = as.factor(time))) +
+  geom_boxplot(alpha = 0) +
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::: défi
+
+## Défi
+
+Les boxplots sont des résumés utiles, mais cachent la _forme_ de la distribution
+. Par exemple, si la distribution est bimodale, nous ne la verrions
+pas dans un boxplot. Une alternative au boxplot est le tracé en violon
+, où la forme (de la densité de points) est dessinée.
+
+- Remplacez la boîte à moustaches par une intrigue en violon ; voir `geom_violin()`. Remplissez
+  les violons en fonction du temps avec l'argument `fill`.
+
+::::::::::::::: solution
+
+## Solution
+
+```{r, eval=TRUE, echo=TRUE, cache=FALSE, purl=TRUE}
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
+  geom_violin(aes(fill = as.factor(time))) +
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::: défi
+
+## Défi
+
+- Modifiez l'intrigue des violons pour remplir les violons par « sexe ».
+
+::::::::::::::: solution
+
+## Solution
+
+```{r, eval=TRUE, echo=TRUE, cache=FALSE, purl=TRUE}
+ggplot(data = rna,
+         mapping = aes(y = expression_log, x = sample)) +
+  geom_violin(aes(fill = sex)) +
+  theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Tracés linéaires
+
+Calculons l'expression moyenne par durée de l'infection pour
+les 10 gènes ayant les changements logarithmiques les plus élevés en comparant le temps 8 au
+temps 0. Tout d'abord, nous devons sélectionner les gènes et créer un sous-ensemble de `rna`
+appelé `sub_rna` contenant les 10 gènes sélectionnés, puis nous devons regrouper
+les données et calculer l'expression moyenne des gènes dans chaque groupe:
+
+```{r, purl=TRUE}
+rna_fc <- rna_fc %>% arrange(desc(time_8_vs_0))
+
+genes_selected <- rna_fc$gene[1:10]
+
+sub_rna <- rna %>%
+    filter(gene %in% genes_selected)
+
+mean_exp_by_time <- sub_rna %>%
+  group_by(gene,time) %>%
+    summarize(mean_exp = mean(expression_log))
+
+mean_exp_by_time
+```
+
+Nous pouvons construire le tracé linéaire avec la durée de l'infection sur l'axe des x
+et l'expression moyenne sur l'axe des y :
+
+```{r first-time-series, purl=TRUE}
+ggplot(data = moyenne_exp_by_time, mapping = aes(x = temps, y = moyenne_exp)) +
+  geom_line()
+```
+
+Malheureusement, cela ne fonctionne pas car nous avons tracé ensemble les données de tous les gènes
+. Nous devons dire à ggplot de tracer une ligne pour chaque gène en
+modifiant la fonction esthétique pour inclure `group = gene` :
+
+```{r time-series-by-gene, purl=TRUE}
+ggplot(data = moyenne_exp_by_time,
+       mapping = aes(x = temps, y = moyenne_exp, groupe = gène)) +
+  geom_line()
+```
+
+Nous pourrons distinguer les gènes dans l'intrigue si nous ajoutons des couleurs (l'utilisation de
+`color` regroupe également automatiquement les données) :
+
+```{r time-series-with-colors, purl=TRUE}
+ggplot(data = moyenne_exp_by_time,
+       mapping = aes(x = temps, y = moyenne_exp, couleur = gène)) +
+  geom_line()
+```
+
+## Facettage
+
+`ggplot2` a une technique spéciale appelée _faceting_ qui permet à l'utilisateur
+de diviser une parcelle en plusieurs (sous) parcelles en fonction d'un facteur inclus
+dans l'ensemble de données. Ces différentes sous-parcelles héritent des mêmes propriétés
+(limites des axes, ticks, ...) pour faciliter leur comparaison directe. Nous allons
+l'utiliser pour créer un tracé linéaire dans le temps pour chaque gène :
+
+```{r first-facet, purl=TRUE}
+ggplot(data = moyenne_exp_by_time,
+       mapping = aes(x = temps, y = moyenne_exp)) + geom_line() +
+  facet_wrap(~ gène)
+```
+
+Ici, les axes x et y ont la même échelle pour toutes les sous-parcelles. Vous
+pouvez changer ce comportement par défaut en modifiant `scales` afin d'autoriser
+une échelle libre pour l'axe y :
+
+```{r first-facet-scales, purl=TRUE}
+ggplot(data = moyenne_exp_by_time,
+       mapping = aes(x = temps, y = moyenne_exp)) +
+  geom_line() +
+  facet_wrap(~ gene, scales = "free_y")
+```
+
+Nous aimerions maintenant diviser la ligne dans chaque parcelle selon le sexe des souris.
+Pour ce faire, nous devons calculer l'expression moyenne dans le bloc de données
+regroupé par « gène », « temps » et « sexe » :
+
+```{r data-facet-by-gene-and-sex, purl=TRUE}
+Mean_exp_by_time_sex <- sub_rna %>%
+  group_by(gene, time, sex) %>%
+    summary(mean_exp = Mean(expression_log))
+
+Mean_exp_by_time_sex
+```
+
+Nous pouvons maintenant créer le tracé à facettes en le divisant davantage par sexe en utilisant
+`color` (au sein d'un seul tracé) :
+
+```{r facet-by-gene-and-sex, cache=FALSE, purl=TRUE}
+ggplot(data = moyenne_exp_by_time_sex,
+       mapping = aes(x = temps, y = moyenne_exp, couleur = sexe)) +
+  geom_line() +
+  facet_wrap(~ gène, échelles = "free_y")
+```
+
+Généralement, les tracés sur fond blanc semblent plus lisibles une fois imprimés. Nous
+pouvons définir l'arrière-plan en blanc en utilisant la fonction `theme_bw()`.
+De plus, nous pouvons supprimer la grille :
+
+```{r facet-by-gene-and-sex-white-bg, cache=FALSE, purl=TRUE}
+ggplot(data = moyenne_exp_by_time_sex,
+       mapping = aes(x = temps, y = moyenne_exp, couleur = sexe)) +
+  geom_line() +
+  facet_wrap(~ gène, échelles = "free_y") +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+```
+
+::::::::::::::::::::::::::::::::::::::: défi
+
+## Défi
+
+Utilisez ce que vous venez d'apprendre pour créer un graphique illustrant comment l'expression moyenne
+de chaque chromosome change au cours de la durée de l'infection
+.
+
+::::::::::::::: solution
+
+## Solution
+
+```{r mean-exp-chromosome-time-series, purl=TRUE}
+Mean_exp_by_chromosome <- rna %>%
+  group_by(chromosome_name, time) %>%
+  summary(mean_exp = Mean(expression_log))
+
+ggplot(data = Mean_exp_by_chromosome, mapping = aes( x = temps,
+                                y = moyenne_exp)) +
+  geom_line() +
+  facet_wrap(~ chromosome_name, scales = "free_y")
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+La géométrie `facet_wrap` extrait les tracés dans un nombre arbitraire de
+dimensions pour leur permettre de s'adapter proprement à une seule page. On the other hand,
+the `facet_grid` geometry allows you to explicitly specify how you want
+your plots to be arranged via formula notation (`rows ~ columns`; a `.`
+can be used as a placeholder that indicates only one row or column).
+
+Modifions le graphique précédent pour comparer l'évolution de l'expression génétique moyenne
+des hommes et des femmes au fil du temps :
+
+```{r mean-exp-time-facet-sex-rows, purl=TRUE}
+# Une colonne, facette par lignes
+ggplot(data = Mean_exp_by_time_sex,
+       mapping = aes(x = time, y = Mean_exp, color = gene)) +
+  geom_line() +
+  facet_grid(sexe ~ .)
+```
+
+```{r mean-exp-time-facet-sex-columns, purl=TRUE}
+# Une ligne, facette par colonne
+ggplot(data = Mean_exp_by_time_sex,
+       mapping = aes(x = time, y = Mean_exp, color = gene)) +
+  geom_line() +
+  facet_grid(. ~ sexe)
+```
+
+## Thèmes `ggplot2`
+
+En plus de `theme_bw()`, qui change l'arrière-plan de l'intrigue en blanc,
+`ggplot2` est livré avec plusieurs autres thèmes qui peuvent être utiles pour
+changer rapidement l'apparence de votre visualisation. La liste complète des thèmes est
+disponible sur [https://ggplot2.tidyverse.org/reference/ggtheme.html](https://ggplot2.tidyverse.org/reference/ggtheme.html).
+`theme_minimal()` et `theme_light()` sont populaires, et `theme_void()`
+peut être utile comme point de départ pour créer un nouveau thème créé à la main.
+
+Le package [ggthemes](https://jrnold.github.io/ggthemes/reference/index.html)
+fournit une grande variété d'options (y compris un thème Excel 2003
+). The ggplot2 provides a list of
+packages that extend the capabilities of `ggplot2`, including additional
+themes.
+
+## Personnalisation
+
+Revenons à l'intrigue à facettes de l'expression moyenne par temps et gène,
+colorée par sexe.
+
+Jetez un œil à la feuille de triche ,
+et réfléchissez aux moyens vous pourriez améliorer l'intrigue.
+
+Maintenant, nous pouvons changer les noms des axes en quelque chose de plus informatif que
+'time' et 'mean\_exp', et ajouter un titre à la figure :
+
+```{r mean_exp-time-with-right-labels, cache=FALSE, purl=TRUE}
+ggplot(data = moyenne_exp_by_time_sex,
+       mapping = aes(x = temps, y = moyenne_exp, couleur = sexe)) +
+  geom_line() +
+  facet_wrap(~ gène, échelles = "free_y") +
+  theme_bw() +
+  theme(panel.grid = element_blank()) +
+  labs(title = "Expression moyenne des gènes selon la durée de l'infection",
+       x = "Durée de l'infection (en jours)",
+       y = "Expression moyenne des gènes")
+```
+
+Les axes ont des noms plus informatifs, mais leur lisibilité peut être
+améliorée en augmentant la taille de la police :
+
+```{r mean_exp-time-with-right-labels-xfont-size, cache=FALSE, purl=TRUE}
+ggplot(data = moyenne_exp_by_time_sex,
+       mapping = aes(x = temps, y = moyenne_exp, couleur = sexe)) +
+  geom_line() +
+  facet_wrap(~ gène, échelles = "free_y") +
+  theme_bw() +
+  theme(panel.grid = element_blank()) +
+  labs(title = "Expression moyenne des gènes selon la durée de l'infection",
+       x = "Durée de l'infection (en jours)",
+       y = "Expression génétique moyenne") +
+  theme(text = element_text(size = 16))
+```
+
+Notez qu'il est également possible de changer les polices de vos tracés. Si vous
+êtes sous Windows, vous devrez peut-être installer le [**`extrafont`**
+package](https://cran.r-project.org/web/packages/extrafont /index.html).
+
+Nous pouvons personnaliser davantage la couleur du texte des axes x et y, la couleur de
+la grille, etc. Nous pouvons aussi par exemple déplacer la légende vers le haut en
+définissant `legend.position` sur `"top"`.
+
+```{r mean_exp-time-with-theme, cache=FALSE, purl=TRUE}
+ggplot(data = mean_exp_by_time_sex,
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
+  geom_line() +
+  facet_wrap(~ gene, scales = "free_y") +
+  theme_bw() +
+  theme(panel.grid = element_blank()) +
+  labs(title = "Mean gene expression by duration of the infection",
+       x = "Duration of the infection (in days)",
+       y = "Mean gene expression")  +
+  theme(text = element_text(size = 16),
+        axis.text.x = element_text(colour = "royalblue4", size = 12),
+        axis.text.y = element_text(colour = "royalblue4", size = 12),
+        panel.grid = element_line(colour="lightsteelblue1"),
+        legend.position = "top")
+```
+
+Si vous préférez les modifications que vous avez créées au thème par défaut, vous pouvez
+les enregistrer en tant qu'objet pour pouvoir les appliquer facilement à d'autres
+tracés que vous pourriez créer. Voici un exemple avec l'histogramme que nous avons
+créé précédemment.
+
+```{r mean_exp-time-with-right-labels-xfont, cache=FALSE, purl=TRUE}
+blue_theme <- theme(axis.text.x = element_text(colour = "royalblue4",
+                                               size = 12),
+                    axis.text.y = element_text(colour = "royalblue4",
+                                               size = 12),
+                    text = element_text(size = 16),
+                    panel.grid = element_line(colour="lightsteelblue1"))
+
+ggplot(rna, aes(x = expression_log)) +
+  geom_histogram(bins = 20) +
+    blue_theme
+```
+
+::::::::::::::::::::::::::::::::::::::: défi
+
+## Défi
+
+Avec toutes ces informations en main, veuillez prendre encore cinq minutes
+pour soit améliorer l'un des tracés générés dans cet exercice, soit
+créer votre propre graphique. Utilisez la feuille de triche RStudio ggplot2
+pour vous inspirer. Voici quelques idées :
+
+- Voyez si vous pouvez modifier l’épaisseur des lignes.
+- Pouvez-vous trouver un moyen de changer le nom de la légende ? Qu'en est-il de
+  ses étiquettes ? (indice : recherchez une fonction ggplot commençant par
+  `scale_`)
+- Essayez d'utiliser une palette de couleurs différente ou de spécifier manuellement les couleurs
+  pour les lignes (voir
+  [http://www.cookbook-r.com/Graphs/Colors\_(ggplot2)/](https://www.cookbook-r.com/Graphs/Colors_\\(ggplot2\\)/)).
+
+::::::::::::::: solution
+
+## Solution
+
+Par exemple, sur la base de ce tracé :
+
+```{r, purl=TRUE}
+ggplot(data = moyenne_exp_by_time_sex,
+       mapping = aes(x = temps, y = moyenne_exp, couleur = sexe)) +
+  geom_line() +
+  facet_wrap(~ gène, échelles = "free_y") +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+```
+
+Nous pouvons le personnaliser des manières suivantes :
+
+```{r, purl=TRUE}
+# change the thickness of the lines
+ggplot(data = mean_exp_by_time_sex,
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
+  geom_line(size=1.5) +
+  facet_wrap(~ gene, scales = "free_y") +
+  theme_bw() +
+  theme(panel.grid = element_blank())
+
+# change the name of the legend and the labels
+ggplot(data = mean_exp_by_time_sex,
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
+  geom_line() +
+  facet_wrap(~ gene, scales = "free_y") +
+  theme_bw() +
+  theme(panel.grid = element_blank()) +
+  scale_color_discrete(name = "Gender", labels = c("F", "M"))
+
+# using a different color palette
+ggplot(data = mean_exp_by_time_sex,
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
+  geom_line() +
+  facet_wrap(~ gene, scales = "free_y") +
+  theme_bw() +
+  theme(panel.grid = element_blank()) +
+  scale_color_brewer(name = "Gender", labels = c("F", "M"), palette = "Dark2")
+
+# manually specifying the colors
+ggplot(data = mean_exp_by_time_sex,
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
+  geom_line() +
+  facet_wrap(~ gene, scales = "free_y") +
+  theme_bw() +
+  theme(panel.grid = element_blank()) +
+  scale_color_manual(name = "Gender",  labels = c("F", "M"),
+                     values = c("royalblue", "deeppink"))
+
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Composer des intrigues
+
+Faceting is a great tool for splitting one plot into multiple subplots,
+but sometimes you may want to produce a single figure that contains
+multiple independent plots, i.e. plots that are based on different
+variables or even different data frames.
+
+Commençons par créer les deux tracés que nous souhaitons disposer l'un à côté de l'autre
+ :
+
+Le premier graphique compte le nombre de gènes uniques par chromosome. Nous
+devons d'abord réorganiser les niveaux de `chromosome_name` et filtrer les
+gènes uniques par chromosome. Nous modifions également l'échelle de l'axe y en une échelle
+log10 pour une meilleure lisibilité.
+
+```{r sub1, purl=TRUE}
+arn$chromosome_name <- factor(rna$chromosome_name,
+                               niveaux = c(1:19,"X","Y"))
+
+count_gene_chromosome <- rna %> % select(chromosome_name, gene) %>%
+  distinct() %>% ggplot() +
+  geom_bar(aes(x = chromosome_name), fill = "seagreen",
+           position = "esquive", stat = "count") +
+  labs(y = "log10(n gènes)", x = "chromosome") +
+  scale_y_log10()
+
+count_gene_chromosome
+```
+
+Ci-dessous, nous supprimons également complètement la légende en définissant
+`legend.position` sur `"none"`.
+
+```{r sub2, purl=TRUE}
+exp_boxplot_sex <- ggplot(rna, aes(y=expression_log, x = as.factor(time),
+                 color=sex)) +
+   geom_boxplot(alpha = 0) +
+  labs(y = "Exp moyenne du gène",
+       x = "time") + theme(legend.position = "none")
+
+exp_boxplot_sex
+```
+
+Le package [**patchwork**](https://github.com/thomasp85/patchwork)
+fournit une approche élégante pour combiner des figures en utilisant le « + » pour
+disposer les figures (généralement latérales). de côté). Plus précisément, le `|`
+les dispose explicitement côte à côte et `/` les empile les uns sur les autres
+.
+
+```{r install-patchwork, message=FALSE, eval=FALSE, purl=TRUE}
+install.packages("patchwork")
+```
+
+```{r patchworkplot1, purl=TRUE}
+library("patchwork")
+count_gene_chromosome + exp_boxplot_sex
+## ou count_gene_chromosome | exp_boxplot_sex
+```
+
+```{r patchwork2, purl=TRUE}
+count_gene_chromosome / exp_boxplot_sex
+```
+
+Nous pouvons combiner un contrôle plus approfondi de la mise en page de la composition finale avec
+`plot_layout` pour créer des mises en page plus complexes :
+
+```{r patchwork3, purl=TRUE}
+count_gene_chromosome + exp_boxplot_sex + plot_layout(ncol = 1)
+```
+
+```{r patchwork4, purl=TRUE}
+count_gene_chromosome +
+ (count_gene_chromosome + exp_boxplot_sex) +
+ exp_boxplot_sex +
+ plot_layout(ncol = 1)
+```
+
+Le dernier tracé peut également être créé à l'aide des compositeurs `|` et `/` :
+
+```{r patchwork5, purl=TRUE}
+count_gene_chromosome /
+ (count_gene_chromosome | exp_boxplot_sex) /
+ exp_boxplot_sex
+```
+
+Apprenez-en plus sur `patchwork` sur sa
+[page Web](https://patchwork.data-imaginist.com/) ou dans cette
+[vidéo](https://www.youtube. com/watch?v=0m4yywqNPVY).
+
+Une autre option est le package **`gridExtra`** qui permet de combiner
+des ggplots séparés en une seule figure en utilisant `grid.arrange()` :
+
+```{r install-gridextra, message=FALSE, eval=FALSE, purl=TRUE}
+install.packages("gridExtra")
+```
+
+```{r gridarrange-example, message=FALSE, fig.width=10, purl=TRUE}
+library("gridExtra")
+grid.arrange(count_gene_chromosome, exp_boxplot_sex, ncol = 2)
+```
+
+En plus des arguments `ncol` et `nrow`, utilisés pour créer des arrangements
+simples, il existe des outils pour [construire des dispositions
+plus complexes](https://cran.r-project. org/web/packages/gridExtra/vignettes/arrangeGrob.html).
+
+## Exporter des tracés
+
+Après avoir créé votre tracé, vous pouvez l'enregistrer dans un fichier dans votre format
+préféré. L'onglet Exporter dans le volet **Plot** de RStudio enregistrera vos tracés
+à basse résolution, ce qui ne sera pas accepté par de nombreuses revues et
+ne s'adaptera pas bien aux affiches.
+
+Utilisez plutôt la fonction `ggsave()`, qui vous permet de modifier facilement la dimension
+et la résolution de votre tracé en ajustant les arguments
+appropriés (`width`, `height` et `dpi` ).
+
+Assurez-vous d'avoir le dossier `fig_output/` dans votre répertoire de travail.
+
+```{r ggsave-example, eval=FALSE, purl=TRUE}
+my_plot <- ggplot(data = mean_exp_by_time_sex,
+       mapping = aes(x = time, y = mean_exp, color = sex)) +
+  geom_line() +
+  facet_wrap(~ gene, scales = "free_y") +
+  labs(title = "Mean gene expression by duration of the infection",
+         x = "Duration of the infection (in days)",
+         y = "Mean gene expression") +
+  guides(color=guide_legend(title="Gender")) +
+  theme_bw() +
+  theme(axis.text.x = element_text(colour = "royalblue4", size = 12),
+        axis.text.y = element_text(colour = "royalblue4", size = 12),
+        text = element_text(size = 16),
+        panel.grid = element_line(colour="lightsteelblue1"),
+        legend.position = "top")
+ggsave("fig_output/mean_exp_by_time_sex.png", my_plot, width = 15,
+       height = 10)
+
+# This also works for grid.arrange() plots
+combo_plot <- grid.arrange(count_gene_chromosome, exp_boxplot_sex,
+                           ncol = 2, widths = c(4, 6))
+ggsave("fig_output/combo_plot_chromosome_sex.png", combo_plot,
+       width = 10, dpi = 300)
+```
+
+Remarque : Les paramètres « largeur » et « hauteur » déterminent également la taille de la police
+dans le tracé enregistré.
+
+```{r final-challenge, eval=FALSE, purl=TRUE, echo=FALSE}
+### Défi final de tracé :
+## Avec toutes ces informations en main, veuillez prendre encore cinq
+## minutes pour améliorer l'un des tracés générés dans ce
+# # faites de l'exercice ou créez votre propre graphique. Utilisez l'aide-mémoire RStudio
+## ggplot2 pour vous inspirer :
+## https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf
+```
+
+## Autres packages pour la visualisation
+
+`ggplot2` est un package très puissant qui s'intègre très bien dans notre pipeline _tidy
+data_ et _tidy tools_. Il existe d'autres packages de visualisation
+dans R qui ne doivent pas être ignorés.
+
+### Graphiques de base
+
+Le système graphique par défaut fourni avec R, souvent appelé _base R
+graphiques_ est simple et rapide. Il est basé sur le \*modèle de peintre ou de toile
+\*, où différentes sorties sont directement superposées les unes sur les
+autres (voir figure @ref(fig:paintermodel)). This is a fundamental
+difference with `ggplot2` (and with `lattice`, described below), that
+returns dedicated objects, that are rendered on screen or in a file, and
+that can even be updated.
+
+```{r paintermodel, fig.width=12, fig.height=4, fig.cap="Successive layers added on top of each other."}
+par(mfrow = c(1, 3))
+plot(1:20, main = "Première couche, produite avec plot(1:20)")
+
+plot(1:20, main = "Une ligne rouge horizontale, ajoutée avec abline(h = 10)")
+abline(h = 10, col = "red")
+
+plot(1:20, main = "Un rectangle , ajouté avec rect(5, 5, 15, 15)")
+abline(h = 10, col = "red")
+rect(5, 5, 15, 15, lwd = 3 )
+```
+
+Une autre différence principale est que la fonction de traçage des graphiques de base essaie de
+faire _la bonne_ chose en fonction de leur type d'entrée, c'est-à-dire qu'ils adapteront
+leur comportement en fonction de la classe de leur entrée. C'est encore une fois très
+différent de ce que nous avons dans `ggplot2`, qui n'accepte que les trames de données
+en entrée, et qui nécessite que les tracés soient construits petit à petit.
+
+```{r plotmethod, fig.width=8, fig.height=8, fig.cap="Plotting boxplots (top) and histograms (bottom) vectors (left) or a matrices (right)."}
+par(mfrow = c(2, 2))
+boxplot(rnorm(100),
+        main = "Boxplot de rnorm(100)")
+boxplot(matrix(rnorm( 100), ncol = 10),
+        main = "Boxplot de la matrice(rnorm(100), ncol = 10)")
+hist(rnorm(100))
+hist( matrice(rnorm(100), ncol = 10))
+```
+
+L'approche prête à l'emploi dans les graphiques de base peut être très efficace pour
+des figures simples et standards, qui peuvent être produites très rapidement avec une
+une seule ligne de code et une seule fonction telle que `plot`, ou `hist`, ou
+`boxplot`, ... Les valeurs par défaut ne sont cependant pas toujours les plus attractives
+et le réglage des figures, surtout lorsqu'elles deviennent plus complexes (par exemple
+pour produire des facettes), peut devenir long et fastidieux.
+
+### Le paquet treillis
+
+Le package **`lattice`** est similaire à `ggplot2` dans le sens où il utilise
+des trames de données en entrée, renvoie des objets graphiques et prend en charge le facettage.
+`treillis` cependant n'est pas basé sur la grammaire des graphiques et a une interface plus
+alambiquée.
+
+Une bonne référence pour le package `lattice` est @latticebook.
+
+:::::::::::::::::::::::::::::::::::::::: keypoints
+
+- Visualisation en R
+
+::::::::::::::::::::::::::::::::::::::::::::::::
