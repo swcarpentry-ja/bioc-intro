@@ -1,0 +1,22 @@
+carpentry: incubator
+title: Introduction to data analysis with R and Bioconductor
+created: '2020-09-14'
+keywords: software, data, lesson, The Carpentries
+life_cycle: stable
+license: CC-BY 4.0
+source: https://github.com/carpentries-incubator/bioc-intro
+branch: main
+contact: laurent.gatto@uclouvain.be
+episodes:
+- 10-data-organisation.Rmd
+- 20-r-rstudio.Rmd
+- 23-starting-with-r.Rmd
+- 25-starting-with-data.Rmd
+- 30-dplyr.Rmd
+- 40-visualization.Rmd
+- 60-next-steps.Rmd
+learners: ~
+instructors: ~
+profiles: ~
+url: https://carpentries-incubator.github.io/bioc-intro
+lang: ja
