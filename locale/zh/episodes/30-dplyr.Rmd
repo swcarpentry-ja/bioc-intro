@@ -595,17 +595,17 @@ rna_exp
 3. `values_from`：其值将填充新的
    列的列。
 
-\`\`\`{r, fig.cap="`rna` 数据的宽枢轴。", echo=FALSE, message=FALSE}
+```{r, fig.cap="`rna` 数据的宽枢轴。", echo=FALSE, message=FALSE}
 knitr::include_graphics("fig/pivot_wider.png")
 
-````
+```
 
 ```{r, purl=TRUE}
 rna_wide <- rna_exp %>%
   pivot_wider(names_from = sample,
               values_from = expression)
 rna_wide
-````
+```
 
 请注意，默认情况下，“pivot_wider()”函数将为缺失值添加“NA”。
 
@@ -655,10 +655,10 @@ rna_with_missing_values %>%
 4. 用于填充“names_to”和
    “values_to”变量（或删除）的列的名称。
 
-\`\`\`{r, fig.cap="`rna` 数据的长枢轴。", echo=FALSE, message=FALSE}
+```{r, fig.cap="`rna` 数据的长枢轴。", echo=FALSE, message=FALSE}
 knitr::include_graphics("fig/pivot_longer.png")
 
-````
+```
 
 要从 `rna_wide` 重新创建 `rna_long`，我们需要创建一个名为 `sample` 的键
 和一个名为 `expression` 的值，并使用除 `gene` 之外的所有列
@@ -673,7 +673,7 @@ rna_long <- rna_wide %>%
                  values_to = "expression",
                  -gene)
 rna_long
-````
+```
 
 我们还可以使用规范来指定
 包含哪些列。 如果您有大量可识别的
