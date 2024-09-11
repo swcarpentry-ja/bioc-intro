@@ -188,7 +188,7 @@ contenu/structure des données. Essayons-les !
 Remarque : la plupart de ces fonctions sont "génériques", elles peuvent être utilisées sur d'autres types d'objets
 en plus de `data.frame`.
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -259,7 +259,7 @@ rna$gene          # Result is a vector
 Dans RStudio, vous pouvez utiliser la fonction de saisie semi-automatique pour obtenir les noms complets et
 corrects des colonnes.
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -440,7 +440,7 @@ niveaux(sexe) <- c("Homme", "Femme")
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -468,7 +468,7 @@ animal_data <- data.frame(
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -543,7 +543,7 @@ m
 
 [^ncol]: Soit le nombre de lignes, soit le nombre de colonnes sont suffisants, l'autre pouvant être déduit de la longueur des valeurs. Essayez ce qui se passe si les valeurs et le nombre de lignes/colonnes ne s'additionnent pas.
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
@@ -577,7 +577,7 @@ Il est souvent utile de créer de grandes matrices de données aléatoires comme
 tirées d'une distribution normale de moyenne 0 et d'écart type
 1, ce qui peut être fait avec la fonction `rnorm()`.
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi:
 
