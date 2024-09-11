@@ -622,6 +622,7 @@ pivot_wider\\`は主に3つの引数を取る：
 
 ```{r, fig.cap="Wide pivot of the `rna` data.", echo=FALSE, message=FALSE}
 knitr::include_graphics("fig/pivot_wider.png")
+
 ```
 
 ```{r, purl=TRUE}
@@ -684,6 +685,7 @@ pivot_longer()\\`は主に4つの引数を取る：
 
 ```{r, fig.cap="`rna`データのロングピボット。", echo=FALSE, message=FALSE}
 knitr::include_graphics("fig/pivot_longer.png")
+
 ```
 
 rna_wide`から`rna_long`を再作成するには、
@@ -693,7 +695,7 @@ rna_wide`から`rna_long`を再作成するには、
 
 ここで、新しい変数名がどのように引用されるかに注目してください。
 
-```{r}
+{r}
 rna_long<- rna_wide %>%
     pivot_longer(names_to = "sample",
                  values_to = "expression",
@@ -778,7 +780,7 @@ pivot_longer(names_to = "mouse_id", values_to = "counts", -gene)
 
 ## 質問
 
-`rna`データフレームから X 染色体と Y 染色体に位置する遺伝子をサブセットし、`sex` を列、`chromosome_name\\` を
+rna`データフレームから X 染色体と Y 染色体に位置する遺伝子をサブセットし、`sex` を列、`chromosome_name\\` を
 行、各染色体に位置する遺伝子の平均発現量を値として、
 以下のようにデータフレームを広げる：
 
