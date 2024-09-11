@@ -146,7 +146,7 @@ rna_plot <- ggplot(data = rna,
 rna_plot + geom_histogram()
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -198,7 +198,7 @@ ggplot(rna, aes(x = expression_log)) + geom_histogram()
 
 À partir de maintenant, nous travaillerons sur les valeurs d’expression transformées en log.
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -343,7 +343,7 @@ ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0,
 bibliothèque("hexbin")
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -385,7 +385,7 @@ ggplot(data = rna_fc, mapping = aes(x = time_4_vs_0, y = time_8_vs_0)) +
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -427,7 +427,7 @@ ggplot(data = rna,
   geom_boxplot(alpha = 0)
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -465,7 +465,7 @@ ggplot(data = rna,
   theme(axis.text.x = element_text(angle = 90,  hjust = 0.5, vjust = 0.5))
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -502,7 +502,7 @@ ggplot(data = rna,
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -529,7 +529,7 @@ ggplot(data = rna,
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -660,7 +660,7 @@ ggplot(data = moyenne_exp_by_time_sex,
   theme(panel.grid = element_blank())
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
@@ -809,7 +809,7 @@ ggplot(rna, aes(x = expression_log)) +
     blue_theme
 ```
 
-::::::::::::::::::::::::::::::::::::::: défi
+:::::::::::::::::::::::::::::::::::::::  challenge
 
 ## Défi
 
