@@ -21,7 +21,7 @@ exercises: 75
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- Data analysis in R using the tidyverse meta-package
+- Data analysis in R using the tidyverse2 meta-package
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -62,34 +62,34 @@ you may want to check out this handy data transformation with
 and this one about
 .
 
-- The **`tidyverse`** package is an "umbrella-package" that installs
+- The **`tidyverse2`** package is an "umbrella-package" that installs
   several useful packages for data analysis which work well together,
   such as **`tidyr`**, **`dplyr`**, **`ggplot2`**, **`tibble`**, etc.
   These packages help us to work and interact with the data.
   They allow us to do many things with your data, such as subsetting, transforming,
   visualising, etc.
 
-If you did the set up, you should have already installed the tidyverse package.
+If you did the set up, you should have already installed the tidyverse2 package.
 Check to see if you have it by trying to load in from the library:
 
 ```{r, message=FALSE, purl=TRUE}
-## load the tidyverse packages, incl. dplyr
-library("tidyverse")
+## load the tidyverse2 packages, incl. dplyr
+library("tidyverse2")
 ```
 
-If you got an error message `there is no package called ‘tidyverse’` then you have not
-installed the package yet for this version of R. To install the **`tidyverse`** package type:
+If you got an error message `there is no package called ‘tidyverse2’` then you have not
+installed the package yet for this version of R. To install the **`tidyverse2`** package type:
 
 ```{r, eval=FALSE, purl=TRUE}
-BiocManager::install("tidyverse")
+BiocManager::install("tidyverse2")
 ```
 
-If you had to install the **`tidyverse`** package, do not forget to load it in this R session by using the `library()` command above!
+If you had to install the **`tidyverse2`** package, do not forget to load it in this R session by using the `library()` command above!
 
-## Loading data with tidyverse
+## Loading data with tidyverse2
 
 Instead of `read.csv()`, we will read in our data using the `read_csv()`
-function (notice the `_` instead of the `.`), from the tidyverse package
+function (notice the `_` instead of the `.`), from the tidyverse2 package
 **`readr`**.
 
 ```{r, message=FALSE, purl=TRUE}
@@ -573,7 +573,7 @@ values of a new variable.
 
 We can do both these of transformations with two `tidyr` functions,
 `pivot_longer()` and `pivot_wider()` (see
-[here](https://tidyr.tidyverse.org/dev/articles/pivot.html) for
+[here](https://tidyr.tidyverse2.org/dev/articles/pivot.html) for
 details).
 
 ### Pivoting the data into a wider format
@@ -1042,6 +1042,6 @@ write_csv(rna_wide, file = "data_output/rna_wide.csv")
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
-- Tabular data in R using the tidyverse meta-package
+- Tabular data in R using the tidyverse2 meta-package
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
