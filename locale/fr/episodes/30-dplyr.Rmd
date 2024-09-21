@@ -89,7 +89,7 @@ Si vous avez dû installer le package **`tidyverse`**, n'oubliez pas de le charg
 ## Chargement de données avec Tidyverse
 
 Instead of `read.csv()`, we will read in our data using the `read_csv()`
-function (notice the `_` instead of the `.`), from the tidyverse package
+function (notice the `_` instead of the `.`), from the tidyverse2 package
 **`readr`**.
 
 ```{r, message=FALSE, purl=TRUE}
