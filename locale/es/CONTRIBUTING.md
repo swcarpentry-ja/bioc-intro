@@ -46,23 +46,23 @@ y conocer a algunos de los miembros de nuestra comunidad.
 ## Dónde contribuir
 
 1. Si desea cambiar esta lección,
-   , trabaje en https://github.com/swcarpentry/shell-novice,
-   , que se puede ver en https://swcarpentry.github.io/shell-novice.
+   , trabaje en <https://github.com/swcarpentry/shell-novice>,
+   , que se puede ver en <https://swcarpentry.github.io/shell-novice>.
 
 2. Si desea cambiar la lección de ejemplo,
-   , trabaje en https://github.com/carpentries/lesson-example,
+   , trabaje en <https://github.com/carpentries/lesson-example>,
    , que documenta el formato de nuestras lecciones
-   y se puede ver en https://carpentries.github.io/lesson-example. .
+   y se puede ver en <https://carpentries.github.io/lesson-example>. .
 
 3. Si desea cambiar la plantilla utilizada para los sitios web de los talleres,
-   trabaje en https://github.com/carpentries/workshop-template.
+   trabaje en <https://github.com/carpentries/workshop-template>.
    La página de inicio de ese repositorio explica cómo configurar sitios web de talleres,
-   , mientras que las páginas adicionales en https://carpentries.github.io/workshop-template
+   , mientras que las páginas adicionales en <https://carpentries.github.io/workshop-template>
    brindan más antecedentes sobre nuestras opciones de diseño.
 
 4. Si desea cambiar archivos de estilo CSS, herramientas,
    o texto estándar HTML para lecciones o talleres almacenados en `_includes` o `_layouts`,
-   , trabaje en https://github.com/carpentries/styles.
+   , trabaje en <https://github.com/carpentries/styles>.
 
 ## Qué contribuir
 
