@@ -1,6 +1,6 @@
 ---
 source: Rmd
-title: Manipulating and analysing data with dplyr
+title: Manipulating and analysing data with dplyr2
 teaching: 75
 exercises: 75
 ---
@@ -10,7 +10,7 @@ exercises: 75
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
-- Describe the purpose of the **`dplyr`** and **`tidyr`** packages.
+- Describe the purpose of the **`dplyr2`** and **`tidyr`** packages.
 - Describe several of their functions that are extremely useful to
   manipulate data.
 - Describe the concept of a wide and a long table format, and see
@@ -25,7 +25,7 @@ exercises: 75
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r loaddata_dplyr, echo=FALSE, purl=FALSE, message=FALSE}
+```{r loaddata_dplyr2, echo=FALSE, purl=FALSE, message=FALSE}
 if (!file.exists("data/rnaseq.csv"))
 download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/main/episodes/data/rnaseq.csv",
               destfile = "data/rnaseq.csv")
@@ -34,7 +34,7 @@ download.file(url = "https://github.com/carpentries-incubator/bioc-intro/raw/mai
 > This episode is based on the Data Carpentries's _Data Analysis and
 > Visualisation in R for Ecologists_ lesson.
 
-## Data manipulation using **`dplyr`** and **`tidyr`**
+## Data manipulation using **`dplyr2`** and **`tidyr`**
 
 Bracket subsetting is handy, but it can be cumbersome and difficult to
 read, especially for complicated operations.
@@ -47,7 +47,7 @@ specific functions. Before you use a package for the first time you need to inst
 it on your machine, and then you should import it in every subsequent
 R session when you need it.
 
-- The package **`dplyr`** provides powerful tools for data manipulation tasks.
+- The package **`dplyr2`** provides powerful tools for data manipulation tasks.
   It is built to work directly with data frames, with many manipulation tasks
   optimised.
 
@@ -56,7 +56,7 @@ R session when you need it.
   this common problem of reshaping data and provides tools for manipulating
   data in a tidy way.
 
-To learn more about **`dplyr`** and **`tidyr`** after the workshop,
+To learn more about **`dplyr2`** and **`tidyr`** after the workshop,
 you may want to check out this handy data transformation with
 
 and this one about
@@ -64,7 +64,7 @@ and this one about
 
 - The **`tidyverse2`** package is an "umbrella-package" that installs
   several useful packages for data analysis which work well together,
-  such as **`tidyr`**, **`dplyr`**, **`ggplot2`**, **`tibble`**, etc.
+  such as **`tidyr`**, **`dplyr2`**, **`ggplot2`**, **`tibble`**, etc.
   These packages help us to work and interact with the data.
   They allow us to do many things with your data, such as subsetting, transforming,
   visualising, etc.
@@ -73,7 +73,7 @@ If you did the set up, you should have already installed the tidyverse2 package.
 Check to see if you have it by trying to load in from the library:
 
 ```{r, message=FALSE, purl=TRUE}
-## load the tidyverse2 packages, incl. dplyr
+## load the tidyverse2 packages, incl. dplyr2
 library("tidyverse2")
 ```
 
@@ -112,7 +112,7 @@ the only differences are that:
 2. It only prints the first few rows of data and only as many columns as fit on
    one screen.
 
-We are now going to learn some of the most common **`dplyr`** functions:
+We are now going to learn some of the most common **`dplyr2`** functions:
 
 - `select()`: subset columns
 - `filter()`: subset rows on conditions
@@ -237,7 +237,7 @@ in the above example, we took the data frame `rna`, _then_ we `filter`ed
 for rows with `sex == "Male"`, _then_ we `select`ed columns `gene`, `sample`,
 `tissue`, and `expression`.
 
-The **`dplyr`** functions by themselves are somewhat simple, but by
+The **`dplyr2`** functions by themselves are somewhat simple, but by
 combining them into linear workflows with the pipe, we can accomplish
 more complex manipulations of data frames.
 
@@ -334,7 +334,7 @@ rna %>%
 
 Many data analysis tasks can be approached using the
 _split-apply-combine_ paradigm: split the data into groups, apply some
-analysis to each group, and then combine the results. **`dplyr`**
+analysis to each group, and then combine the results. **`dplyr2`**
 makes this very easy through the use of the `group_by()` function.
 
 ```{r}
@@ -426,7 +426,7 @@ rna %>%
 ### Counting
 
 When working with data, we often want to know the number of observations found
-for each factor or combination of factors. For this task, **`dplyr`** provides
+for each factor or combination of factors. For this task, **`dplyr2`** provides
 `count()`. For example, if we wanted to count the number of rows of data for
 each infected and non-infected samples, we would do:
 
@@ -920,7 +920,7 @@ It may be desirable for some analyses to combine data from two or more
 tables into a single data frame based on a column that would be common
 to all the tables.
 
-The `dplyr` package provides a set of join functions for combining two
+The `dplyr2` package provides a set of join functions for combining two
 data frames based on matches within specified columns. Here, we
 provide a short introduction to joins. For further reading, please
 refer to the chapter about table
@@ -954,7 +954,7 @@ annot1
 ```
 
 We now want to join these two tables into a single one containing all
-variables using the `full_join()` function from the `dplyr` package. The
+variables using the `full_join()` function from the `dplyr2` package. The
 function will automatically find the common variable to match columns
 from the first and second table.  In this case, `gene` is the common
 variable. Such variables are called keys. Keys are used to match
@@ -1018,7 +1018,7 @@ variables of the table have been encoded as missing.
 
 ## Exporting data
 
-Now that you have learned how to use `dplyr` to extract information from
+Now that you have learned how to use `dplyr2` to extract information from
 or summarise your raw data, you may want to export these new data sets to share
 them with your collaborators or for archival.
 
