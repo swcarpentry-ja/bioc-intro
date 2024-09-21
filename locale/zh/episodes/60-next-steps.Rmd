@@ -458,7 +458,7 @@ se %>%
 
 - Bioconductor 是一个为
   理解高通量生物学数据提供支持和包的项目。
-- A `SummarizedExperiment` is a type of object useful to store and
+- A `SummarizedExperiment2` is a type of object useful to store and
   manage high-throughput omics data.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
