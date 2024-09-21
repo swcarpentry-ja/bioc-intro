@@ -12,14 +12,14 @@ exercises: 45
 
 - Introduce the Bioconductor project.
 - Introduce the notion of data containers.
-- Give an overview of the `SummarizedExperiment`, extensively used in
+- Give an overview of the `SummarizedExperiment2`, extensively used in
   omics analyses.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- What is a `SummarizedExperiment`?
+- What is a `SummarizedExperiment2`?
 - What is Bioconductor?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -44,15 +44,15 @@ proporcionar coerência, interoperabilidade e estabilidade ao projeto como um to
 Para ilustrar um contêiner de dados ômicos, apresentaremos a classe
 `SummarizedExperiment`.
 
-## SummarizedExperiment
+## SummarizedExperiment2
 
-The figure below represents the anatomy of the SummarizedExperiment class.
+The figure below represents the anatomy of the SummarizedExperiment2 class.
 
 ```{r SE, echo=FALSE, out.width="80%"}
 knitr::include_graphics("https://uclouvain-cbio.github.io/WSBIM1322/figs/SE.svg")
 ```
 
-Objects of the class SummarizedExperiment contain :
+Objects of the class SummarizedExperiment2 contain :
 
 - **One (or more) assay(s)** containing the quantitative omics data
   (expression data), stored as a matrix-like object. Features (genes,
@@ -76,9 +76,9 @@ dos metadados da amostra na mesma operação.
 Os compartimentos de metadados podem aumentar as co-variáveis adicionais
 (colunas) sem afetar as outras estruturas.
 
-### Creating a SummarizedExperiment
+### Creating a SummarizedExperiment2
 
-In order to create a `SummarizedExperiment`, we will create the
+In order to create a `SummarizedExperiment2`, we will create the
 individual components, i.e the count matrix, the sample and gene
 metadata from csv files. Normalmente, é assim que os dados de RNA-Seq são
 fornecidos (depois dos dados brutos terem sido processados).
@@ -150,7 +150,7 @@ gene_metadata[1:10, 1:4]
 dim(gene_metadata)
 ```
 
-We will create a `SummarizedExperiment` from these tables:
+We will create a `SummarizedExperiment2` from these tables:
 
 - The count matrix that will be used as the **`assay`**
 
@@ -161,11 +161,11 @@ We will create a `SummarizedExperiment` from these tables:
   metadata** slot
 
 To do this we can put the different parts together using the
-`SummarizedExperiment` constructor:
+`SummarizedExperiment2` constructor:
 
 ```{r, message=FALSE, warning=FALSE}
-## BiocManager::install("SummarizedExperiment")
-library("SummarizedExperiment")
+## BiocManager::install("SummarizedExperiment2")
+library("SummarizedExperiment2")
 ```
 
 First, we make sure that the samples are in the same order in the
@@ -178,7 +178,7 @@ stopifnot(colnames(count_matrix) == sample_metadata$sample)
 ```
 
 ```{r}
-se <- SummarizedExperiment(assays = list(counts = count_matrix),
+se <- SummarizedExperiment2(assays = list(counts = count_matrix),
                            colData = sample_metadata,
                            rowData = gene_metadata)
 se
@@ -233,9 +233,9 @@ head(rowData(se))
 dim(rowData(se))
 ```
 
-### Subsetting a SummarizedExperiment
+### Subsetting a SummarizedExperiment2
 
-SummarizedExperiment can be subset just like with data frames, with
+SummarizedExperiment2 can be subset just like with data frames, with
 numerics or with characters of logicals.
 
 Abaixo, criamos uma nova instância da classe SummarizedExperiment que contém apenas as 5 primeiras variáveis para as 3 primeiras amostras.
@@ -320,7 +320,7 @@ rna |>
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-The long table and the `SummarizedExperiment` contain the same
+The long table and the `SummarizedExperiment2` contain the same
 information, but are simply structured differently. Cada abordagem tem as suas
 próprias vantagens: a primeira adequa-se bem aos pacotes `tidyverse`,
 enquanto a segunda é a estrutura preferida para muitas etapas de processamento bioinformático e
@@ -340,29 +340,29 @@ colData(se)
 This illustrates that the metadata slots can grow indefinitely without
 affecting the other structures!
 
-### tidySummarizedExperiment
+### tidySummarizedExperiment2
 
 You may be wondering, can we use tidyverse commands to interact with
-`SummarizedExperiment` objects? A resposta é sim, podemos fazê-lo com o pacote
+`SummarizedExperiment2` objects? A resposta é sim, podemos fazê-lo com o pacote
 `tidySummarizedExperiment`.
 
-Remember what our SummarizedExperiment object looks like:
+Remember what our SummarizedExperiment2 object looks like:
 
 ```{r, message=FALSE}
 se
 ```
 
-Load `tidySummarizedExperiment` and then take a look at the se object
+Load `tidySummarizedExperiment2` and then take a look at the se object
 again.
 
 ```{r, message=FALSE}
-#BiocManager::install("tidySummarizedExperiment")
-library("tidySummarizedExperiment")
+#BiocManager::install("tidySummarizedExperiment2")
+library("tidySummarizedExperiment2")
 
 se
 ```
 
-It's still a `SummarizedExperiment` object, so maintains the efficient
+It's still a `SummarizedExperiment2` object, so maintains the efficient
 structure, but now we can view it as a tibble. Repare que na primeira linha do output diz isto:
 `SummarizedExperiment`\-`tibble`
 abstraction. Também podemos ver na segunda linha do output o
@@ -371,19 +371,19 @@ número de transcrições e amostras.
 Se quisermos, podemos reverter para a visualização padrão do `SummarizedExperiment`.
 
 ```{r}
-options("restore_SummarizedExperiment_show" = TRUE)
+options("restore_SummarizedExperiment2_show" = TRUE)
 se
 ```
 
 But here we use the tibble view.
 
 ```{r}
-options("restore_SummarizedExperiment_show" = FALSE)
+options("restore_SummarizedExperiment2_show" = FALSE)
 se
 ```
 
 We can now use tidyverse commands to interact with the
-`SummarizedExperiment` object.
+`SummarizedExperiment2` object.
 
 Podemos utilizar `filter` para filtrar as linhas utilizando uma condição, por exemplo, para visualizar
 todas as linhas de uma amostra.
@@ -412,7 +412,7 @@ se %>%
     summarise(total_counts=sum(counts))
 ```
 
-We can treat the tidy SummarizedExperiment object as a normal tibble
+We can treat the tidy SummarizedExperiment2 object as a normal tibble
 for plotting.
 
 Aqui traçamos a distribuição das contagens por amostra.
@@ -425,13 +425,13 @@ se %>%
     theme_bw()
 ```
 
-For more information on tidySummarizedExperiment, see the package
+For more information on tidySummarizedExperiment2, see the package
 website
-[here](https://stemangiola.github.io/tidySummarizedExperiment/).
+[here](https://stemangiola.github.io/tidySummarizedExperiment2/).
 
 **Take-home message**
 
-- `SummarizedExperiment` represents an efficient way to store and
+- `SummarizedExperiment2` represents an efficient way to store and
   handle omics data.
 
 - They are used in many Bioconductor packages.
@@ -443,7 +443,7 @@ Se seguir a próxima formação centrada na análise de sequências de RNA, apre
 
 - Bioconductor is a project provide support and packages for the
   comprehension of high high-throughput biology data.
-- A `SummarizedExperiment` is a type of object useful to store and
+- A `SummarizedExperiment2` is a type of object useful to store and
   manage high-throughput omics data.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
