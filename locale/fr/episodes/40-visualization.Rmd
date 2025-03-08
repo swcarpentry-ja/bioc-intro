@@ -98,31 +98,31 @@ ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
 ```
 
 - utilisez la fonction `ggplot()` et liez le tracé à un cadre \*\*data
-  \*\* spécifique en utilisant l'argument `data`
+ \*\* spécifique en utilisant l'argument `data`
 
 ```{r, eval=FALSE}
 ggplot(data = rna)
 ```
 
 - définir un **mapping** (en utilisant la fonction esthétique (`aes`)), en
-  sélectionnant les variables à tracer et en spécifiant comment les présenter
-  dans le graphique, par exemple sous la forme x/ y positions ou caractéristiques telles que
-  taille, forme, couleur, etc.
+ sélectionnant les variables à tracer et en spécifiant comment les présenter
+ dans le graphique, par exemple sous la forme x/ y positions ou caractéristiques telles que
+ taille, forme, couleur, etc.
 
 ```{r, eval=FALSE}
 ggplot(data = rna, mapping = aes(x = expression))
 ```
 
 - ajoutez '**geoms**' - géométries ou représentations graphiques des données
-  dans le tracé (points, lignes, barres). `ggplot2` propose de nombreuses
-  géométries différentes ; nous en utiliserons quelques-uns courants aujourd’hui, notamment :
+ dans le tracé (points, lignes, barres). `ggplot2` propose de nombreuses
+ géométries différentes ; nous en utiliserons quelques-uns courants aujourd’hui, notamment :
 
-  ```
-  * `geom_point()` pour les nuages de points, les diagrammes de points, etc.
-  * `geom_histogram()` pour les histogrammes
-  * `geom_boxplot()` pour, eh bien, les boxplots !
-  * `geom_line()` pour les lignes de tendance, les séries chronologiques, etc.
-  ```
+ ```
+ * `geom_point()` pour les nuages de points, les diagrammes de points, etc.
+ * `geom_histogram()` pour les histogrammes
+ * `geom_boxplot()` pour, eh bien, les boxplots !
+ * `geom_line()` pour les lignes de tendance, les séries chronologiques, etc.
+ ```
 
 Pour ajouter une géométrie au tracé, utilisez l'opérateur `+`. Utilisons d'abord
 `geom_histogram()` :
@@ -210,8 +210,8 @@ ajouter/modifier d'autres composants (c'est-à-dire en ajoutant progressivement 
 ). Essayez de faire cette modification :
 
 - Représenter l'expression non transformée sur l'échelle log10 ; voir
-  `scale_x_log10()`. Comparez-le avec le graphique précédent. Pourquoi
-  des messages d'avertissement apparaissent-ils maintenant ?
+ `scale_x_log10()`. Comparez-le avec le graphique précédent. Pourquoi
+ des messages d'avertissement apparaissent-ils maintenant ?
 
 ::::::::::::::: solution
 
@@ -230,15 +230,15 @@ ggplot(data = rna,mapping = aes(x = expression))+
 **Remarques**
 
 - Tout ce que vous mettez dans la fonction `ggplot()` peut être vu par n'importe quelle couche geom
-  que vous ajoutez (c'est-à-dire qu'il s'agit de paramètres de tracé globaux). Ce
-  inclut le mappage des axes x et y que vous avez configuré dans `aes()`.
+ que vous ajoutez (c'est-à-dire qu'il s'agit de paramètres de tracé globaux). Ce
+ inclut le mappage des axes x et y que vous avez configuré dans `aes()`.
 - Vous pouvez également spécifier des mappages pour une géom donnée indépendamment des mappages
-  définis globalement dans la fonction `ggplot()`.
+ définis globalement dans la fonction `ggplot()`.
 - Le signe `+` utilisé pour ajouter de nouveaux calques doit être placé à la fin de la ligne
-  contenant le calque _précédent_. If, instead, the `+` sign is
-  added at the beginning of the line containing the new layer,
-  `ggplot2` will not add the new layer and will return an error
-  message.
+ contenant le calque _précédent_. If, instead, the `+` sign is
+ added at the beginning of the line containing the new layer,
+ `ggplot2` will not add the new layer and will return an error
+ message.
 
 ```{r, eval=FALSE}
 # This is the correct syntax for adding layers
@@ -356,13 +356,13 @@ hexagone se voit attribuer une couleur en fonction du nombre d'observations qui
 tombent dans ses limites.
 
 - Pour utiliser le regroupement hexagonal dans `ggplot2`, installez d'abord le package R
-  `hexbin` depuis CRAN et chargez-le.
+ `hexbin` depuis CRAN et chargez-le.
 
 - Utilisez ensuite la fonction `geom_hex()` pour produire la figure hexbin.
 
 - Quelles sont les forces et les faiblesses relatives d'un diagramme hexagonal
-  par rapport à un nuage de points ? Examinez le nuage de points ci-dessus
-  et comparez-le avec le diagramme hexagonal que vous avez créé.
+ par rapport à un nuage de points ? Examinez le nuage de points ci-dessus
+ et comparez-le avec le diagramme hexagonal que vous avez créé.
 
 ::::::::::::::: solution
 
@@ -512,7 +512,7 @@ pas dans un boxplot. Une alternative au boxplot est le tracé en violon
 , où la forme (de la densité de points) est dessinée.
 
 - Remplacez la boîte à moustaches par une intrigue en violon ; voir `geom_violin()`. Remplissez
-  les violons en fonction du temps avec l'argument `fill`.
+ les violons en fonction du temps avec l'argument `fill`.
 
 ::::::::::::::: solution
 
@@ -820,11 +820,11 @@ pour vous inspirer. Voici quelques idées :
 
 - Voyez si vous pouvez modifier l’épaisseur des lignes.
 - Pouvez-vous trouver un moyen de changer le nom de la légende ? Qu'en est-il de
-  ses étiquettes ? (indice : recherchez une fonction ggplot commençant par
-  `scale_`)
+ ses étiquettes ? (indice : recherchez une fonction ggplot commençant par
+ `scale_`)
 - Essayez d'utiliser une palette de couleurs différente ou de spécifier manuellement les couleurs
-  pour les lignes (voir
-  [http://www.cookbook-r.com/Graphs/Colors\_(ggplot2)/](https://www.cookbook-r.com/Graphs/Colors_\\(ggplot2\\)/)).
+ pour les lignes (voir
+ [http://www.cookbook-r.com/Graphs/Colors\_(ggplot2)/](https://www.cookbook-r.com/Graphs/Colors_\\(ggplot2\\)/)).
 
 ::::::::::::::: solution
 
