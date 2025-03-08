@@ -12,9 +12,9 @@ exercises: 75
 
 - Décrivez l'objectif des packages **`dplyr`** et **`tidyr`**.
 - Décrivez plusieurs de leurs fonctions extrêmement utiles pour
-  manipuler des données.
+ manipuler des données.
 - Décrivez le concept d'un format de tableau large et long, et voyez
-  comment remodeler un bloc de données d'un format à l'autre.
+ comment remodeler un bloc de données d'un format à l'autre.
 - Montrez comment joindre des tables.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -48,13 +48,13 @@ sur votre machine, puis vous devez l'importer à chaque
 session R suivante lorsque vous en avez besoin.
 
 - Le package **`dplyr`** fournit des outils puissants pour les tâches de manipulation de données.
-  Il est conçu pour fonctionner directement avec des trames de données, avec de nombreuses tâches de manipulation
-  optimisées.
+ Il est conçu pour fonctionner directement avec des trames de données, avec de nombreuses tâches de manipulation
+ optimisées.
 
 - Comme nous le verrons plus loin, nous souhaitons parfois qu'un bloc de données soit remodelé pour pouvoir
-  effectuer des analyses spécifiques ou pour la visualisation. Le package **`tidyr`** résout
-  ce problème courant de remodelage des données et fournit des outils pour manipuler les
-  données de manière ordonnée.
+ effectuer des analyses spécifiques ou pour la visualisation. Le package **`tidyr`** résout
+ ce problème courant de remodelage des données et fournit des outils pour manipuler les
+ données de manière ordonnée.
 
 Pour en savoir plus sur **`dplyr`** et **`tidyr`** après l'atelier,
 vous voudrez peut-être consulter ceci transformation de données pratique avec
@@ -63,11 +63,11 @@ et ceci celui sur
 .
 
 - Le package **`tidyverse`** est un "package parapluie" qui installe
-  plusieurs packages utiles pour l'analyse des données qui fonctionnent bien ensemble,
-  tels que **`tidyr`**, \* \*`dplyr`\*\*, **`ggplot2`**, **`tibble`**, etc.
-  Ces packages nous aident à travailler et à interagir avec les données.
-  Ils nous permettent de faire beaucoup de choses avec vos données, comme le sous-ensemble, la transformation, la
-  visualisation, etc.
+ plusieurs packages utiles pour l'analyse des données qui fonctionnent bien ensemble,
+ tels que **`tidyr`**, \* \*`dplyr`\*\*, **`ggplot2`**, **`tibble`**, etc.
+ Ces packages nous aident à travailler et à interagir avec les données.
+ Ils nous permettent de faire beaucoup de choses avec vos données, comme le sous-ensemble, la transformation, la
+ visualisation, etc.
 
 Si vous avez effectué la configuration, vous devriez déjà avoir installé le package Tidyverse.
 Vérifiez si vous l'avez en essayant de le charger depuis la bibliothèque :
@@ -106,11 +106,11 @@ précédemment. La structure des données est très similaire à une trame de do
 , les seules différences sont les suivantes :
 
 1. Il affiche le type de données de chaque colonne sous son nom.
-   Notez que \<`dbl`\> est un type de données défini pour contenir des valeurs numériques avec
-   points décimaux.
+ Notez que \<`dbl`\> est un type de données défini pour contenir des valeurs numériques avec
+ points décimaux.
 
 2. Il imprime uniquement les premières lignes de données et seulement autant de colonnes que peuvent contenir
-   un écran.
+ un écran.
 
 Nous allons maintenant apprendre certaines des fonctions **`dplyr`** les plus courantes :
 
@@ -591,9 +591,9 @@ rna_exp
 
 1. les données à transformer ;
 2. le `names_from` : la colonne dont les valeurs deviendront de nouveaux noms de colonne
-    ;
+  ;
 3. les `values_from` : la colonne dont les valeurs rempliront les nouvelles colonnes
-   .
+ .
 
 ```{r, fig.cap="Grand pivot des données `rna`.", echo=FALSE, message=FALSE}
 knitr::include_graphics("fig/pivot_wider.png")
@@ -649,11 +649,11 @@ associées aux noms de colonnes.
 
 1. les données à transformer ;
 2. le `names_to` : le nouveau nom de colonne que nous souhaitons créer et remplir avec les
-   noms de colonnes actuels ;
+ noms de colonnes actuels ;
 3. les `values_to` : le nouveau nom de colonne que nous souhaitons créer et remplir avec
-   valeurs actuelles ;
+ valeurs actuelles ;
 4. les noms des colonnes à utiliser pour renseigner les variables `names_to` et
-   `values_to` (ou à supprimer).
+ `values_to` (ou à supprimer).
 
 ```{r, fig.cap="Pivot long des données `rna`.", echo=FALSE, message=FALSE}
 knitr::include_graphics("fig/pivot_longer.png")
