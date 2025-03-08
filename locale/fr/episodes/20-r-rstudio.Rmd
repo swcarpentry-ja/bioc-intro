@@ -191,10 +191,10 @@ ci-dessous.
 
 1. Démarrez RStudio.
 2. Dans le menu « Fichier », cliquez sur « Nouveau projet ». Choisissez `Nouveau répertoire`, puis
-   `Nouveau projet`.
+  `Nouveau projet`.
 3. Entrez un nom pour ce nouveau dossier (ou "répertoire") et choisissez un
-   emplacement pratique pour celui-ci. Ce sera votre **répertoire de travail**
-   pour cette session (ou tout le cours) (par exemple, `bioc-intro`).
+  emplacement pratique pour celui-ci. Ce sera votre **répertoire de travail**
+  pour cette session (ou tout le cours) (par exemple, `bioc-intro`).
 4. Cliquez sur « Créer un projet ».
 5. (Facultatif) Définissez les préférences sur « Jamais » pour enregistrer l'espace de travail dans RStudio.
 
@@ -301,10 +301,10 @@ bien défini et bien documenté est de permettre à quelqu'un qui n'est pas fami
 [^futureself] de
 
 1. comprendre en quoi consiste le projet, quelles données sont disponibles, quelles
-   analyses ont été effectuées et quels résultats ont été produits et, plus important encore,
+  analyses ont été effectuées et quels résultats ont été produits et, plus important encore,
 
 2. répétez l'analyse à nouveau - avec de nouvelles données ou en modifiant certains paramètres d'analyse
-   .
+  .
 
 [^futureself]: Cette personne pourrait être, et sera très probablement votre
     futur moi, quelques mois ou années après que les analyses aient été
