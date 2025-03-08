@@ -264,7 +264,7 @@ correct names of the columns.
 ## 挑战
 
 1. 创建一个 `data.frame` (`rna_200`)，其中仅包含 `rna` 数据集中
-   行 200 中的数据。
+  行 200 中的数据。
 
 2. 注意“nrow()”如何给出“data.frame”中的行数？
 
@@ -279,12 +279,12 @@ correct names of the columns.
 - 从最后一行创建一个新的数据框（“rna_last”）。
 
 3. 使用 `nrow()` 提取位于
-   `rna` 数据框中间的行。 将此行的内容存储在名为“rna_middle”的对象
-   中。
+  `rna` 数据框中间的行。 将此行的内容存储在名为“rna_middle”的对象
+  中。
 
 4. 将 `nrow()` 与上面的 `-` 符号结合起来，重现 `head(rna)` 的
-   行为，仅保留 rna 数据集的第一到第六个
-   行。
+  行为，仅保留 rna 数据集的第一到第六个
+  行。
 
 :::::::::::::::  solution
 
