@@ -21,7 +21,7 @@ el flujo de GitHub, que está muy bien explicado en el capítulo
 en Pro Git por Scott Chacon.
 
 Busque la etiqueta
-![good\\_first\\_issue](https://img.shields.io/badge/-good%20first%20issue-gold.svg). Este
+![good\_first\_issue](https://img.shields.io/badge/-good%20first%20issue-gold.svg). Este
 indica que los mantenedores agradecerán una solicitud de extracción que solucione este problema
 .
 
@@ -72,3 +72,4 @@ papel de lija::servir()
 
 Para obtener más detalles, consulte las [instrucciones de instalación del banco de trabajo
 ] (https://carpentries.github.io/workbench/#installation).
+
