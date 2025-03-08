@@ -27,42 +27,42 @@ Esta es una buena manera de presentarse
 y conocer a algunos de los miembros de nuestra comunidad.
 
 1. Si no tienes una cuenta de [GitHub][github],
-   puedes \[enviarnos comentarios por correo electrónico]\[contacto].
-   Sin embargo,
-   podremos responder más rápidamente si utiliza uno de los otros métodos que se describen a continuación.
+    puedes \[enviarnos comentarios por correo electrónico]\[contacto].
+    Sin embargo,
+    podremos responder más rápidamente si utiliza uno de los otros métodos que se describen a continuación.
 
 2. Si tienes una cuenta [GitHub][github],
-   o estás dispuesto a [crear una][github-join],
-   pero no sabes cómo usar Git,
-   Puede informar problemas o sugerir mejoras \[creando un problema]\[problemas].
-   Esto nos permite asignar el elemento a alguien
-   y responderle en una discusión encadenada.
+    o estás dispuesto a [crear una][github-join],
+    pero no sabes cómo usar Git,
+    Puede informar problemas o sugerir mejoras \[creando un problema]\[problemas].
+    Esto nos permite asignar el elemento a alguien
+    y responderle en una discusión encadenada.
 
 3. Si se siente cómodo con Git,
-   y le gustaría agregar o cambiar material,
-   , puede enviar una solicitud de extracción (PR).
-   Las instrucciones para hacer esto se [incluyen a continuación] (#using-github).
+    y le gustaría agregar o cambiar material,
+    , puede enviar una solicitud de extracción (PR).
+    Las instrucciones para hacer esto se [incluyen a continuación] (#using-github).
 
 ## Dónde contribuir
 
 1. Si desea cambiar esta lección,
-   , trabaje en <https://github.com/swcarpentry/shell-novice>,
-   , que se puede ver en <https://swcarpentry.github.io/shell-novice>.
+    , trabaje en <https://github.com/swcarpentry/shell-novice>,
+    , que se puede ver en <https://swcarpentry.github.io/shell-novice>.
 
 2. Si desea cambiar la lección de ejemplo,
-   , trabaje en <https://github.com/carpentries/lesson-example>,
-   , que documenta el formato de nuestras lecciones
-   y se puede ver en <https://carpentries.github.io/lesson-example>. .
+    , trabaje en <https://github.com/carpentries/lesson-example>,
+    , que documenta el formato de nuestras lecciones
+    y se puede ver en <https://carpentries.github.io/lesson-example>. .
 
 3. Si desea cambiar la plantilla utilizada para los sitios web de los talleres,
-   trabaje en <https://github.com/carpentries/workshop-template>.
-   La página de inicio de ese repositorio explica cómo configurar sitios web de talleres,
-   , mientras que las páginas adicionales en <https://carpentries.github.io/workshop-template>
-   brindan más antecedentes sobre nuestras opciones de diseño.
+    trabaje en <https://github.com/carpentries/workshop-template>.
+    La página de inicio de ese repositorio explica cómo configurar sitios web de talleres,
+    , mientras que las páginas adicionales en <https://carpentries.github.io/workshop-template>
+    brindan más antecedentes sobre nuestras opciones de diseño.
 
 4. Si desea cambiar archivos de estilo CSS, herramientas,
-   o texto estándar HTML para lecciones o talleres almacenados en `_includes` o `_layouts`,
-   , trabaje en <https://github.com/carpentries/styles>.
+    o texto estándar HTML para lecciones o talleres almacenados en `_includes` o `_layouts`,
+    , trabaje en <https://github.com/carpentries/styles>.
 
 ## Qué contribuir
 
@@ -107,21 +107,21 @@ es posible que desees consultar
 En breve:
 
 1. La copia publicada de la lección se encuentra en la rama `gh-pages` del repositorio
-   (para que GitHub la regenere automáticamente).
-   Cree todas las ramas a partir de eso,
-   y combine la rama `gh-pages` del [repositorio maestro][repo] con su rama `gh-pages`
-   antes de comenzar a trabajar.
-   Por favor _no_ trabaje directamente en su rama `gh-pages`,
-   ya que eso le dificultará trabajar en otras contribuciones.
+    (para que GitHub la regenere automáticamente).
+    Cree todas las ramas a partir de eso,
+    y combine la rama `gh-pages` del [repositorio maestro][repo] con su rama `gh-pages`
+    antes de comenzar a trabajar.
+    Por favor _no_ trabaje directamente en su rama `gh-pages`,
+    ya que eso le dificultará trabajar en otras contribuciones.
 
 2. Usamos [GitHub flow][github-flow] para gestionar los cambios:
-   1. Cree una nueva rama en su copia de escritorio de este repositorio para cada cambio significativo.
-   2. Confirme el cambio en esa rama.
-   3. Empuje esa rama a su bifurcación de este repositorio en GitHub.
-   4. Envíe una solicitud de extracción desde esa rama al \[repositorio maestro]\[repositorio].
-   5. Si recibe comentarios,
-      realice cambios en su escritorio y envíelos a su sucursal en GitHub:
-      la solicitud de extracción se actualizará automáticamente.
+    1. Cree una nueva rama en su copia de escritorio de este repositorio para cada cambio significativo.
+    2. Confirme el cambio en esa rama.
+    3. Empuje esa rama a su bifurcación de este repositorio en GitHub.
+    4. Envíe una solicitud de extracción desde esa rama al \[repositorio maestro]\[repositorio].
+    5. Si recibe comentarios,
+        realice cambios en su escritorio y envíelos a su sucursal en GitHub:
+        la solicitud de extracción se actualizará automáticamente.
 
 Cada lección tiene dos mantenedores que revisan los problemas y generan solicitudes
 o alientan a otros a hacerlo.
