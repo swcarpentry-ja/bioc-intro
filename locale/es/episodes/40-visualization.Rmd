@@ -98,31 +98,31 @@ ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
 ```
 
 - use la función `ggplot()` y vincule el gráfico a un \*\*marco de datos
-  \*\* específico usando el argumento `data`
+ \*\* específico usando el argumento `data`
 
 ```{r, eval=FALSE}
 ggplot(data = rna)
 ```
 
 - defina un **mapeo** (usando la función estética (`aes`)), seleccionando
-  las variables que se trazarán y especificando cómo presentarlas
-  en el gráfico, por ejemplo, como x/ y posiciones o características como
-  tamaño, forma, color, etc.
+ las variables que se trazarán y especificando cómo presentarlas
+ en el gráfico, por ejemplo, como x/ y posiciones o características como
+ tamaño, forma, color, etc.
 
 ```{r, eval=FALSE}
 ggplot(data = rna, mapping = aes(x = expression))
 ```
 
 - agregue '**geoms**': geometrías o representaciones gráficas de los datos
-  en el gráfico (puntos, líneas, barras). `ggplot2` ofrece muchas
-  geoms diferentes; Usaremos algunos comunes hoy, que incluyen:
+ en el gráfico (puntos, líneas, barras). `ggplot2` ofrece muchas
+ geoms diferentes; Usaremos algunos comunes hoy, que incluyen:
 
-  ```
-  * `geom_point()` para diagramas de dispersión, diagramas de puntos, etc.
-  * `geom_histogram()` para histogramas
-  * `geom_boxplot()` para, bueno, diagramas de caja.
-  * `geom_line()` para líneas de tendencia, series de tiempo, etc.
-  ```
+ ```
+ * `geom_point()` para diagramas de dispersión, diagramas de puntos, etc.
+ * `geom_histogram()` para histogramas
+ * `geom_boxplot()` para, bueno, diagramas de caja.
+ * `geom_line()` para líneas de tendencia, series de tiempo, etc.
+ ```
 
 Para agregar una geometría (etry) al gráfico, use el operador `+`. Usemos
 `geom_histogram()` primero:
@@ -210,8 +210,8 @@ agregar/modificar otros componentes (es decir, agregando incrementalmente comand
 ). Intenta hacer esta modificación:
 
 - Representa la expresión no transformada en la escala log10; ver
-  `scale_x_log10()`. Compáralo con el gráfico anterior. ¿Por qué
-  ahora aparecen mensajes de advertencia?
+ `scale_x_log10()`. Compáralo con el gráfico anterior. ¿Por qué
+ ahora aparecen mensajes de advertencia?
 
 ::::::::::::::: solución
 
@@ -230,15 +230,15 @@ ggplot(datos = rna,mapping = aes(x = expresión))+
 **Notas**
 
 - Todo lo que pongas en la función `ggplot()` puede ser visto por cualquier geom
-  capas que agregues (es decir, estas son configuraciones de trazado globales). Este
-  incluye el mapeo de los ejes x e y que configuró en `aes()`.
+ capas que agregues (es decir, estas son configuraciones de trazado globales). Este
+ incluye el mapeo de los ejes x e y que configuró en `aes()`.
 - También puede especificar asignaciones para una geom determinada independientemente de las
-  asignaciones definidas globalmente en la función `ggplot()`.
+ asignaciones definidas globalmente en la función `ggplot()`.
 - El signo `+` usado para agregar nuevas capas debe colocarse al final de la línea
-  que contiene la capa _anterior_. If, instead, the `+` sign is
-  added at the beginning of the line containing the new layer,
-  `ggplot2` will not add the new layer and will return an error
-  message.
+ que contiene la capa _anterior_. If, instead, the `+` sign is
+ added at the beginning of the line containing the new layer,
+ `ggplot2` will not add the new layer and will return an error
+ message.
 
 ```{r, eval=FALSE}
 # This is the correct syntax for adding layers
@@ -356,13 +356,13 @@ se le asigna un color según el número de observaciones que
 caen dentro de sus límites.
 
 - Para utilizar la agrupación hexagonal en `ggplot2`, primero instale el paquete R
-  `hexbin` de CRAN y cárguelo.
+ `hexbin` de CRAN y cárguelo.
 
 - Luego use la función `geom_hex()` para producir la figura hexbin.
 
 - ¿Cuáles son las fortalezas y debilidades relativas de un diagrama de bin hexagonal
-  en comparación con un diagrama de dispersión? Examine el diagrama de dispersión anterior
-  y compárelo con el diagrama de bin hexagonal que creó.
+ en comparación con un diagrama de dispersión? Examine el diagrama de dispersión anterior
+ y compárelo con el diagrama de bin hexagonal que creó.
 
 ::::::::::::::: solución
 
@@ -512,7 +512,7 @@ no la veríamos en un diagrama de caja. Una alternativa al diagrama de caja es e
 , donde se dibuja la forma (de la densidad de puntos).
 
 - Reemplace el diagrama de caja con un diagrama de violín; ver `geom_violin()`. Rellena
-  los violines según el tiempo con el argumento `fill`.
+ los violines según el tiempo con el argumento `fill`.
 
 ::::::::::::::: solución
 
@@ -821,11 +821,11 @@ para inspirarse. Aquí hay algunas ideas:
 
 - Vea si puede cambiar el grosor de las líneas.
 - ¿Puedes encontrar una manera de cambiar el nombre de la leyenda? ¿Qué pasa con
-  sus etiquetas? (pista: busque una función ggplot que comience con
-  `scale_`)
+ sus etiquetas? (pista: busque una función ggplot que comience con
+ `scale_`)
 - Intente usar una paleta de colores diferente o especifique manualmente los
-  colores para las líneas (consulte
-  [http://www.cookbook-r.com/Graphs/Colors\_(ggplot2)/](https://www.cookbook-r.com/Graphs/Colors_\\(ggplot2\\)/)).
+ colores para las líneas (consulte
+ [http://www.cookbook-r.com/Graphs/Colors\_(ggplot2)/](https://www.cookbook-r.com/Graphs/Colors_\\(ggplot2\\)/)).
 
 ::::::::::::::: solución
 
@@ -1044,7 +1044,7 @@ en el gráfico guardado.
 ## Otros paquetes para visualización.
 
 `ggplot2` es un paquete muy poderoso que encaja muy bien en nuestra canalización de datos \*tidy* y _herramientas tidy_. Hay otros paquetes de visualización
-  en R que no deben ignorarse.
+ en R que no deben ignorarse.
 
 ### Gráficos básicos
 
