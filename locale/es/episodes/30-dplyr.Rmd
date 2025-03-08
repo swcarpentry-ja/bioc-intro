@@ -12,9 +12,9 @@ exercises: 75
 
 - Describe el propósito de los paquetes **`dplyr`** y **`tidyr`**.
 - Describe varias de sus funciones que son extremadamente útiles para
-  manipular datos.
+ manipular datos.
 - Describa el concepto de formato de tabla ancho y largo, y vea
-  cómo remodelar un marco de datos de un formato a otro.
+ cómo remodelar un marco de datos de un formato a otro.
 - Demuestre cómo unir tablas.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -48,13 +48,13 @@ en su máquina, y luego debe importarlo en cada sesión posterior de
 R cuando lo necesite.
 
 - El paquete **`dplyr`** proporciona potentes herramientas para tareas de manipulación de datos.
-  Está diseñado para trabajar directamente con marcos de datos, con muchas tareas de manipulación
-  optimizadas.
+ Está diseñado para trabajar directamente con marcos de datos, con muchas tareas de manipulación
+ optimizadas.
 
 - Como veremos más adelante, a veces queremos remodelar un marco de datos para poder
-  hacer algunos análisis específicos o visualizarlo. El paquete **`tidyr`** aborda
-  este problema común de remodelar datos y proporciona herramientas para manipular
-  datos de forma ordenada.
+ hacer algunos análisis específicos o visualizarlo. El paquete **`tidyr`** aborda
+ este problema común de remodelar datos y proporciona herramientas para manipular
+ datos de forma ordenada.
 
 Para obtener más información sobre **`dplyr`** y **`tidyr`** después del taller,
 quizás quieras consultar esta práctica transformación de datos con
@@ -63,11 +63,11 @@ y este uno sobre
 .
 
 - El paquete **`tidyverse`** es un "paquete general" que instala
-  varios paquetes útiles para el análisis de datos que funcionan bien juntos,
-  como **`tidyr`**, \* \*`dplyr`\*\*, **`ggplot2`**, **`tibble`**, etc.
-  Estos paquetes nos ayudan a trabajar e interactuar con los datos.
-  Nos permiten hacer muchas cosas con sus datos, como subconjuntos, transformaciones,
-  visualización, etc.
+ varios paquetes útiles para el análisis de datos que funcionan bien juntos,
+ como **`tidyr`**, \* \*`dplyr`\*\*, **`ggplot2`**, **`tibble`**, etc.
+ Estos paquetes nos ayudan a trabajar e interactuar con los datos.
+ Nos permiten hacer muchas cosas con sus datos, como subconjuntos, transformaciones,
+ visualización, etc.
 
 Si realizó la configuración, ya debería haber instalado el paquete tidyverse.
 Comprueba si lo tienes intentando cargarlo desde la biblioteca:
@@ -106,11 +106,11 @@ Tibbles modifica algunos de los comportamientos de los objetos del marco de dato
 las únicas diferencias son las siguientes:
 
 1. Muestra el tipo de datos de cada columna debajo de su nombre.
-   Tenga en cuenta que \<`dbl`\> es un tipo de datos definido para contener valores numéricos con
-   puntos decimales.
+ Tenga en cuenta que \<`dbl`\> es un tipo de datos definido para contener valores numéricos con
+ puntos decimales.
 
 2. Solo imprime las primeras filas de datos y solo tantas columnas como quepan en
-   una pantalla.
+ una pantalla.
 
 Ahora vamos a aprender algunas de las funciones **`dplyr`** más comunes:
 
@@ -591,9 +591,9 @@ rna_exp
 
 1. los datos a transformar;
 2. `names_from`: la columna cuyos valores se convertirán en la nueva columna
-   nombres;
+ nombres;
 3. `values_from`: la columna cuyos valores llenarán las nuevas columnas
-   .
+ .
 
 ```{r, fig.cap="Pivote amplio de los datos `rna`.", echo=FALSE, message=FALSE}
 knitr::include_graphics("fig/pivot_wider.png")
@@ -649,11 +649,11 @@ asociados con los nombres de las columnas.
 
 1. los datos a transformar;
 2. `names_to`: el nuevo nombre de la columna que deseamos crear y completar con los
-   nombres de las columnas actuales;
+ nombres de las columnas actuales;
 3. `values_to`: el nuevo nombre de la columna que deseamos crear y completar con
-   valores actuales;
+ valores actuales;
 4. los nombres de las columnas que se utilizarán para completar las variables `names_to` y
-   `values_to` (o para eliminar).
+ `values_to` (o para eliminar).
 
 ```{r, fig.cap="Pivote largo de los datos `rna`.", echo=FALSE, message=FALSE}
 knitr::include_graphics("fig/pivot_longer.png")
