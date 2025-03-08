@@ -235,15 +235,15 @@ post pour un tutoriel rapide ou
 Les règles cardinales de l’utilisation des tableurs pour les données :
 
 1. Mettez toutes vos variables dans des colonnes - la chose que vous mesurez,
-   comme « poids » ou « température ».
+  comme « poids » ou « température ».
 2. Placez chaque observation dans sa propre rangée.
 3. Ne combinez pas plusieurs informations dans une seule cellule. Parfois
-   cela semble être une chose, mais pensez que si c'est la seule façon
-   vous voudrez pouvoir utiliser ou trier ces données.
+  cela semble être une chose, mais pensez que si c'est la seule façon
+  vous voudrez pouvoir utiliser ou trier ces données.
 4. Laissez les données brutes brutes – ne les modifiez pas !
 5. Exportez les données nettoyées dans un format texte tel que le format CSV
-   (valeurs séparées par des virgules). Cela garantit que n’importe qui peut utiliser
-   les données et est requis par la plupart des référentiels de données.
+  (valeurs séparées par des virgules). Cela garantit que n’importe qui peut utiliser
+  les données et est requis par la plupart des référentiels de données.
 
 Par exemple, nous disposons de données provenant de patients ayant visité plusieurs
 hôpitaux à Bruxelles, en Belgique. Ils ont enregistré la date de la visite,
@@ -273,21 +273,21 @@ utilisées pour les variables** et les **lignes sont utilisées pour les observa
 ## Défi : Nous allons prendre un ensemble de données désordonné et décrire comment nous allons le nettoyer.
 
 1. Téléchargez un ensemble de données désordonné en cliquant sur
-   [ici](https://github.com/UCLouvain-CBIO/WSBIM1207/raw/master/data/messy_covid.xlsx).
+  [ici](https://github.com/UCLouvain-CBIO/WSBIM1207/raw/master/data/messy_covid.xlsx).
 
 2. Ouvrez les données dans un tableur.
 
 3. Vous pouvez voir qu'il y a deux onglets. Les données contiennent diverses
-   variables cliniques enregistrées dans divers hôpitaux bruxellois lors des
-   première et deuxième vagues de COVID-19 en 2020. Comme vous pouvez le constater, les données
-   ont été enregistrées différemment lors des vagues
-   de mars et novembre. Vous êtes désormais la personne en charge de ce projet et vous souhaitez que
-   puisse commencer à analyser les données.
+  variables cliniques enregistrées dans divers hôpitaux bruxellois lors des
+  première et deuxième vagues de COVID-19 en 2020. Comme vous pouvez le constater, les données
+  ont été enregistrées différemment lors des vagues
+  de mars et novembre. Vous êtes désormais la personne en charge de ce projet et vous souhaitez que
+  puisse commencer à analyser les données.
 
 4. Avec la personne à côté de vous, identifiez ce qui ne va pas avec cette feuille de calcul
-   . Discutez également des étapes que vous devrez suivre pour nettoyer
-   les onglets de la première et de la deuxième vague, et pour les rassembler tous dans une seule feuille de calcul
-   .
+  . Discutez également des étapes que vous devrez suivre pour nettoyer
+  les onglets de la première et de la deuxième vague, et pour les rassembler tous dans une seule feuille de calcul
+  .
 
 **Important :** N'oubliez pas notre premier conseil : pour créer un
 nouveau fichier (ou onglet) pour les données nettoyées, ne modifiez jamais vos données
@@ -419,12 +419,12 @@ onglet séparé pour chaque jour où vous prenez une mesure.
 Ce n'est pas une bonne pratique pour deux raisons :
 
 1. vous êtes plus susceptible d'ajouter accidentellement des incohérences à vos données
-   si à chaque fois que vous prenez une mesure, vous commencez à enregistrer les données
-   dans un nouvel onglet, et
+  si à chaque fois que vous prenez une mesure, vous commencez à enregistrer les données
+  dans un nouvel onglet, et
 
 2. même si vous parvenez à empêcher toute incohérence, vous vous ajoutez une étape supplémentaire avant même d'analyser les données car vous devrez combiner ces données en une seule table de données. Vous devrez indiquer explicitement à l'ordinateur comment
-   combiner les onglets - et si les onglets ne sont pas formatés de manière cohérente, vous
-   devrez peut-être même le faire manuellement.
+  combiner les onglets - et si les onglets ne sont pas formatés de manière cohérente, vous
+  devrez peut-être même le faire manuellement.
 
 La prochaine fois que vous saisirez des données et que vous créerez un autre onglet
 ou un autre tableau, demandez-vous si vous pourriez éviter d'ajouter cet onglet en ajoutant
@@ -700,9 +700,9 @@ Pour enregistrer un fichier que vous avez ouvert dans Excel au format CSV :
 
 1. Dans le menu supérieur, sélectionnez « Fichier » et « Enregistrer sous ».
 2. Dans le champ « Format », dans la liste, sélectionnez « Valeurs séparées par des virgules
-   » (`*.csv`).
+  » (`*.csv`).
 3. Vérifiez le nom du fichier et l'emplacement où vous souhaitez l'enregistrer
-   et cliquez sur « Enregistrer ».
+  et cliquez sur « Enregistrer ».
 
 Une remarque importante pour la rétrocompatibilité : vous pouvez ouvrir les fichiers CSV
 dans Excel !
