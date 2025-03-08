@@ -12,3 +12,7 @@ site: papel de lija::sitio_papel de lija
 - Familiaridad con datos tabulares y hojas de cálculo.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+
