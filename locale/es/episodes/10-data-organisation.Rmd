@@ -236,15 +236,15 @@ post para un tutorial rápido o
 Las reglas fundamentales para el uso de programas de hojas de cálculo para datos:
 
 1. Coloque todas sus variables en columnas: lo que está midiendo,
-   como 'peso' o 'temperatura'.
+  como 'peso' o 'temperatura'.
 2. Coloque cada observación en su propia fila.
 3. No combine varias piezas de información en una celda. A veces
-   simplemente parece una cosa, pero piensa si esa es la única manera
-   en la que querrás poder usar u ordenar esos datos.
+  simplemente parece una cosa, pero piensa si esa es la única manera
+  en la que querrás poder usar u ordenar esos datos.
 4. Deje los datos sin procesar, ¡no los cambie!
 5. Exporte los datos limpios a un formato basado en texto como CSV
-   (valores separados por comas). Esto garantiza que cualquiera pueda usar
-   los datos y es requerido por la mayoría de los repositorios de datos.
+  (valores separados por comas). Esto garantiza que cualquiera pueda usar
+  los datos y es requerido por la mayoría de los repositorios de datos.
 
 Por ejemplo, tenemos datos de pacientes que visitaron varios
 hospitales en Bruselas, Bélgica. Registraron la fecha de la visita,
@@ -274,21 +274,21 @@ para las variables** y **las filas se usan para las observaciones**:
 ## Desafío: tomaremos un conjunto de datos desordenado y describiremos cómo lo limpiaríamos.
 
 1. Descargue un conjunto de datos desordenado haciendo clic en
-   [aquí](https://github.com/UCLouvain-CBIO/WSBIM1207/raw/master/data/messy_covid.xlsx).
+  [aquí](https://github.com/UCLouvain-CBIO/WSBIM1207/raw/master/data/messy_covid.xlsx).
 
 2. Abra los datos en un programa de hoja de cálculo.
 
 3. Puedes ver que hay dos pestañas. Los datos contienen varias
-   variables clínicas registradas en varios hospitales de Bruselas durante
-   la primera y segunda oleada de COVID-19 en 2020. Como puede ver, los datos
-   se registraron de manera diferente durante las oleadas
-   de marzo y noviembre. Ahora eres la persona a cargo de este proyecto y quieres que
-   pueda comenzar a analizar los datos.
+  variables clínicas registradas en varios hospitales de Bruselas durante
+  la primera y segunda oleada de COVID-19 en 2020. Como puede ver, los datos
+  se registraron de manera diferente durante las oleadas
+  de marzo y noviembre. Ahora eres la persona a cargo de este proyecto y quieres que
+  pueda comenzar a analizar los datos.
 
 4. Con la persona a tu lado, identifica qué está mal en esta hoja de cálculo
-   . También analice los pasos que necesitaría seguir para limpiar
-   las pestañas de la primera y segunda ola, y juntarlas todas en una
-   hoja de cálculo.
+  . También analice los pasos que necesitaría seguir para limpiar
+  las pestañas de la primera y segunda ola, y juntarlas todas en una
+  hoja de cálculo.
 
 **Importante:** No olvide nuestro primer consejo: para crear un
 nuevo archivo (o pestaña) para los datos limpios, nunca modifique sus datos originales
@@ -420,15 +420,15 @@ pestaña separada para cada día que tomas una medición.
 Esta no es una buena práctica por dos razones:
 
 1. es más probable que accidentalmente agregue inconsistencias a sus
-   datos si cada vez que toma una medición, comienza a registrar datos
-   en una nueva pestaña, y
+  datos si cada vez que toma una medición, comienza a registrar datos
+  en una nueva pestaña, y
 
 2. even if you manage to prevent all inconsistencies from creeping in,
-   you will add an extra step for yourself before you analyse the data
-   because you will have to combine these data into a single
-   datatable. Tendrás que decirle explícitamente a la computadora cómo
-   combinar pestañas, y si las pestañas tienen un formato inconsistente, es posible que
-   incluso tengas que hacerlo manualmente.
+  you will add an extra step for yourself before you analyse the data
+  because you will have to combine these data into a single
+  datatable. Tendrás que decirle explícitamente a la computadora cómo
+  combinar pestañas, y si las pestañas tienen un formato inconsistente, es posible que
+  incluso tengas que hacerlo manualmente.
 
 La próxima vez que ingrese datos y vaya a crear otra pestaña
 o tabla, pregúntese si podría evitar agregar esta pestaña agregando
@@ -704,9 +704,9 @@ Para guardar un archivo que ha abierto en Excel en formato CSV:
 
 1. En el menú superior, seleccione "Archivo" y "Guardar como".
 2. En el campo 'Formato', de la lista, seleccione 'Valores
-   separados por comas' (`*.csv`).
+  separados por comas' (`*.csv`).
 3. Verifique dos veces el nombre del archivo y la ubicación donde desea guardarlo
-   y presione 'Guardar'.
+  y presione 'Guardar'.
 
 Una nota importante para la compatibilidad con versiones anteriores: ¡puedes abrir archivos CSV
 en Excel!
