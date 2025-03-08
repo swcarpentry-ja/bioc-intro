@@ -180,10 +180,10 @@ definições personalizadas e ficheiros abertos para facilitar a retomada do tra
 
 1. Inicie o RStudio.
 2. No menu `Arquivo` (File), clique em `Novo projeto`(New Project). Choose `New directory`, then
-   `New project`.
+  `New project`.
 3. Coloque um nome para esta nova pasta (ou "diretório") e escolha uma
-   localização conveniente para a mesma. Este será o seu **diretório de trabalho**
-   para esta sessão (ou todo o curso) (por exemplo, `bioc-intro`).
+  localização conveniente para a mesma. Este será o seu **diretório de trabalho**
+  para esta sessão (ou todo o curso) (por exemplo, `bioc-intro`).
 4. Clique em `create project`.
 5. (Opcional) Defina Preferências para "Nunca" guardar o workspace no RStudio.
 
@@ -290,11 +290,11 @@ project directory is to enable someone unfamiliar with the
 project[^futureself] to
 
 1. understand what the project is about, what data are available, what
-   analyses were run, and what results were produced and, most
-   importantly to
+  analyses were run, and what results were produced and, most
+  importantly to
 
 2. repetir a análise mais uma vez - com novos dados ou alterando alguns
-   parâmetros de análise.
+  parâmetros de análise.
 
 [^futureself]: That someone could be, and very likely will be your
     future self, a couple of months or years after the analyses were
