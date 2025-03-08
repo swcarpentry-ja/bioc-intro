@@ -21,7 +21,7 @@ Project
 in Pro Git by Scott Chacon.
 
 Look for the tag
-![good\\_first\\_issue](https://img.shields.io/badge/-good%20first%20issue-gold.svg). This
+![good\_first\_issue](https://img.shields.io/badge/-good%20first%20issue-gold.svg). This
 indicates that the maintainers will welcome a pull request fixing this
 issue.
 
@@ -72,3 +72,4 @@ sandpaper::serve()
 
 For more details, see the [workbench installation
 instructions](https://carpentries.github.io/workbench/#installation].
+
