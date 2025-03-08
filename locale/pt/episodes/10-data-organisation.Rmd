@@ -229,15 +229,15 @@ post para um tutorial rápido, ou
 The cardinal rules of using spreadsheet programs for data:
 
 1. Coloque todas as suas variáveis em colunas - a coisa que você está medindo,
-   como 'peso' ou 'temperatura'.
+  como 'peso' ou 'temperatura'.
 2. Coloque cada observação em sua própria linha.
 3. Não combina várias informações em uma só célula. Às vezes
-   parece apenas uma coisa, mas pense se essa é a única maneira
-   você vai conseguir usar ou ordenar esses dados.
+  parece apenas uma coisa, mas pense se essa é a única maneira
+  você vai conseguir usar ou ordenar esses dados.
 4. Deixe os dados brutos, brutos - não mude!
 5. Exportar os dados limpos para um formato baseado em texto, como o formato CSV
-   (valores separados por vírgula). Isso garante que qualquer pessoa possa usar
-   os dados e é exigido pela maioria dos repositórios de dados.
+  (valores separados por vírgula). Isso garante que qualquer pessoa possa usar
+  os dados e é exigido pela maioria dos repositórios de dados.
 
 Por exemplo, temos dados de pacientes que visitaram vários hospitais
 em Bruxelas, Bélgica. Eles registraram a data da visita,
@@ -267,18 +267,18 @@ used for variables** and **rows are used for observations**:
 ## Challenge: We're going to take a messy dataset and describe how we would clean it up.
 
 1. Download a messy dataset by clicking
-   [here](https://github.com/UCLouvain-CBIO/WSBIM1207/raw/master/data/messy_covid.xlsx).
+  [here](https://github.com/UCLouvain-CBIO/WSBIM1207/raw/master/data/messy_covid.xlsx).
 
 2. Abra os dados em um programa de planilha.
 
 3. Podemos ver que existem duas abas. Os dados contêm diversas
-   variáveis clínicas registadas em vários hospitais de Bruxelas durante
-   a primeira e a segunda ondas da COVID-19 em 2020. Como se pode ver, os dados de
-   foram registados de forma diferente durante as ondas de Março e Novembro. Agora você é a pessoa responsável por este projeto e você quer
-   poder começar a analisar os dados.
+  variáveis clínicas registadas em vários hospitais de Bruxelas durante
+  a primeira e a segunda ondas da COVID-19 em 2020. Como se pode ver, os dados de
+  foram registados de forma diferente durante as ondas de Março e Novembro. Agora você é a pessoa responsável por este projeto e você quer
+  poder começar a analisar os dados.
 
 4. Com a pessoa ao seu lado, identifique o que há de errado com esta planilha. Também discuta os passos que você precisa dar para limpar
-   as abas associadas à primeira e à segunda ondas, e para colocá-los todos juntos em uma planilha.
+  as abas associadas à primeira e à segunda ondas, e para colocá-los todos juntos em uma planilha.
 
 **Importante:** Não se esqueça do nosso primeiro conselho: criar um
 novo arquivo (ou aba) para os dados limpos, nunca modificar os dados originais
@@ -407,15 +407,15 @@ aba para cada dia de medição.
 This isn't good practice for two reasons:
 
 1. you are more likely to accidentally add inconsistencies to your
-   data if each time you take a measurement, you start recording data
-   in a new tab, and
+  data if each time you take a measurement, you start recording data
+  in a new tab, and
 
 2. mesmo se você conseguir evitar que todas as inconsistências entrem,
-   você irá adicionar um passo extra antes de analisar os dados
-   pois terá que combinar esses dados em um único
-   dataset. Você terá que dizer explicitamente ao computador como
-   combinar as abas - e se as abas forem formatadas de forma inconsistente, você
-   talvez tenha até que combiná-las manualmente.
+  você irá adicionar um passo extra antes de analisar os dados
+  pois terá que combinar esses dados em um único
+  dataset. Você terá que dizer explicitamente ao computador como
+  combinar as abas - e se as abas forem formatadas de forma inconsistente, você
+  talvez tenha até que combiná-las manualmente.
 
 Na próxima vez que você estiver inserindo dados, e pense em criar outra aba
 ou tabela, Pergunte se você poderia evitar adicionar esta aba adicionando
@@ -668,7 +668,7 @@ To save a file you have opened in Excel in CSV format:
 
 1. No menu superior selecione 'Arquivo' e 'Salvar como'.
 2. No campo "Formato", selecione da lista "Comma Separated
-   Values" (`*.csv`).
+  Values" (`*.csv`).
 3. Verifique o nome do arquivo e o local onde você quer salvar-lo e pressione 'Salvar'.
 
 Uma nota importante para compatibilidade retroativa: você pode abrir os arquivos CSV
