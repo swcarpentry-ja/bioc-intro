@@ -264,7 +264,7 @@ corrects des colonnes.
 ## Défi
 
 1. Créez un `data.frame` (`rna_200`) contenant uniquement les données de
-   ligne 200 de l'ensemble de données `rna`.
+  ligne 200 de l'ensemble de données `rna`.
 
 2. Remarquez comment `nrow()` vous a donné le nombre de lignes dans un `data.frame` ?
 
@@ -279,12 +279,12 @@ corrects des colonnes.
 - Créez un nouveau bloc de données (`rna_last`) à partir de cette dernière ligne.
 
 3. Utilisez `nrow()` pour extraire la ligne qui se trouve au milieu du dataframe
-   `rna`. Stockez le contenu de cette ligne dans un objet
-   nommé `rna_middle`.
+  `rna`. Stockez le contenu de cette ligne dans un objet
+  nommé `rna_middle`.
 
 4. Combinez `nrow()` avec la notation `-` ci-dessus pour reproduire le comportement
-   de `head(rna)`, en ne conservant que la première à la 6ème
-   lignes de l'ensemble de données rna.
+  de `head(rna)`, en ne conservant que la première à la 6ème
+  lignes de l'ensemble de données rna.
 
 ::::::::::::::: solution
 
