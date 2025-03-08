@@ -95,31 +95,31 @@ ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
 ```
 
 - use the `ggplot()` function and bind the plot to a specific **data
-  frame** using the `data` argument
+ frame** using the `data` argument
 
 ```{r, eval=FALSE}
 ggplot(data = rna)
 ```
 
 - define a **mapping** (using the aesthetic (`aes`) function), by
-  selecting the variables to be plotted and specifying how to present
-  them in the graph, e.g. as x/y positions or characteristics such as
-  size, shape, color, etc.
+ selecting the variables to be plotted and specifying how to present
+ them in the graph, e.g. as x/y positions or characteristics such as
+ size, shape, color, etc.
 
 ```{r, eval=FALSE}
 ggplot(data = rna, mapping = aes(x = expression))
 ```
 
 - add '**geoms**' - geometries, or graphical representations of the
-  data in the plot (points, lines, bars). `ggplot2` offers many
-  different geoms; we will use some common ones today, including:
+ data in the plot (points, lines, bars). `ggplot2` offers many
+ different geoms; we will use some common ones today, including:
 
-  ```
-  * `geom_point()` for scatter plots, dot plots, etc.
-  * `geom_histogram()` for histograms
-  * `geom_boxplot()` for, well, boxplots!
-  * `geom_line()` for trend lines, time series, etc.
-  ```
+ ```
+ * `geom_point()` for scatter plots, dot plots, etc.
+ * `geom_histogram()` for histograms
+ * `geom_boxplot()` for, well, boxplots!
+ * `geom_line()` for trend lines, time series, etc.
+ ```
 
 To add a geom(etry) to the plot use the `+` operator. Let's use
 `geom_histogram()` first:
@@ -207,8 +207,8 @@ adding/modifying other components (i.e., by incrementally adding
 commands). Try making this modification:
 
 - Represent the un-transformed expression on the log10 scale; see
-  `scale_x_log10()`. Compare it with the previous graph. Why do you
-  now have warning messages appearing?
+ `scale_x_log10()`. Compare it with the previous graph. Why do you
+ now have warning messages appearing?
 
 :::::::::::::::  solution
 
@@ -227,15 +227,15 @@ ggplot(data = rna,mapping = aes(x = expression))+
 **Notes**
 
 - Anything you put in the `ggplot()` function can be seen by any geom
-  layers that you add (i.e., these are global plot settings). This
-  includes the x- and y-axis mapping you set up in `aes()`.
+ layers that you add (i.e., these are global plot settings). This
+ includes the x- and y-axis mapping you set up in `aes()`.
 - You can also specify mappings for a given geom independently of the
-  mappings defined globally in the `ggplot()` function.
+ mappings defined globally in the `ggplot()` function.
 - The `+` sign used to add new layers must be placed at the end of the
-  line containing the _previous_ layer. If, instead, the `+` sign is
-  added at the beginning of the line containing the new layer,
-  `ggplot2` will not add the new layer and will return an error
-  message.
+ line containing the _previous_ layer. If, instead, the `+` sign is
+ added at the beginning of the line containing the new layer,
+ `ggplot2` will not add the new layer and will return an error
+ message.
 
 ```{r, eval=FALSE}
 # This is the correct syntax for adding layers
@@ -353,13 +353,13 @@ hexagon is assigned a color based on the number of observations that
 fall within its boundaries.
 
 - To use hexagonal binning in `ggplot2`, first install the R package
-  `hexbin` from CRAN and load it.
+ `hexbin` from CRAN and load it.
 
 - Then use the `geom_hex()` function to produce the hexbin figure.
 
 - What are the relative strengths and weaknesses of a hexagonal bin
-  plot compared to a scatter plot? Examine the above scatter plot
-  and compare it with the hexagonal bin plot that you created.
+ plot compared to a scatter plot? Examine the above scatter plot
+ and compare it with the hexagonal bin plot that you created.
 
 :::::::::::::::  solution
 
@@ -509,7 +509,7 @@ not see it in a boxplot. An alternative to the boxplot is the violin
 plot, where the shape (of the density of points) is drawn.
 
 - Replace the box plot with a violin plot; see `geom_violin()`. Fill
-  in the violins according to the time with the argument `fill`.
+ in the violins according to the time with the argument `fill`.
 
 :::::::::::::::  solution
 
@@ -816,11 +816,11 @@ for inspiration. Here are some ideas:
 
 - See if you can change the thickness of the lines.
 - Can you find a way to change the name of the legend? What about
-  its labels? (hint: look for a ggplot function starting with
-  `scale_`)
+ its labels? (hint: look for a ggplot function starting with
+ `scale_`)
 - Try using a different color palette or manually specifying the
-  colors for the lines (see
-  [http://www.cookbook-r.com/Graphs/Colors\_(ggplot2)/](https://www.cookbook-r.com/Graphs/Colors_\\(ggplot2\\)/)).
+ colors for the lines (see
+ [http://www.cookbook-r.com/Graphs/Colors\_(ggplot2)/](https://www.cookbook-r.com/Graphs/Colors_\\(ggplot2\\)/)).
 
 :::::::::::::::  solution
 
