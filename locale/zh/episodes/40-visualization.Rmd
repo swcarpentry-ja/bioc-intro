@@ -98,31 +98,31 @@ ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
 ```
 
 - 使用 `ggplot()` 函数并使用 `data` 参数将图绑定到特定的 **data
-  框架**
+ 框架**
 
 ```{r, eval=FALSE}
 ggplot(data = rna)
 ```
 
 - 定义一个**映射**（使用美学（`aes`）函数），通过
-  选择要绘制的变量并指定如何在图形中呈现
-  它们，例如作为 x/y 位置或特征，如
-  大小、形状、颜色等。
+ 选择要绘制的变量并指定如何在图形中呈现
+ 它们，例如作为 x/y 位置或特征，如
+ 大小、形状、颜色等。
 
 ```{r, eval=FALSE}
 ggplot(data = rna, mapping = aes(x = expression))
 ```
 
 - 添加'**geoms**' - 几何图形，或图中
-  数据的图形表示（点、线、条）。 `ggplot2` 提供许多
-  不同的几何对象；今天我们将使用一些常见的，包括：
+ 数据的图形表示（点、线、条）。 `ggplot2` 提供许多
+ 不同的几何对象；今天我们将使用一些常见的，包括：
 
-  ```
-  * `geom_point()` 用于散点图、点图等。
-  * `geom_histogram()` 用于直方图！
-  * `geom_boxplot()` 用于箱线图！
-  * `geom_line()` 用于趋势线、时间序列等。
-  ```
+ ```
+ * `geom_point()` 用于散点图、点图等。
+ * `geom_histogram()` 用于直方图！
+ * `geom_boxplot()` 用于箱线图！
+ * `geom_line()` 用于趋势线、时间序列等。
+ ```
 
 要向图中添加几何图形，请使用“+”运算符。 让我们首先使用
 `geom_histogram()`：
@@ -210,8 +210,8 @@ ggplot(rna, aes(x = expression_log)) + geom_histogram()
 命令）。 尝试做这样的修改：
 
 - 表示 log10 尺度上未转换的表达式；参见
-  `scale_x_log10()`。 将其与之前的图表进行比较。 为什么
-  现在出现警告信息？
+ `scale_x_log10()`。 将其与之前的图表进行比较。 为什么
+ 现在出现警告信息？
 
 :::::::::::::::  solution
 
@@ -230,15 +230,15 @@ ggplot(data = rna,mapping = aes(x = expression))+
 **笔记**
 
 - 你在 `ggplot()` 函数中输入的任何内容都可以被你添加的任何 geom
-  层看到（即，这些是全局绘图设置）。 这个
-  包括你在 `aes()` 中设置的 x 轴和 y 轴映射。
+ 层看到（即，这些是全局绘图设置）。 这个
+ 包括你在 `aes()` 中设置的 x 轴和 y 轴映射。
 - 您还可以独立于 `ggplot()` 函数中全局定义的
-  映射为给定的 geom 指定映射。
+ 映射为给定的 geom 指定映射。
 - 用于添加新层的 `+` 符号必须放在包含_上一个_层的
-  行末尾。 相反，如果在包含新层的行首添加 `+` 符号
-  ，
-  `ggplot2` 将不会添加新层，并将返回错误
-  消息。
+ 行末尾。 相反，如果在包含新层的行首添加 `+` 符号
+ ，
+ `ggplot2` 将不会添加新层，并将返回错误
+ 消息。
 
 ```{r, eval=FALSE}
 # This is the correct syntax for adding layers
@@ -356,13 +356,13 @@ library("hexbin")
 观测值的数量被分配一种颜色。
 
 - 要在 `ggplot2` 中使用六边形分箱，首先从 CRAN 安装 R 包
-  `hexbin` 并加载它。
+ `hexbin` 并加载它。
 
 - 然后使用“geom_hex()”函数生成六边形图。
 
 - 与散点图相比，六边形箱
-  图的相对优势和劣势是什么？ 检查上述散点图
-  并将其与您创建的六边形箱图进行比较。
+ 图的相对优势和劣势是什么？ 检查上述散点图
+ 并将其与您创建的六边形箱图进行比较。
 
 :::::::::::::::  solution
 
@@ -512,7 +512,7 @@ not see it in a boxplot. 箱线图的替代方法是小提琴
 图，其中绘制了（点密度的）形状。
 
 - 用小提琴图代替箱线图；参见“geom_violin()”。 使用参数“fill”根据时间在小提琴中填充
-  。
+ 。
 
 :::::::::::::::  solution
 
@@ -818,11 +818,11 @@ ggplot(rna, aes(x = expression_log)) +
 
 - 看看是否可以改变线条的粗细。
 - 你能找到办法改变传奇的名字吗？ 那么
-  它的标签怎么样？ （提示：寻找以
-  `scale_` 开头的 ggplot 函数）
+ 它的标签怎么样？ （提示：寻找以
+ `scale_` 开头的 ggplot 函数）
 - 尝试使用不同的调色板或手动指定线条的
-  颜色（参见
-  [http://www.cookbook-r.com/Graphs/Colors\_(ggplot2)/](https://www.cookbook-r.com/Graphs/Colors_\\(ggplot2\\)/))。
+ 颜色（参见
+ [http://www.cookbook-r.com/Graphs/Colors\_(ggplot2)/](https://www.cookbook-r.com/Graphs/Colors_\\(ggplot2\\)/))。
 
 :::::::::::::::  solution
 
