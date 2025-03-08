@@ -191,10 +191,10 @@ tutorial a continuación.
 
 1. Inicie RStudio.
 2. En el menú "Archivo", haga clic en "Nuevo proyecto". Elija `Nuevo directorio`, luego
-   `Nuevo proyecto`.
+  `Nuevo proyecto`.
 3. Ingrese un nombre para esta nueva carpeta (o "directorio") y elija una
-   ubicación conveniente para ella. Este será su **directorio de trabajo**
-   para esta sesión (o el curso completo) (por ejemplo, `bioc-intro`).
+  ubicación conveniente para ella. Este será su **directorio de trabajo**
+  para esta sesión (o el curso completo) (por ejemplo, `bioc-intro`).
 4. Haga clic en `Crear proyecto`.
 5. (Opcional) Establezca las Preferencias en "Nunca" guardar el espacio de trabajo en RStudio.
 
@@ -302,10 +302,10 @@ bien definido y bien documentado es permitir que alguien que no esté familiariz
 [^futureself] pueda
 
 1. comprender de qué se trata el proyecto, qué datos están disponibles, qué
-   análisis se realizaron y qué resultados se produjeron y, lo más importante
+  análisis se realizaron y qué resultados se produjeron y, lo más importante
 
 2. repita el análisis nuevamente, con nuevos datos o cambiando algunos
-   parámetros de análisis.
+  parámetros de análisis.
 
 [^futureself]: Ese alguien podría ser, y muy probablemente será tu
     yo futuro, un par de meses o años después de que se realizaron
