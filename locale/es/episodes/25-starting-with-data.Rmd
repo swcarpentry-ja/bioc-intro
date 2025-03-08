@@ -264,7 +264,7 @@ correctos de las columnas.
 ## Desafío
 
 1. Cree un `data.frame` (`rna_200`) que contenga solo los datos en
-   fila 200 del conjunto de datos `rna`.
+  fila 200 del conjunto de datos `rna`.
 
 2. ¿Observó cómo `nrow()` le dio el número de filas en un `data.frame`?
 
@@ -279,12 +279,12 @@ correctos de las columnas.
 - Cree un nuevo marco de datos (`rna_last`) a partir de esa última fila.
 
 3. Utilice `nrow()` para extraer la fila que está en el medio del marco de datos
-   `rna`. Almacene el contenido de esta fila en un objeto
-   llamado `rna_middle`.
+  `rna`. Almacene el contenido de esta fila en un objeto
+  llamado `rna_middle`.
 
 4. Combine `nrow()` con la notación `-` anterior para reproducir el comportamiento
-   de `head(rna)`, manteniendo solo la primera a la sexta
-   filas del conjunto de datos de rna.
+  de `head(rna)`, manteniendo solo la primera a la sexta
+  filas del conjunto de datos de rna.
 
 :::::::::::::::  solution
 
